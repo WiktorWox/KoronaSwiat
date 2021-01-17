@@ -1,0 +1,14 @@
+{
+	"format_version": "1.10",
+	"minecraft:item": {
+		"description": {
+			"identifier": "korona:poisonous_bread",
+			"category": "Nature"
+		},
+		"components": {
+			"minecraft:icon": "poisonous_bread",
+			"minecraft:use_animation": "eat",
+			"minecraft:render_offsets": "apple"
+		}
+	}
+}

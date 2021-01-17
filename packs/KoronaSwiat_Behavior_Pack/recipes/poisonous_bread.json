@@ -1,0 +1,26 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shapeless": {
+    "description": {
+    "identifier": "korona:poisonous_bread"
+    },
+
+    
+    "tags": [ "crafting_table" ],
+    "ingredients": [
+      {
+        "item": "minecraft:bread",
+        "data": 0
+      },
+      {
+        "item": "minecraft:potion",
+        "data": 25
+      }
+    ],
+    "result": {
+      "item": "korona:poisonous_bread",
+      "data": 9,
+      "count": 2
+    }
+  }
+}

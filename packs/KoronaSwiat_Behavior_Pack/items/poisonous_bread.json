@@ -1,0 +1,63 @@
+{
+	"format_version": "1.12.0",
+	"minecraft:item": {
+		"description": {
+			"identifier": "korona:poisonous_bread"
+		},
+		"components": {
+			"minecraft:hand_equipped": false,
+			"minecraft:stacked_by_data": true,
+			"minecraft:foil": false,
+			"minecraft:max_stack_size": 64,
+			"minecraft:use_duration": 32,
+			"minecraft:food": {
+				"nutrition": 4,
+				"saturation_modifier": "normal",
+				"can_always_eat": false,
+				"effects": [{
+						"name": "hunger",
+						"chance": 1.0,
+						"duration": 30,
+						"amplifier": 2
+					},
+					{
+						"name": "weakness",
+						"chance": 1.0,
+						"duration": 30,
+						"amplifier": 3
+					},
+					{
+						"name": "nausea",
+						"chance": 1.0,
+						"duration": 30,
+						"amplifier": 3
+					},
+					{
+						"name": "blindness",
+						"chance": 1.0,
+						"duration": 30,
+						"amplifier": 3
+					},
+					{
+						"name": "poison",
+						"chance": 1.0,
+						"duration": 30,
+						"amplifier": 3
+					},
+					{
+						"name": "mining_fatigue",
+						"chance": 1.0,
+						"duration": 30,
+						"amplifier": 3
+					},
+					{
+						"name": "water_breathing",
+						"chance": 1.0,
+						"duration": 30,
+						"amplifier": 3
+					}
+				]
+			}
+		}
+	}
+}

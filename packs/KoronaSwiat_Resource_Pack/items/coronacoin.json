@@ -1,0 +1,13 @@
+{
+	"format_version": "1.10",
+	"minecraft:item": {
+		"description": {
+			"identifier": "korona:coronacoin",
+			"category": "Items"
+		},
+		"components": {
+			"minecraft:icon": "coronacoin",
+			"minecraft:render_offsets": "tools"
+		}
+	}
+}

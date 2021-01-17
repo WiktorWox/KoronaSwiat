@@ -1,0 +1,19 @@
+{
+"format_version": "1.12",
+	"minecraft:recipe_shapeless": {
+		"description": {
+			"identifier": "minecraft:glass"
+		},
+		"tags": [ "crafting_table" ],
+		"priority": 0,
+		"ingredients": [{
+			"item": "korona:coronacoin",
+			"data": 0,
+			"count": 4
+		}],
+		"result": {
+			"item": "minecraft:glass",
+			"data": 0
+		}
+	}
+}

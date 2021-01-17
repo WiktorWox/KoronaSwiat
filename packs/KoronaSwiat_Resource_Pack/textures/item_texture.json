@@ -1,0 +1,12 @@
+{
+   "resource_pack_name" : "koronaswiat",
+   "texture_data" : {
+      "poisonous_bread" : {
+         "textures" : "textures/items/poisonous_bread"
+      },
+      "coronacoin" : {
+         "textures" : "textures/items/coronacoin"
+      }
+   },
+   "texture_name" : "atlas.items"
+}
