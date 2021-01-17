@@ -1,0 +1,12 @@
+{
+  "private": true,
+  "scripts": {
+    "build": "gulp build",
+    "installaddon": "gulp install",
+    "rebuild": "gulp rebuild",
+    "watch": "gulp watch"
+  },
+  "devDependencies": {
+    "minecraft-addon-toolchain": "^1.0.3"
+  }
+}
