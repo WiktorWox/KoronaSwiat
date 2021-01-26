@@ -41,6 +41,7 @@
         "stonemason": "textures/entity/villager2/professions/stonemason",
         "nitwit": "textures/entity/villager2/professions/nitwit",
         "unskilled": "textures/entity/villager2/professions/unskilled",
+        "banker": "textures/entity/villager2/professions/banker",
 
         // Levels Layer
         "level_stone": "textures/entity/villager2/levels/level_stone",
@@ -55,7 +56,7 @@
       "scripts": {
         "scale": "0.9375",
         "pre_animation": [
-          "variable.num_professions = 15;",
+          "variable.num_professions = 16;",
           "variable.num_tiers = 3;",
           "variable.profession_index = (query.variant < variable.num_professions ? query.variant : 0);",
           "variable.level_index = query.trade_tier;"

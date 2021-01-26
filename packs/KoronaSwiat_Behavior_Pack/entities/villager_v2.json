@@ -1089,6 +1089,41 @@
         }
       },
 
+      "banker": {
+        "minecraft:type_family": {
+          "family": [ "villager", "banker", "mob" ]
+        },
+        "minecraft:variant": {
+          "value": 15
+        },
+        "minecraft:behavior.trade_interest": {
+          "priority": 5,
+          "within_radius": 6.0,
+          "interest_time": 45.0,
+          "remove_item_time": 1.0,
+          "carried_item_switch_time": 2.0,
+          "cooldown": 2.0
+        },
+        "minecraft:economy_trade_table": {
+          "display_name": "entity.villager.banker",
+          "table": "trading/economy_trades/librarian_trades.json",
+          "new_screen": true,
+          "persist_trades": true,
+          "cured_discount": [-100, -100],
+          "max_cured_discount": [-500, -500]
+        },
+        "minecraft:dweller": {
+          "dwelling_type": "village",
+          "dweller_role": "inhabitant",
+          "preferred_profession": "banker",
+          "update_interval_base": 60,
+          "update_interval_variant": 40,
+          "can_find_poi": true,
+          "can_migrate": true,
+          "first_founding_reward": 5
+        }
+      },
+
       "mason": {
         "minecraft:type_family": {
           "family": [ "villager", "artisan", "stone_mason", "mob" ]
@@ -1689,6 +1724,10 @@
                       },
                       {
                         "weight": 1,
+                        "add": { "component_groups": [ "banker", "behavior_non_peasant", "basic_schedule" ] }
+                      },
+                      {
+                        "weight": 1,
                         "add": { "component_groups": [ "cartographer", "behavior_non_peasant", "basic_schedule" ] }
                       },
                       {
@@ -2254,6 +2293,11 @@
           {
             "weight": 20,
             "add": { "component_groups": [ "cartographer", "behavior_non_peasant", "basic_schedule" ] },
+            "remove": { "component_groups": [ "baby", "child_schedule" ] }
+          },
+          {
+            "weight": 20,
+            "add": { "component_groups": [ "banker", "behavior_non_peasant", "basic_schedule" ] },
             "remove": { "component_groups": [ "baby", "child_schedule" ] }
           }
         ]
