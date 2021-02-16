@@ -4,24 +4,42 @@
       "total_exp_required": 0,
       "groups": [
         {
-          "num_to_select": 1,
+          "num_to_select": 2,
           "trades": [
             {
               "wants": [
                 {
-                  "item": "minecraft:paper",
-                  "quantity": 24,
-                  "price_multiplier": 0.05
+                  "item": "minecraft:emerald",
+                  "quantity": 8,
+                  "price_multiplier": 0
+                }
+              ],
+              "gives": [
+                {
+                  "item": "korona:coronacoin",
+                  "quantity": 20
+                }
+              ],
+              "trader_exp": 2,
+              "max_uses": 64,
+              "reward_exp": true
+            },
+            {
+              "wants": [
+                {
+                  "item": "korona:coronacoin",
+                  "quantity": 20,
+                  "price_multiplier": 0
                 }
               ],
               "gives": [
                 {
                   "item": "minecraft:emerald",
-                  "quantity": 1
+                  "quantity": 8
                 }
               ],
               "trader_exp": 2,
-              "max_uses": 16,
+              "max_uses": 64,
               "reward_exp": true
             }
           ]
@@ -32,50 +50,37 @@
             {
               "wants": [
                 {
-                  "item": "minecraft:emerald",
-                  "quantity": 9,
-                  "price_multiplier": 0.05
+                  "item": "korona:coronacoin",
+                  "quantity": 10,
+                  "price_multiplier": 0.01
                 }
               ],
               "gives": [
                 {
-                  "item": "minecraft:bookshelf",
-                  "quantity": 1
+                  "item": "minecraft:gold_ingot",
+                  "quantity": 8
                 }
               ],
-              "trader_exp": 1,
-              "max_uses": 12,
+              "trader_exp": 2,
+              "max_uses": 4,
               "reward_exp": true
             },
             {
               "wants": [
                 {
-                  "item": "minecraft:emerald",
-                  "price_multiplier": 0.2
-                },
-                {
-                  "item": "minecraft:book",
-                  "quantity": 1,
-                  "price_multiplier": 0.2
+                  "item": "minecraft:gold_ingot",
+                  "quantity": 8,
+                  "price_multiplier": 0
                 }
               ],
               "gives": [
                 {
-                  "item": "minecraft:book",
-                  "quantity": 1,
-                  "functions": [
-                    {
-                      "function": "enchant_book_for_trading",
-                      "base_cost": 2,
-                      "base_random_cost": 5,
-                      "per_level_random_cost": 10,
-                      "per_level_cost": 3
-                    }
-                  ]
+                  "item": "korona:coronacoin",
+                  "quantity": 8
                 }
               ],
               "trader_exp": 1,
-              "max_uses": 12,
+              "max_uses": 64,
               "reward_exp": true
             }
           ]
@@ -91,72 +96,23 @@
             {
               "wants": [
                 {
-                  "item": "minecraft:book",
-                  "quantity": 4,
-                  "price_multiplier": 0.05
+                  "item": "korona:coronacoin",
+                  "quantity": 64,
+                  "price_multiplier": 0
+                },
+                {
+                  "item": "minecraft:leather",
+                  "quantity": 1,
+                  "price_multiplier": 0
                 }
               ],
               "gives": [
                 {
-                  "item": "minecraft:emerald",
-                  "quantity": 1
+                  "item": "korona:pouch_of_coronacoins",
+                  "quantity": 2
                 }
               ],
               "trader_exp": 10,
-              "max_uses": 12,
-              "reward_exp": true
-            }
-          ]
-        },
-        {
-          "num_to_select": 1,
-          "trades": [
-            {
-              "wants": [
-                {
-                  "item": "minecraft:emerald",
-                  "quantity": 1,
-                  "price_multiplier": 0.05
-                }
-              ],
-              "gives": [
-                {
-                  "item": "minecraft:lantern",
-                  "quantity": 1
-                }
-              ],
-              "trader_exp": 5,
-              "max_uses": 12,
-              "reward_exp": true
-            },
-            {
-              "wants": [
-                {
-                  "item": "minecraft:emerald",
-                  "price_multiplier": 0.2
-                },
-                {
-                  "item": "minecraft:book",
-                  "quantity": 1,
-                  "price_multiplier": 0.2
-                }
-              ],
-              "gives": [
-                {
-                  "item": "minecraft:book",
-                  "quantity": 1,
-                  "functions": [
-                    {
-                      "function": "enchant_book_for_trading",
-                      "base_cost": 2,
-                      "base_random_cost": 5,
-                      "per_level_random_cost": 10,
-                      "per_level_cost": 3
-                    }
-                  ]
-                }
-              ],
-              "trader_exp": 5,
               "max_uses": 12,
               "reward_exp": true
             }
@@ -246,7 +202,6 @@
         }
       ]
     },
-
     {
       "total_exp_required": 150,
       "groups": [

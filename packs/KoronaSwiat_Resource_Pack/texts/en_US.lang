@@ -1,4 +1,5 @@
 item.jungle_door.name=Glass Door
 item.korona:poisonous_bread.name=Strange Bread
 item.korona:coronacoin.name=CoronaCoin
+item.korona:pouch_of_coronacoins.name=Pouch of CoronaCoins
 entity.villager.banker=Banker

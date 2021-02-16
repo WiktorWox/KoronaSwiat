@@ -1106,7 +1106,8 @@
         },
         "minecraft:economy_trade_table": {
           "display_name": "entity.villager.banker",
-          "table": "trading/economy_trades/librarian_trades.json",
+          "table": "trading/economy_trades/banker_trades.json",
+
           "new_screen": true,
           "persist_trades": true,
           "cured_discount": [-100, -100],
@@ -2384,10 +2385,19 @@
       },
 
       "minecraft:become_librarian": {
-        "remove": { "component_groups": [ "baby", "child_schedule", "job_specific_goals", "trade_components" ] },
-        "add": { "component_groups": [ "librarian", "adult", "behavior_non_peasant", "librarian_schedule" ] }
+        "randomize": [
+          {
+            "weight": 50,
+            "remove": { "component_groups": [ "baby", "child_schedule", "job_specific_goals", "trade_components" ] },
+            "add": { "component_groups": [ "librarian", "adult", "behavior_non_peasant", "librarian_schedule" ] }
+          },
+          {
+            "weight": 50,
+            "remove": { "component_groups": [ "baby", "child_schedule", "job_specific_goals", "trade_components" ] },
+            "add": { "component_groups": [ "banker", "adult", "behavior_non_peasant", "librarian_schedule" ] }
+          }
+        ]
       },
-
       "minecraft:become_cartographer": {
         "remove": { "component_groups": [ "baby", "child_schedule", "job_specific_goals", "trade_components" ] },
         "add": { "component_groups": [ "cartographer", "adult", "behavior_non_peasant", "work_schedule" ] }

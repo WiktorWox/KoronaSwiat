@@ -6,6 +6,9 @@
       },
       "coronacoin" : {
          "textures" : "textures/items/coronacoin"
+      },
+      "pouch_of_coronacoins": {
+         "textures" : "textures/items/pouch_of_coronacoins"
       }
    },
    "texture_name" : "atlas.items"
