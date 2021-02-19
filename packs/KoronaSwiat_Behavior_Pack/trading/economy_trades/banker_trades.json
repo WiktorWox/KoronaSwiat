@@ -152,7 +152,7 @@
             {
               "wants": [
                 {
-                  "item": "minecraft:netherite_inglot",
+                  "item": "minecraft:netherite_ingot",
                   "quantity": 1,
                   "price_multiplier": 0
                 }
@@ -279,7 +279,7 @@
                 ],
                 "gives": [
                   {
-                    "item": "minecraft:netherite_inglot",
+                    "item": "minecraft:netherite_ingot",
                     "quantity": 1
                   }
                 ],
