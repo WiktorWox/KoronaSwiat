@@ -1,5 +1,5 @@
 item.jungle_door.name=Szklane Drzwi
 item.korona:poisonous_bread.name=Dziwny Chleb
-item.korona:coronacoin.name=CoronaCoin
-item.korona:pouch_of_coronacoins.name=Sakwa CoronaCoin'ów
+item.korona:coronacoin.name=KoronaCoin
+item.korona:pouch_of_coronacoins.name=Sakwa KoronaCoin'ów
 entity.villager.banker=Bankier
