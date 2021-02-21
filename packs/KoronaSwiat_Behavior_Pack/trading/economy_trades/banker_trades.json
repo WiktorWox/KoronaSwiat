@@ -132,7 +132,7 @@
               "gives": [
                 {
                   "item": "korona:coronacoin",
-                  "quantity": 16
+                  "quantity": 20
                 }
               ],
               "trader_exp": 15,
@@ -182,7 +182,7 @@
               ],
               "gives": [
                 {
-                  "item": "koroona:coronacoin",
+                  "item": "korona:coronacoin",
                   "quantity": 15
                 }
               ],
@@ -295,8 +295,8 @@
               {
                 "wants": [
                   {
-                    "item": "korona:coronacoin,
-                    "quantity": 22,
+                    "item": "korona:coronacoin",
+                    "quantity": 26,
                     "price_multiplier": 0.01
                   }
                 ],
