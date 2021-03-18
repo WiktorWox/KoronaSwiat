@@ -1,0 +1,14 @@
+{
+	"format_version": "1.10",
+	"minecraft:item": {
+		"description": {
+			"identifier": "korona:players_head",
+			"category": "Nature"
+		},
+		"components": {
+			"minecraft:icon": "players_head",
+			"minecraft:use_animation": "eat",
+			"minecraft:render_offsets": "apple"
+		}
+	}
+}

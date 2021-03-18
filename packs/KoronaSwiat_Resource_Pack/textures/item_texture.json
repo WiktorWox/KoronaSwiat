@@ -9,6 +9,9 @@
       },
       "pouch_of_coronacoins": {
          "textures" : "textures/items/pouch_of_coronacoins"
+      },
+      "players_head": {
+         "textures" : "textures/items/players_head"
       }
    },
    "texture_name" : "atlas.items"
