@@ -10,7 +10,12 @@
               "wants": [
                 {
                   "item": "minecraft:emerald",
-                  "quantity": 8,
+                  "quantity": 1,
+                  "price_multiplier": 0
+                },
+                {
+                  "item": "minecraft:emerald",
+                  "quantity": 7,
                   "price_multiplier": 0
                 }
               ],
@@ -28,7 +33,12 @@
               "wants": [
                 {
                   "item": "korona:coronacoin",
-                  "quantity": 20,
+                  "quantity": 1,
+                  "price_multiplier": 0
+                },
+                {
+                  "item": "korona:coronacoin",
+                  "quantity": 19,
                   "price_multiplier": 0
                 }
               ],
@@ -51,7 +61,7 @@
               "wants": [
                 {
                   "item": "korona:coronacoin",
-                  "quantity": 10,
+                  "quantity": 11,
                   "price_multiplier": 0.01
                 }
               ],
@@ -69,7 +79,7 @@
               "wants": [
                 {
                   "item": "minecraft:gold_ingot",
-                  "quantity": 8,
+                  "quantity": 11,
                   "price_multiplier": 0
                 }
               ],
@@ -96,13 +106,13 @@
             {
               "wants": [
                 {
-                  "item": "korona:coronacoin",
-                  "quantity": 64,
+                  "item": "minecraft:leather",
+                  "quantity": 1,
                   "price_multiplier": 0
                 },
                 {
-                  "item": "minecraft:leather",
-                  "quantity": 1,
+                  "item": "korona:coronacoin",
+                  "quantity": 64,
                   "price_multiplier": 0
                 }
               ],
