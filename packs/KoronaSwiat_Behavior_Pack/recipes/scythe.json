@@ -1,0 +1,35 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+    "identifier": "korona:scythe"
+    },
+
+    
+    "tags": [ "crafting_table" ],
+    "group": "wooden_door",
+    "pattern": [
+      "AAB",
+      " C ",
+      "C  "
+    ],
+    "key": {
+      "A": {
+        "item": "minecraft:iron_ingot",
+        "data": 0
+      },
+      "B": {
+        "item": "korona:soul",
+        "data": 0
+      },
+      "C": {
+        "item": "minecraft:stick",
+        "data": 0
+      }
+    },
+    "result": {
+      "item": "korona:scythe",
+      "count": 1
+    }
+  }
+}
