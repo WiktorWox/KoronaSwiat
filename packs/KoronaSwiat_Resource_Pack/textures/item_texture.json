@@ -12,6 +12,18 @@
       },
       "players_head": {
          "textures" : "textures/items/players_head"
+      },
+      "soul": {
+         "textures" : "textures/items/soul"
+      },
+      "scythe": {
+         "textures" : "textures/items/scythe"
+      },
+      "necromancers_wand": {
+         "textures" : "textures/items/necromancers_wand"
+      },
+      "palantir": {
+         "textures" : "textures/items/palantir"
       }
    },
    "texture_name" : "atlas.items"

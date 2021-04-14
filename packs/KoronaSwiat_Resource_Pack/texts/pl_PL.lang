@@ -1,6 +1,10 @@
-item.jungle_door.name=Szklane Drzwi
-item.korona:poisonous_bread.name=Dziwny Chleb
+item.jungle_door.name=Szklane drzwi
+item.korona:poisonous_bread.name=Dziwny chleb
 item.korona:coronacoin.name=KoronaCoin
 item.korona:pouch_of_coronacoins.name=Sakwa KoronaCoin'ów
-item.players_head.name=Głowa Gracza
+item.korona:players_head.name=Głowa gracza
+item.korona:soul.name=Dusza
+item.korona:scythe.name=Kosa ponurego żniwiarza
+item.korona:necromancers_wand.name=Laska nekromanty
+item.korona:palantir.name=Kryształ Minas Neuma
 entity.villager.banker=Bankier
