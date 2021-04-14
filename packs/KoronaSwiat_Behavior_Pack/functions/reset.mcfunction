@@ -5,5 +5,5 @@ tag @a remove "1"
 scoreboard players set "§6Total Deaths§r " deaths 0
 scoreboard players set "§6Total Kills§r " kills 0
 
-tellraw @a {"rawtext":[{"text":"§6§l>>§r Scores have been reset!"}]}
+tellraw @a {"rawtext":[{"text":"§6§l>>§r Liczniki zostały zresetowane!"}]}
 playsound note.pling @a
