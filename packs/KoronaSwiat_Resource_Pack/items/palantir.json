@@ -1,0 +1,14 @@
+{
+	"format_version": "1.10",
+	"minecraft:item": {
+		"description": {
+			"identifier": "korona:palantir",
+			"category": "Equipment"
+		},
+		"components": {
+			"minecraft:icon": "palantir",
+			"minecraft:use_animation": "crossbow",
+			"minecraft:render_offsets": "apple"
+		}
+	}
+}
