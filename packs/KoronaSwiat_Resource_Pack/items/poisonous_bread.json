@@ -3,7 +3,7 @@
 	"minecraft:item": {
 		"description": {
 			"identifier": "korona:poisonous_bread",
-			"category": "Nature"
+			"category": "Equipment"
 		},
 		"components": {
 			"minecraft:icon": "poisonous_bread",
