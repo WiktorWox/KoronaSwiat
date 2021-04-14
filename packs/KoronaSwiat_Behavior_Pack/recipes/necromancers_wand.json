@@ -1,0 +1,31 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+    "identifier": "korona:necromancers_wand"
+    },
+
+    
+    "tags": [ "crafting_table" ],
+    "group": "wooden_door",
+    "pattern": [
+      "A",
+      "B",
+      "B"
+    ],
+    "key": {
+      "A": {
+        "item": "korona:palantir",
+        "data": 0
+      },
+      "B": {
+        "item": "minecraft:blaze_rod",
+        "data": 0
+      }
+    },
+    "result": {
+      "item": "korona:necromancers_wand",
+      "count": 1
+    }
+  }
+}
