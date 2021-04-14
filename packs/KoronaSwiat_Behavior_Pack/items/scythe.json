@@ -6,18 +6,15 @@
             "category": "equipment"
         },
         "components": {
-            "minecraft:damage": 1,
+            "minecraft:damage": 4,
             "minecraft:hand_equipped": true,
             "minecraft:durability": {
                 "damage_chance": { "min": 5, "max": 10 },
-                "max_durability":100
+                "max_durability":335
             },
             "minecraft:weapon": {
-                "on_hit_block": {
-                    "event": "korona:durability"
-                },
                 "on_hurt_entity": {
-                    "event": "wither"
+                    "event": "korona:wither_effect"
                 }
             },
             "minecraft:enchantable": {
@@ -27,6 +24,9 @@
             "minecraft:can_destroy_in_creative": false,
             "minecraft:digger": {
                 "use_efficiency": false,
+                "on_dig": {
+                    "event": "korona:durability"
+                },
                 "destroy_speeds": [
                     {
                         "block": "minecraft:web",
@@ -41,6 +41,9 @@
             "minecraft:max_stack_size": 1,
             "minecraft:icon": {
                 "texture": "scythe"
+            },
+            "minecraft:display_name": {
+                "value": "Scythe"
             }
         },
         "events": {
@@ -51,14 +54,14 @@
                     "target": "self"
                 }
             },
-            "wither": {
+            "korona:wither_effect": {
                 "sequence": [
                     {
                         "add_mob_effect": {
                             "effect": "wither",
                             "target": "other",
                             "duration": 3,
-                            "amplifier": 2
+                            "amplifier": 1
                         }
                     },
                     {
