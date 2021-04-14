@@ -1,0 +1,62 @@
+{
+    "format_version": "1.16.100",
+    "minecraft:item": {
+        "description": {
+            "identifier": "korona:anduril",
+            "category": "equipment"
+        },
+        "components": {
+            "minecraft:damage": 9,
+            "minecraft:hand_equipped": true,
+            "minecraft:durability": {
+                "damage_chance": { "min": 5, "max": 10 },
+                "max_durability":450
+            },
+            "minecraft:weapon": {
+                "on_hurt_entity": {
+                    "event": "korona:add_effects"
+                }
+            },
+            "minecraft:enchantable": {
+                "value": 5,
+                "slot": "sword"
+            },
+            "minecraft:can_destroy_in_creative": false,
+            "minecraft:digger": {
+                "use_efficiency": false,
+                "destroy_speeds": [
+                    {
+                        "block": "minecraft:web",
+                        "speed": 15
+                    }
+                ]
+            },
+            "minecraft:max_stack_size": 1,
+            "minecraft:icon": {
+                "texture": "anduril"
+            }
+        },
+        "events": {
+            "korona:add_effects": {
+                "sequence": [
+                    {
+                        "add_mob_effect": {
+                            "effect": "speed",
+                            "target": "holder",
+                            "duration": 20,
+                            "amplifier": 2
+                        }
+                    },
+                    {
+                        "add_mob_effect": {
+                            "effect": "resistance",
+                            "target": "holder",
+                            "duration": 20,
+                            "amplifier": 2
+                        }
+                    }
+                ]
+            }
+        }
+    }
+}

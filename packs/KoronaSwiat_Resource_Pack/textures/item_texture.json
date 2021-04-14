@@ -24,6 +24,9 @@
       },
       "palantir": {
          "textures" : "textures/items/palantir"
+      },
+      "anduril": {
+         "textures" : "textures/items/anduril"
       }
    },
    "texture_name" : "atlas.items"
