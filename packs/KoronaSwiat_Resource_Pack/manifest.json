@@ -2,9 +2,9 @@
     "format_version": 2,
     "header": {
         "description": "Resource pack for KoronaŚwiat",
-        "name": "§7[v5.0]§r KoronaŚwiat [RP]",
+        "name": "§7[v5.1]§r KoronaŚwiat [RP]",
         "uuid": "068c0dd1-fdae-41a0-99f9-6660c1d9b2ae",
-        "version": [0, 5, 0],
+        "version": [0, 5, 1],
         "min_engine_version": [ 1, 16, 200 ]
     },
     "modules": [
@@ -12,7 +12,7 @@
 		"description": "Resource pack on KoronaŚwiat",
 		"type": "resources",
 		"uuid": "684307a9-336d-4a3b-b9fc-f278f60437e7",
-		"version": [0, 5, 0]
+		"version": [0, 5, 1]
     }
   ]
 }
