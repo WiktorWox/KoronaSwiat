@@ -12,6 +12,9 @@
       },
       "players_head": {
          "textures" : "textures/items/players_head"
+      },
+      "horn": {
+         "textures" : "textures/items/horn"
       }
    },
    "texture_name" : "atlas.items"
