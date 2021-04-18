@@ -4,7 +4,9 @@ playsound note.iron_xylophone @a
 tag @a remove prey
 tag @a remove hunter
 
-setblock [kordy miejsca redstone blocka] air
+setblock 1265 58 661 air
+
+kill @e[type=korona:track]
 
 gamerule keepinventory true
 gamerule pvp true

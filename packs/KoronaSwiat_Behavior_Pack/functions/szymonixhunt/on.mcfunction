@@ -4,7 +4,7 @@ playsound note.iron_xylophone @a
 tag endrju1988 add prey
 tag @a[tag=!prey] add hunter
 
-setblock [kordy miejsca redstone blocka] redstone_block
+setblock 1265 58 661 redstone_block
 
 gamerule keepinventory true
 gamerule pvp true
