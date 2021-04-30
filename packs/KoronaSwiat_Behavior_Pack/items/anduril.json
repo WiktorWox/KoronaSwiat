@@ -6,11 +6,14 @@
             "category": "equipment"
         },
         "components": {
+            "minecraft:display_name": {
+                "value": "Andúril"
+            },
             "minecraft:damage": 9,
             "minecraft:hand_equipped": true,
             "minecraft:durability": {
                 "damage_chance": { "min": 5, "max": 10 },
-                "max_durability":450
+                "max_durability":978
             },
             "minecraft:weapon": {
                 "on_hurt_entity": {
@@ -29,7 +32,10 @@
                         "block": "minecraft:web",
                         "speed": 15
                     }
-                ]
+                ],
+                "on_dig": {
+                    "event": "korona:durability"
+                }
             },
             "minecraft:max_stack_size": 1,
             "minecraft:icon": {
@@ -37,6 +43,13 @@
             }
         },
         "events": {
+            "korona:durability": {
+                "damage": {
+                    "amount": 2,
+                    "target": "self",
+                    "type": "magic"
+                }
+            },
             "korona:add_effects": {
                 "sequence": [
                     {
@@ -53,6 +66,13 @@
                             "target": "holder",
                             "duration": 20,
                             "amplifier": 2
+                        }
+                    },
+                    {
+                        "damage": {
+                            "amount": 1,
+                            "target": "self",
+                            "type": "magic"
                         }
                     }
                 ]
