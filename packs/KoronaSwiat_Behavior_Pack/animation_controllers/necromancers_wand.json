@@ -1,0 +1,26 @@
+{
+  "format_version": "1.10.0",
+  "animation_controllers": {
+    "controller.animation.necromancers_wand": {
+      "states": {
+        "root": {
+          "transitions": [
+            {
+              "runtime": "(1.0)"
+            }
+          ]
+        },
+        "runtime": {
+          "transitions": [
+            {
+              "root": "(1.0)"
+            }
+          ],
+          "on_entry": [
+            "/function skeleton_spawn"
+          ]
+        }
+      }
+    }
+  }
+}

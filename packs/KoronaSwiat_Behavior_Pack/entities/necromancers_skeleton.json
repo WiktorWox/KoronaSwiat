@@ -8,6 +8,67 @@
       "is_experimental": false
     },
     "component_groups": {
+      "korona:skeleton_tame": {
+        "minecraft:is_tamed": {
+        },
+        "minecraft:health": {
+          "value": 20,
+          "max": 20
+        },
+        "minecraft:color": {
+          "value": 14
+        },
+        "minecraft:behavior.follow_owner": {
+          "priority": 6,
+          "speed_multiplier": 1.0,
+          "start_distance": 10,
+          "stop_distance": 2
+        },
+        "minecraft:attack": {
+          "damage": 4
+        },
+        "minecraft:behavior.breed": {
+          "priority": 2,
+          "speed_multiplier": 1.0
+        },
+
+        "minecraft:behavior.owner_hurt_by_target": {
+          "priority": 1
+        },
+        "minecraft:behavior.owner_hurt_target": {
+          "priority": 2
+        },
+        "minecraft:behavior.nearest_attackable_target": {
+          "priority": 5,
+          "must_see": true,
+          "entity_types": [
+            {
+              "filters": { "test" :  "is_family", "subject" : "other", "value" :  "skeleton"},
+              "max_dist": 16
+            }
+          ]
+        },
+
+        "minecraft:sittable": {
+        },
+        "minecraft:is_dyeable": {
+          "interact_text": "action.interact.dye"
+        },
+
+        "minecraft:leashable": {
+          "soft_distance": 4.0,
+          "hard_distance": 6.0,
+          "max_distance": 10.0,
+          "on_leash": {
+            "event": "minecraft:on_leash",
+            "target": "self"
+          },
+          "on_unleash": {
+            "event": "minecraft:on_unleash",
+            "target": "self"
+          }
+        }
+      },
       "minecraft:lightning_immune": {
         "minecraft:damage_sensor": {
           "triggers": {
@@ -49,21 +110,7 @@
           ]
         }
       },
-        "minecraft:tameable": {
-          "probability": 1,
-          "tame_items": "korona:necromancers_wand",
-          "tame_event": {
-            "event": "korona:on_tame",
-            "target": "self"
-          }
-        },
 
-      "minecraft:behavior.beg": {
-        "priority": 9,
-        "look_distance": 8,
-        "look_time": [ 2, 4 ],
-        "items": [ "korona:necromancers_wand" ]
-      },
       "minecraft:melee_attack": {
         "minecraft:behavior.melee_attack": {
           "priority": 4,
@@ -100,6 +147,20 @@
     },
 
     "components": {
+      "minecraft:tameable": {
+        "probability": 1,
+        "tame_items": "korona:soul",
+        "tame_event": {
+          "event": "korona:on_tame",
+          "target": "self"
+        }
+      },
+      "minecraft:behavior.beg": {
+        "priority": 9,
+        "look_distance": 8,
+        "look_time": [ 2, 4 ],
+        "items": [ "korona:necromancers_wand" ]
+      },
       "minecraft:experience_reward": {
         "on_death": "query.last_hit_by_player ? 5 + (query.equipment_count * Math.Random(1,3)) : 0"
       },
@@ -498,13 +559,33 @@
 
     "events": {
       "korona:on_tame": {
-        "remove": { "component_groups": [ "minecraft:ranged_attack" ] },
-        "add": { "component_groups": [ "minecraft:melee_attack" ] }
+        "sequence": [
+          {
+            "add": {
+              "component_groups": [
+                "korona:skeleton_tame"
+              ] 
+            }
+          },
+          {
+            "run_command": {
+              "command": ["replaceitem entity @s slot.armor.head 0 netherite_helmet"],
+              "target": "self"
+            }
+          },
+          {
+            "run_command": {
+              "command": ["execute @s[name=korona:soul] ~ ~ ~ particle minecraft:shulker_bullet ~ ~ ~"],
+              "target": "other"
+            }
+          }
+        ]
       },
       "minecraft:entity_spawned": {
-        "add": {
+        "remove": {
           "component_groups": [
-            "minecraft:ranged_attack"
+            "minecraft:ranged_attack",
+            "minecraft:melee_attack"
           ]
         }
       },
