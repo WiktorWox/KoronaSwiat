@@ -1,0 +1,71 @@
+{
+	"format_version": "1.16.100",
+	"minecraft:item": {
+		"description": {
+			"identifier": "korona:lightning_wand",
+			"category": "equipment"
+		},
+		"components": {
+			"minecraft:on_use_on": {
+				"cooldown_type": "korona:lightning_wand",
+        		"cooldown_time": 6.0,
+				"on_use_on": {
+					"event": "korona:summon_ligtning"
+				}
+			},
+			"minecraft:hand_equipped": true,	
+			"minecraft:durability": {
+				"damage_chance": { "min": 5, "max": 10 },
+				"max_durability":50
+			},
+			"minecraft:damage": 3,
+			"minecraft:enchantable": {
+				"value": 5,
+				"slot": "shield"
+			},
+			"minecraft:can_destroy_in_creative": false,
+			"minecraft:digger": {
+				"use_efficiency": false,
+				"destroy_speeds": [
+					{
+						"block": "minecraft:soul_sand",
+						"speed": 15
+					}
+				],
+				"on_dig": {
+					"event": "korona:durability"
+				}
+			},
+			"minecraft:max_stack_size": 1,
+			"minecraft:icon": {
+				"texture": "lightning_wand"
+			}
+		},
+		"events":{
+			"korona:durability": {
+				"damage": {
+					"amount": 2,
+					"target": "self",
+					"type": "magic"
+				}
+			},
+			"korona:summon_ligtning": {
+				"sequence": [
+					{
+						"run_command": {
+							"command": ["summon lightning_bolt"],
+							"target": "block"
+						}
+					},
+					{
+						"damage": {
+							"type": "magic",
+							"amount": 1,
+							"target": "item"
+          				}
+        			}
+      			]
+    		}
+  		}
+	}
+}

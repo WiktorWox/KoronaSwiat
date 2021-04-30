@@ -19,14 +19,17 @@
       "scythe": {
          "textures" : "textures/items/scythe"
       },
-      "necromancers_wand": {
-         "textures" : "textures/items/necromancers_wand"
+      "necromancer_archers_wand": {
+         "textures" : "textures/items/necromancer_archers_wand"
       },
       "palantir": {
          "textures" : "textures/items/palantir"
       },
       "anduril": {
          "textures" : "textures/items/anduril"
+      },
+      "lightning_wand": {
+         "textures" : "textures/items/lightning_wand"
       }
    },
    "texture_name" : "atlas.items"
