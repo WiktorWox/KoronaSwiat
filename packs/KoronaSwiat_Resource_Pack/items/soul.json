@@ -1,0 +1,13 @@
+{
+	"format_version": "1.10",
+	"minecraft:item": {
+		"description": {
+			"identifier": "korona:soul",
+			"category": "Items"
+		},
+		"components": {
+			"minecraft:icon": "soul",
+			"minecraft:render_offsets": "tools"
+		}
+	}
+}
