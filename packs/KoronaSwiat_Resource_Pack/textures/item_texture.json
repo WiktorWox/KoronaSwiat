@@ -30,6 +30,9 @@
       },
       "lightning_wand": {
          "textures" : "textures/items/lightning_wand"
+      },
+      "horn": {
+         "textures" : "textures/items/horn"
       }
    },
    "texture_name" : "atlas.items"
