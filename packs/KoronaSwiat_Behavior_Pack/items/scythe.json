@@ -10,7 +10,7 @@
             "minecraft:hand_equipped": true,
             "minecraft:durability": {
                 "damage_chance": { "min": 5, "max": 10 },
-                "max_durability":335
+                "max_durability":336
             },
             "minecraft:weapon": {
                 "on_hurt_entity": {
@@ -43,14 +43,14 @@
                 "texture": "scythe"
             },
             "minecraft:display_name": {
-                "value": "Scythe"
+                "value": "Kosa ponurego żniwiarza"
             }
         },
         "events": {
             "korona:durability": {
                 "damage":{
                     "type": "magic",
-                    "amount": 1,
+                    "amount": 2,
                     "target": "self"
                 }
             },
@@ -60,7 +60,7 @@
                         "add_mob_effect": {
                             "effect": "wither",
                             "target": "other",
-                            "duration": 3,
+                            "duration": 5,
                             "amplifier": 1
                         }
                     },
