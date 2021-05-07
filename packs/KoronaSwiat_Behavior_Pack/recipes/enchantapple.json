@@ -1,0 +1,35 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+    "identifier": "minecraft:appleEnchanted"
+    },
+
+    
+    "tags": [ "crafting_table" ],
+    "group": "wooden_door",
+    "pattern": [
+      "AAA",
+      "#B#",
+      "AAA"
+    ],
+    "key": {
+      "A": {
+        "item": "minecraft:gold_block",
+        "data": 0
+      },
+      "B": {
+        "item": "minecraft:apple",
+        "data": 0
+      },
+      "#": {
+        "item": "minecraft:redstone_block",
+        "data": 0
+      }
+    },
+    "result": {
+      "item": "minecraft:appleEnchanted",
+      "count": 1
+    }
+  }
+}
