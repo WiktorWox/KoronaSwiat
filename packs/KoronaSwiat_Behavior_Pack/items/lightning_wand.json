@@ -6,19 +6,24 @@
 			"category": "equipment"
 		},
 		"components": {
-			"minecraft:on_use_on": {
-				"cooldown_type": "korona:lightning_wand",
-        		"cooldown_time": 6.0,
-				"on_use_on": {
+			"minecraft:display_name": {
+				"value": "różdżka piorunów"
+			},
+			"minecraft:cooldown": {
+				"category": "lightning_wand`",
+				"duration": 6
+			},
+			"minecraft:on_use": {
+				"on_use": {
 					"event": "korona:summon_ligtning"
 				}
 			},
 			"minecraft:hand_equipped": true,	
 			"minecraft:durability": {
 				"damage_chance": { "min": 5, "max": 10 },
-				"max_durability":50
+				"max_durability":30
 			},
-			"minecraft:damage": 3,
+			"minecraft:damage": 2,
 			"minecraft:enchantable": {
 				"value": 5,
 				"slot": "shield"
@@ -53,17 +58,47 @@
 				"sequence": [
 					{
 						"run_command": {
-							"command": ["summon lightning_bolt"],
-							"target": "block"
+							"command": ["tag @s add holding_wand"],
+							"target": "holder"
+						}
+					},
+					{
+						"run_command": {
+							"command": ["execute @e[tag=!holding_wand, c=1, r=10] ~ ~ ~ summon lightning_bolt"],
+							"target": "holder"
+						}
+					},
+					{
+						"run_command": {
+							"command": ["execute @e[tag=!holding_wand, c=1, r=10] ~ ~ ~ tag @e[c=1, r=10, tag=holding_wand] add entity_nearby"],
+							"target": "holder"
+						}
+					},
+					{
+						"run_command": {
+							"command": ["execute @a[tag=!entity_nearby, tag=holding_wand, r=2] ~ ~ ~ summon lightning_bolt"],
+							"target": "holder"
+						}
+					},
+					{
+						"run_command": {
+							"command": ["tag @s remove entity_nearby"],
+							"target": "holder"
 						}
 					},
 					{
 						"damage": {
 							"type": "magic",
-							"amount": 1,
+							"amount": 10,
 							"target": "item"
           				}
-        			}
+        			},
+        			{
+						"run_command": {
+							"command": ["tag @s remove holding_wand"],
+							"target": "holder"
+						}
+					}
       			]
     		}
   		}

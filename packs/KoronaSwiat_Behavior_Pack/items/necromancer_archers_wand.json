@@ -6,6 +6,9 @@
 			"category": "equipment"
 		},
 		"components": {
+			"minecraft:display_name": {
+				"value": "różdżka łucznika nekromanty"
+			},
 			"minecraft:on_use_on": {
 				"on_use_on": {
 					"event": "korona:spawn"
