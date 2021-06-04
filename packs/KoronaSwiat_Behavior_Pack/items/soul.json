@@ -13,12 +13,11 @@
 			"minecraft:food": {
 				"on_consume": {"event": "korona:on_tame_entity"}
 			},
+			"minecraft:display_name": {
+				"value": "Dusza w butelce"
+			},
 			"minecraft:foil": false,
-			"minecraft:max_stack_size": 16,
-			"minecraft:projectile": {
-				"projectile_entity": "korona:necromancers_skeleton",
-				"minimum_critical_power": 4
-			}
+			"minecraft:max_stack_size": 16
 		},
 		"events": {
 			"korona:on_tame_entity": {
