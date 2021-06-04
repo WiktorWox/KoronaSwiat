@@ -1,0 +1,84 @@
+{
+	"format_version": "1.16.100",
+	"minecraft:item": {
+		"description": {
+			"identifier": "korona:necromancers_wand",
+			"category": "equipment"
+		},
+		"components": {
+			"minecraft:display_name": {
+				"value": "laska nekromanty"
+			},
+			"minecraft:on_use_on": {
+				"on_use_on": {
+					"event": "korona:spawn"
+				}
+			},
+			"minecraft:hand_equipped": true,
+			"minecraft:durability": {
+				"damage_chance": { "min": 5, "max": 10 },
+				"max_durability":100
+			},
+			"minecraft:damage": 3,
+			"minecraft:enchantable": {
+				"value": 5,
+				"slot": "shield"
+			},
+			"minecraft:can_destroy_in_creative": false,
+			"minecraft:digger": {
+				"use_efficiency": false,
+				"destroy_speeds": [
+					{
+						"block": "minecraft:soul_sand",
+						"speed": 15
+					}
+				],
+				"on_dig": {
+					"event": "korona:durability"
+				}
+			},
+			"minecraft:max_stack_size": 1,
+			"minecraft:icon": {
+				"texture": "necromancers_wand"
+			}
+		},
+		"events":{
+			"korona:durability": {
+				"damage": {
+					"amount": 3,
+					"target": "self",
+					"type": "magic"
+				}
+			},
+			"korona:spawn": {
+				"sequence": [
+					{
+						"run_command": {
+							"command": ["summon korona:necromancers_skeleton"],
+							"target": "block"
+						}
+					},
+					{
+						"run_command": {
+							"command": ["particle minecraft:water_evaporation_bucket_emitter ~ ~1 ~"],
+							"target": "block"
+						}
+					},
+					{
+						"run_command": {
+							"command": ["playsound respawn_anchor.set_spawn @a ~ ~1 ~"],
+							"target": "block"
+						}
+					},
+					{
+						"damage": {
+							"type": "magic",
+							"amount": 2,
+							"target": "self"
+          				}
+        			}
+      			]
+    		}
+  		}
+	}
+}
