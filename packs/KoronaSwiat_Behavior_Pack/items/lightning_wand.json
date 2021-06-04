@@ -7,10 +7,10 @@
 		},
 		"components": {
 			"minecraft:display_name": {
-				"value": "różdżka piorunów"
+				"value": "laska piorunów"
 			},
 			"minecraft:cooldown": {
-				"category": "lightning_wand`",
+				"category": "lightning_wand",
 				"duration": 6
 			},
 			"minecraft:on_use": {
@@ -21,7 +21,7 @@
 			"minecraft:hand_equipped": true,	
 			"minecraft:durability": {
 				"damage_chance": { "min": 5, "max": 10 },
-				"max_durability":30
+				"max_durability":100
 			},
 			"minecraft:damage": 2,
 			"minecraft:enchantable": {
@@ -34,7 +34,7 @@
 				"destroy_speeds": [
 					{
 						"block": "minecraft:soul_sand",
-						"speed": 15
+						"speed": 10
 					}
 				],
 				"on_dig": {
@@ -49,7 +49,7 @@
 		"events":{
 			"korona:durability": {
 				"damage": {
-					"amount": 2,
+					"amount": 20,
 					"target": "self",
 					"type": "magic"
 				}
@@ -86,19 +86,19 @@
 							"target": "holder"
 						}
 					},
-					{
-						"damage": {
-							"type": "magic",
-							"amount": 10,
-							"target": "item"
-          				}
-        			},
         			{
 						"run_command": {
 							"command": ["tag @s remove holding_wand"],
 							"target": "holder"
 						}
-					}
+					},
+					{
+						"damage": {
+							"amount": 10,
+							"target": "self",
+							"type": "magic"
+          				}
+        			}
       			]
     		}
   		}

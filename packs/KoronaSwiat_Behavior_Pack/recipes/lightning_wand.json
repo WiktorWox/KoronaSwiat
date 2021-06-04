@@ -1,23 +1,23 @@
 {
   "format_version": "1.12",
-  "minecraft:recipe_shapeless": {
+  "minecraft:recipe_shaped": {
     "description": {
     "identifier": "korona:lightning_wand"
     },
     "tags": [ "crafting_table" ],
     "group": "wooden_door",
     "pattern": [
-      "A",
       "B",
-      "B"
+      "A",
+      "A"
     ],
     "key": {
       "A": {
-        "item": "korona:palantir",
+        "item": "minecraft:blaze_rod",
         "data": 0
       },
       "B": {
-        "item": "minecraft:blaze_rod",
+        "item": "korona:palantir",
         "data": 0
       }
     },
@@ -27,3 +27,9 @@
     }
   }
 }
+
+//to make lightning wand you need:
+//2 blaze rods (minecraft:blaze_rod)
+//palantir (korona:palantir)
+
+//when you put this items to crafting table, you craft lightning wand (korona:lightning_wand)
