@@ -7,7 +7,7 @@
 		},
 		"components": {
 			"minecraft:display_name": {
-				"value": "różdżka łucznika nekromanty"
+				"value": "laska łucznika nekromanty"
 			},
 			"minecraft:on_use_on": {
 				"on_use_on": {
@@ -17,7 +17,7 @@
 			"minecraft:hand_equipped": true,
 			"minecraft:durability": {
 				"damage_chance": { "min": 5, "max": 10 },
-				"max_durability":200
+				"max_durability":100
 			},
 			"minecraft:damage": 3,
 			"minecraft:enchantable": {
@@ -45,7 +45,7 @@
 		"events":{
 			"korona:durability": {
 				"damage": {
-					"amount": 2,
+					"amount": 3,
 					"target": "self",
 					"type": "magic"
 				}
@@ -54,7 +54,7 @@
 				"sequence": [
 					{
 						"run_command": {
-							"command": ["summon korona:necromancers_skeleton"],
+							"command": ["summon korona:necromancer_archers_skeleton"],
 							"target": "block"
 						}
 					},
@@ -73,8 +73,8 @@
 					{
 						"damage": {
 							"type": "magic",
-							"amount": 1,
-							"target": "item"
+							"amount": 2,
+							"target": "self"
           				}
         			}
       			]
