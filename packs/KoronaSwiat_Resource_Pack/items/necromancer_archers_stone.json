@@ -1,0 +1,13 @@
+{
+	"format_version": "1.10",
+	"minecraft:item": {
+		"description": {
+			"identifier": "korona:necromancer_archers_stone",
+			"category": "Items"
+		},
+		"components": {
+			"minecraft:icon": "necromancer_archers_stone",
+			"minecraft:render_offsets": "tools"
+		}
+	}
+}
