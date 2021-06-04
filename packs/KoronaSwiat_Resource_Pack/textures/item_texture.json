@@ -13,8 +13,23 @@
       "players_head": {
          "textures" : "textures/items/players_head"
       },
+      "soul_sand_dust": {
+         "textures" : "textures/items/soul_sand_dust"
+      },
       "soul": {
          "textures" : "textures/items/soul"
+      },
+      "necromancer_archers_stone": {
+         "textures" : "textures/items/necromancer_archers_stone"
+      },
+      "necromancers_stone": {
+         "textures" : "textures/items/necromancers_stone"
+      },
+      "necromancers_wand": {
+         "textures" : "textures/items/necromancers_wand"
+      },
+      "soul_ingot": {
+         "textures" : "textures/items/soul_ingot"
       },
       "scythe": {
          "textures" : "textures/items/scythe"

@@ -1,0 +1,41 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+    "identifier": "minecraft:appleEnchanted"
+    },
+    "tags": [ "crafting_table" ],
+    "group": "wooden_door",
+    "pattern": [
+      "ABA",
+      "CDC",
+      " E "
+    ],
+    "key": {
+      "A": {
+        "item": "minecraft:blaze_powder",
+        "data": 0
+      },
+      "B": {
+        "item": "korona:soul_ingot",
+        "data": 0
+      },
+      "C": {
+        "item": "minecraft:feather",
+        "data": 0
+      },
+      "D": {
+        "item": "minecraft:iron_ingot",
+        "data": 0
+      },
+      "E": {
+        "item": "minecraft:stick",
+        "data": 0
+      }
+    },
+    "result": {
+      "item": "korona:anduril",
+      "count": 1
+    }
+  }
+}

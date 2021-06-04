@@ -54,18 +54,78 @@
                 "sequence": [
                     {
                         "add_mob_effect": {
-                            "effect": "speed",
+                            "effect": "resistance",
                             "target": "holder",
-                            "duration": 20,
-                            "amplifier": 2
+                            "duration": 4,
+                            "amplifier": 1
+                        }
+                    },
+                    {
+                        "run_command": {
+                            "command": ["particle minecraft:basic_flame_particle ~ ~0.5 ~"],
+                            "target": "other"
+                        }
+                    },
+                    {
+                        "run_command": {
+                            "command": ["particle minecraft:basic_flame_particle ~ ~0.5 ~0.5"],
+                            "target": "other"
+                        }
+                    },
+                    {
+                        "run_command": {
+                            "command": ["particle minecraft:basic_flame_particle ~ ~0.5 ~-0.5"],
+                            "target": "other"
+                        }
+                    },
+                    {
+                        "run_command": {
+                            "command": ["particle minecraft:basic_flame_particle ~0.5 ~0.5 ~"],
+                            "target": "other"
+                        }
+                    },
+                    {
+                        "run_command": {
+                            "command": ["particle minecraft:basic_flame_particle ~-0.5 ~0.5 ~"],
+                            "target": "other"
+                        }
+                    },
+                    {
+                        "run_command": {
+                            "command": ["particle minecraft:basic_flame_particle ~ ~ ~"],
+                            "target": "other"
+                        }
+                    },
+                    {
+                        "run_command": {
+                            "command": ["particle minecraft:basic_flame_particle ~ ~ ~0.5"],
+                            "target": "other"
+                        }
+                    },
+                    {
+                        "run_command": {
+                            "command": ["particle minecraft:basic_flame_particle ~ ~ ~-0.5"],
+                            "target": "other"
+                        }
+                    },
+                    {
+                        "run_command": {
+                            "command": ["particle minecraft:basic_flame_particle ~0.5 ~ ~"],
+                            "target": "other"
+                        }
+                    },
+                    {
+                        "run_command": {
+                            "command": ["particle minecraft:basic_flame_particle ~-0.5 ~ ~"],
+                            "target": "other"
                         }
                     },
                     {
                         "add_mob_effect": {
-                            "effect": "resistance",
+                            "effect": "regeneration",
                             "target": "holder",
-                            "duration": 20,
-                            "amplifier": 2
+                            "duration": 4,
+                            "amplifier": 0
                         }
                     },
                     {
