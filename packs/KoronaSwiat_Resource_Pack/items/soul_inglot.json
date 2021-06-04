@@ -1,0 +1,13 @@
+{
+	"format_version": "1.10",
+	"minecraft:item": {
+		"description": {
+			"identifier": "korona:soul_ingot",
+			"category": "Items"
+		},
+		"components": {
+			"minecraft:icon": "soul_ingot",
+			"minecraft:render_offsets": "tools"
+		}
+	}
+}
