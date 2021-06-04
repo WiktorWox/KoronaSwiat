@@ -1,0 +1,14 @@
+{
+"format_version": "1.16.100",
+	"minecraft:recipe_furnace": {
+		"description": {
+			"identifier": "korona:soul_sand_dust"
+		},
+		"tags": [ "blast_furnace" ],
+	    "input": {
+	      "item": "minecraft:soul_sand",
+	      "count": 1
+	    },
+	    "output": "korona:soul_sand_dust"
+	}
+}
