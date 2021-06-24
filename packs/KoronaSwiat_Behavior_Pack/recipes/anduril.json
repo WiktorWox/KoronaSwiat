@@ -2,7 +2,7 @@
   "format_version": "1.12",
   "minecraft:recipe_shaped": {
     "description": {
-    "identifier": "minecraft:appleEnchanted"
+    "identifier": "minecraft:anduril"
     },
     "tags": [ "crafting_table" ],
     "group": "wooden_door",
