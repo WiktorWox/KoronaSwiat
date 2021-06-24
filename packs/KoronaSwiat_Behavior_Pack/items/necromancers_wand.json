@@ -74,7 +74,7 @@
 						"damage": {
 							"type": "magic",
 							"amount": 2,
-							"target": "self"
+							"target": "item"
           				}
         			}
       			]

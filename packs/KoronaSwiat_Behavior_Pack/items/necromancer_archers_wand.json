@@ -54,7 +54,7 @@
 				"sequence": [
 					{
 						"run_command": {
-							"command": ["summon korona:necromancer_archers_skeleton"],
+							"command": ["summon korona:necromancers_skeleton"],
 							"target": "block"
 						}
 					},
@@ -74,7 +74,7 @@
 						"damage": {
 							"type": "magic",
 							"amount": 2,
-							"target": "self"
+							"target": "item"
           				}
         			}
       			]
