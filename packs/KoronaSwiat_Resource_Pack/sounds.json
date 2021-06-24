@@ -1,0 +1,11 @@
+{
+   "individual_event_sounds" : {
+        "events" : {
+            "record.the_echo" : {
+                "pitch" : 1.0,
+                "sound" : "record.the_echo",
+                "volume" : 1.0
+            }
+        }
+    }
+}

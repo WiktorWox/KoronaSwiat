@@ -1,0 +1,26 @@
+{
+   "format_version" : "1.16.100",
+   "sound_definitions" : {
+      "armor.equip_soul" : {
+         "category" : "player",
+         "sounds" : [
+            "sounds/armor/equip_soul1",
+            "sounds/armor/equip_soul2",
+            "sounds/armor/equip_soul3",
+            "sounds/armor/equip_soul4"
+         ]
+      },
+      "record.the_echo" : {
+         "__use_legacy_max_distance" : "true",
+         "max_distance" : 64.0,
+         "sounds" : [
+            {
+               "load_on_low_memory" : true,
+               "name" : "sounds/the_echo",
+               "stream" : true,
+               "volume" : 0.50
+            }
+         ]
+      }
+   }
+}
