@@ -3,7 +3,7 @@
 	"minecraft:item": {
 		"description": {
 			"identifier": "korona:players_head",
-			"category": "Nature"
+			"category": "items"
 		},
 		"components": {
 			"minecraft:icon": "players_head",

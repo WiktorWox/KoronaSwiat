@@ -3,7 +3,7 @@
 	"minecraft:item": {
 		"description": {
 			"identifier": "korona:soul_ingot",
-			"category": "Items"
+			"category": "items"
 		},
 		"components": {
 			"minecraft:icon": "soul_ingot",

@@ -20,6 +20,9 @@
                     "event": "korona:add_effects"
                 }
             },
+            "minecraft:creative_category": {
+                "parent": "itemGroup.name.sword"
+            },
             "minecraft:enchantable": {
                 "value": 5,
                 "slot": "sword"

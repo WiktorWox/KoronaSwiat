@@ -3,7 +3,7 @@
 	"minecraft:item": {
 		"description": {
 			"identifier": "korona:pouch_of_coronacoins",
-			"category": "Items"
+			"category": "items"
 		},
 		"components": {
 			"minecraft:icon": "pouch_of_coronacoins",

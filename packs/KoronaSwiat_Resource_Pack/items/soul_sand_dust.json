@@ -3,7 +3,7 @@
 	"minecraft:item": {
 		"description": {
 			"identifier": "korona:soul_sand_dust",
-			"category": "Items"
+			"category": "nature"
 		},
 		"components": {
 			"minecraft:icon": "soul_sand_dust",

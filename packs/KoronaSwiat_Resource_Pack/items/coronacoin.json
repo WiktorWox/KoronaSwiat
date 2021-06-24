@@ -3,7 +3,7 @@
 	"minecraft:item": {
 		"description": {
 			"identifier": "korona:coronacoin",
-			"category": "Items"
+			"category": "items"
 		},
 		"components": {
 			"minecraft:icon": "coronacoin",

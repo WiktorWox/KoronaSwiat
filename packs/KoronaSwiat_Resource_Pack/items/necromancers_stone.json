@@ -3,7 +3,7 @@
 	"minecraft:item": {
 		"description": {
 			"identifier": "korona:necromancers_stone",
-			"category": "Items"
+			"category": "items"
 		},
 		"components": {
 			"minecraft:icon": "necromancers_stone",

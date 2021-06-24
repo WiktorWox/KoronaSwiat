@@ -3,7 +3,7 @@
 	"minecraft:item": {
 		"description": {
 			"identifier": "korona:palantir",
-			"category": "Equipment"
+			"category": "items"
 		},
 		"components": {
 			"minecraft:icon": "palantir",

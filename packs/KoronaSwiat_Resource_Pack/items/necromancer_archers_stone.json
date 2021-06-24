@@ -3,7 +3,7 @@
 	"minecraft:item": {
 		"description": {
 			"identifier": "korona:necromancer_archers_stone",
-			"category": "Items"
+			"category": "items"
 		},
 		"components": {
 			"minecraft:icon": "necromancer_archers_stone",
