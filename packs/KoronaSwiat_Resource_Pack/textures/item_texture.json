@@ -19,6 +19,9 @@
       "soul": {
          "textures" : "textures/items/soul"
       },
+      "the_echo": {
+         "textures" : "textures/items/the_echo"
+      },
       "necromancer_archers_stone": {
          "textures" : "textures/items/necromancer_archers_stone"
       },
@@ -48,6 +51,18 @@
       },
       "horn": {
          "textures" : "textures/items/horn"
+      },
+      "soul_boots": {
+         "textures" : "textures/items/armor/soul_boots"
+               },
+      "soul_leggings": {
+         "textures" : "textures/items/armor/soul_leggins"
+               },
+      "soul_chestplate": {
+         "textures" : "textures/items/armor/soul_chestplate"
+               },
+      "soul_helmet": {
+         "textures" : "textures/items/armor/soul_helmet"
       }
    },
    "texture_name" : "atlas.items"
