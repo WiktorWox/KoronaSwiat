@@ -1,0 +1,24 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shapeless": {
+    "description": {
+    "identifier": "korona:soul_helmet"
+    },
+    "tags": [ "armorers_table" ],
+    "ingredients": [
+      {
+        "item": "minecraft:iron_helmet",
+        "data": 0
+      },
+      {
+        "item": "korona:soul_ingot",
+        "data": 0
+      }
+    ],
+    "result": {
+      "item": "korona:soul_helmet",
+      "data": 0,
+      "count": 1
+    }
+  }
+}
