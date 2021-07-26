@@ -1,4 +1,17 @@
 {
+   "format_version": [1, 1, 0],
    "jungle_door" : {
-      "sound" : "glass",
+      "sound" : "glass"
+   },
+   "korona:armorers_table": {
+      "sound" : "planks",
+      "textures" : {
+         "up": "armorers_table_up",
+         "down": "armorers_table_down",
+         "north": "armorers_table_north",
+         "south": "armorers_table_south",
+         "west": "armorers_table_west",
+         "east": "armorers_table_east"
+      }
+   }
 }

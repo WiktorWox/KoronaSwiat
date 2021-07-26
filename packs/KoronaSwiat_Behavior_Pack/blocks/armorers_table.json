@@ -1,0 +1,20 @@
+{
+    "format_version": "1.12.0",
+    "minecraft:block": {
+        "description": {
+            "identifier": "korona:armorers_table",
+            "is_experimental": false,
+            "register_to_creative_menu": true
+        },
+        "components": {
+            "minecraft:loot": "loot_tables/blocks/armorers_table.json",
+            "minecraft:destroy_time": 3,
+            "minecraft:friction": 0.6,
+            "minecraft:map_color": "#5f4d43",
+            "minecraft:crafting_table": {
+                "grid_size": 3,
+                "crafting_tags": ["armorers_table"]
+            }
+        }
+    }
+}

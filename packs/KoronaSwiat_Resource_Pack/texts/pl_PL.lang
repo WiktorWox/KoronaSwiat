@@ -9,4 +9,6 @@ item.korona:scythe.name=Kosa ponurego żniwiarza
 item.korona:necromancers_stone.name=Kamień nekromanty
 item.korona:necromancer_archers_stone.name=Kamień łucznika nekromanty
 item.korona:palantir.name=Kryształ Minas Neuma
+tile.korona:armorers_table.name=Stół płatnerski
+tile.korona:armorers_table=Okuj wyposarzenie
 entity.villager.banker=Bankier
