@@ -1,0 +1,26 @@
+{
+  "resource_pack_name": "koronaswiat",
+  "texture_name": "atlas.terrain",
+  "padding": 8,
+  "num_mip_levels": 4,
+  "texture_data": {
+    "armorers_table_north": {
+      "textures": "textures/blocks/armorers_table/armorers_table_north"
+    },
+    "armorers_table_east": {
+      "textures": "textures/blocks/armorers_table/armorers_table_east"
+    },
+    "armorers_table_west": {
+      "textures": "textures/blocks/armorers_table/armorers_table_west"
+    },
+    "armorers_table_south": {
+      "textures": "textures/blocks/armorers_table/armorers_table_south"
+    },
+    "armorers_table_up": {
+      "textures": "textures/blocks/armorers_table/armorers_table_up"
+    },
+    "armorers_table_down": {
+      "textures": "textures/blocks/armorers_table/armorers_table_down"
+    }
+  }
+}
