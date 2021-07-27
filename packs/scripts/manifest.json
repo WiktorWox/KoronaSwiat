@@ -1,0 +1,20 @@
+{
+    "format_version": 2,
+    "header": {
+        "description": "Scripts for KoronaŚwiat",
+        "name": "§7[v0.1]§r KoronaŚwiat scripts",
+        "uuid": "b768c32a-c039-410e-8039-62193ced1180",
+        "version": [0, 0, 1],
+        "min_engine_version": [ 1, 16, 201 ],
+        "pack_scope": "world",
+        "platform_locked": false
+    },
+    "modules": [
+        {
+            "description": "Scripts for KoronaŚwiat",
+            "type": "data",
+            "uuid": "d438a74b-01d1-408c-a3f9-403707ee6ca7",
+            "version": [0, 0, 1]
+    	}
+     ]
+}
