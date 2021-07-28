@@ -1,0 +1,11 @@
+{
+   "individual_event_sounds" : {
+      "events" : {
+         "end_music.sounds" : {
+            "pitch" : [ 1, 1.10 ],
+            "sound" : "end_music.sounds",
+            "volume" : 1
+         }
+      }
+   }
+}

@@ -1,0 +1,15 @@
+{
+   "format_version" : "1.14.0",
+   "sound_definitions" : {
+      "end_music.sounds" : {
+         "category" : "player",
+         "sounds" : [
+            {
+               "name" : "sounds/end_music/sounds",
+               "volume" : 0.550,
+               "weight" : 10
+            }
+         ]
+      }
+   }
+}
