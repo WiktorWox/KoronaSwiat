@@ -19,23 +19,16 @@ systemServer.initialize = function() {
   	// this.listenForEvent("minecraft:client_entered_world", (eventData) => this.onClientEnteredWorld(eventData));
 
 	this.listenForEvent("minecraft:entity_equipped_armor", function(e) {
-	 // if ("korona:soul_chestplate" == e.item_stack) {
-	  		// if (!e.data.entity.id in playersData){
-	  		// 	playersData[e.data.entity.id] = {
-	  		// 		"soulCheastPlate": false
-	  		// 	}
-	  		// }
-  			// let playerData = playersData[e.data.entity.id]
-  			// if (ubrał co){
   		system.log(e)
-  			// }
-
-		// }
-		let myQuery = system.registerQuery()
-		// system.addFilterToQuery(myQuery, "minecraft:name");
-		let players = system.getEntitiesFromQuery(myQuery);
-		for(var entity in players) {
-			system.log(entity)
+  		let armor = e.item_stack.item
+  		switch (armor) {
+  		    case "korona:soul_chestplate":
+  		    	system.log("Założono zbroję dusz")
+  				if (!e.data.entity.id in playersData){
+	  	 			playersData[e.data.entity.id] = {
+	  	 				"soulChestPlateEquipped": false
+	  	 			}
+	  	 		}
   		}
 	});
 
