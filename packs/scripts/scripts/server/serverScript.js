@@ -1,12 +1,19 @@
 var systemServer = server.registerSystem(0, 0);
 var system = systemServer;
-
 var tickNumber = 0;
-
 var playersData = {
 }
 
-let commandData
+function commandConvert(command) {
+	return {
+		"__type__" : "event_data",
+		"data" : {
+			"command" : command
+		},
+		"__identifier__" : "minecraft:execute_command"
+	}
+}
+
 systemServer.initialize = function() {
 	const scriptLoggerConfig = this.createEventData(
 		'minecraft:script_logger_config'
@@ -16,16 +23,20 @@ systemServer.initialize = function() {
 	scriptLoggerConfig.data.log_warnings = true
 	this.broadcastEvent('minecraft:script_logger_config', scriptLoggerConfig)
 	systemServer.log("initialize started")
-  	// this.listenForEvent("minecraft:client_entered_world", (eventData) => this.onClientEnteredWorld(eventData));
 
 	this.listenForEvent("minecraft:entity_equipped_armor", function(e) {
 		system.log(e)
+
 		let armorSlot = e.data.slot
   		let somethingHappend
   		let armor = e.data.item_stack.item
   		let playerId = e.data.entity
   		let nameComponent = system.getComponent(playerId, "minecraft:nameable");
   		let playerName = nameComponent.data.name
+
+		tags = system.getComponent("minecraft:tag")
+		system.log(tags)
+		
   		switch (armor) {
   		    case "korona:soul_chestplate":
   		   		if (!(playerId in playersData)) {
@@ -35,11 +46,13 @@ systemServer.initialize = function() {
 			  	 		"soulHelmetEquipped": false,
 			  	 		"soulLeggingsEquipped": false,
 			  	 		"fullSoulArmorEquipped": false,
-			  	 		"playerName": 
+			  	 		"playerName": playerName
 			  	 	}
 			  	 	system.log(playersData[playerId])
 
 		  		}
+
+			    system.broadcastEvent("minecraft:execute_command", commandConvert("tag " + playerName + " add have_soul_armor"))
   		    	system.log("Założono napierśnik dusz")
 	  	 		playersData[playerId].soulChestPlateEquipped = true
 
@@ -48,9 +61,12 @@ systemServer.initialize = function() {
 	  	 		somethingHappend = true
 	  	 		break;
 	  	 	case "minecraft:undefined":
-	  	 		if (playersData[playerId].soulChestPlateEquipped == true && armorSlot = "slot.armor.chest") {
+	  	 		if (playersData[playerId].soulChestPlateEquipped == true && armorSlot == "slot.armor.chest") {
 	  	 			playersData[playerId].soulChestPlateEquipped = false
-	  	 			system.log("Zdjęto")
+
+	  	 			system.broadcastEvent("minecraft:execute_command", commandConvert("tag " + playerName + " remove have_soul_armor"))
+
+	  	 			system.log("Zdjęto napierśnik dusz")
 	  	 		}
 	  	 		somethingHappend = true
 	  	 		break
@@ -75,33 +91,17 @@ systemServer.initialize = function() {
 	systemServer.log("initialize finished")
 }
 
-// the server runs this update function 20 times per second
+//5 secunds updater
 systemServer.update = function () {
-	this.counter++
-	if (this.counter === 100) {
-		if ()
-			commandData.soulArmorSpeed = {
-		  	 	"__type__" : "event_data",
-		  	 	"data" : {
-		  	 		"command" : "effect " + playerName + " speed 5 1"
-		  	 	},
-		  	"__identifier__" : "minecraft:execute_command"
-		  	}
-
-	    	system.broadcastEvent("minecraft:execute_command", commandData.soulArmorSpeed)
-		this.counter = 0
-	}
-
+ 	this.counter++
+ 	if (this.counter === 100) {
+ 		system.log("working")
+ 		this.counter = 0
+ 	}
 }
 
-// // the server only runs this when the world is shutting down
-// systemServer.shutdown = function () {
-// 	// clean up stuff . . .
-// }
-
-// This is just a helper function that simplifies logging data to the console.
+//chat event converter
 systemServer.log = function (...items) {
-	// Convert every parameter into a legible string and collect them into an array.
 	const toString = (item) => {
 		switch (Object.prototype.toString.call(item)) {
 			case '[object Undefined]':
@@ -125,7 +125,6 @@ systemServer.log = function (...items) {
 		}
 	}
 
-	// Join the string array items into a single string and print it to the world's chat.
 	const chatEvent = this.createEventData('minecraft:display_chat_event')
 	chatEvent.data.message = items.map(toString).join(' ')
 	this.broadcastEvent('minecraft:display_chat_event', chatEvent)
