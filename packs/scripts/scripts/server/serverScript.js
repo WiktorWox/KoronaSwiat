@@ -2,6 +2,7 @@ var systemServer = server.registerSystem(0, 0);
 var system = systemServer;
 var tickNumber = 0;
 var playersData = {
+
 }
 
 function commandConvert(command) {
@@ -25,7 +26,6 @@ systemServer.initialize = function() {
 	systemServer.log("initialize started")
 
 	this.listenForEvent("minecraft:entity_equipped_armor", function(e) {
-		system.log(e)
 
 		let armorSlot = e.data.slot
   		let somethingHappend
@@ -34,54 +34,90 @@ systemServer.initialize = function() {
   		let nameComponent = system.getComponent(playerId, "minecraft:nameable");
   		let playerName = nameComponent.data.name
 
-		tags = system.getComponent("minecraft:tag")
-		system.log(tags)
+		let playerTagsData = system.getComponent(playerId, "minecraft:tag")
+		let tags = playerTagsData.data
 		
+		if (!(playerId in playersData)) {
+			playersData[playerId] = {
+				"haveSoulHelmet": false,
+				"haveSoulChestplate": false,
+				"haveSoulLeggings": false,
+				"haveSoulBoots": false
+			}
+		}
+
+		if (tags.indexOf("have_any_piece") !== -1) {
+			if (tags.indexOf("have_soul_helmet") !== -1) {
+				playersData[playerId].haveSoulHelmet = true
+			}
+			if (tags.indexOf("have_soul_chestplate") !== -1) {
+				playersData[playerId].haveSoulChestplate = true
+			}
+			if (tags.indexOf("have_soul_leggings") !== -1) {
+				playersData[playerId].haveSoulLeggings = true
+			}
+			if (tags.indexOf("have_soul_boots") !== -1) {
+				playersData[playerId].haveSoulBoots = true
+			}
+		}
+
   		switch (armor) {
+   		    case "korona:soul_helmet":
+			    system.broadcastEvent("minecraft:execute_command", commandConvert("tag " + playerName + " add have_soul_helmet"))
+			    playersData[playerId].haveSoulHelmet = true
+
+  		    	system.log("Założono chełm dusz")
+	  	 		somethingHappend = true
+	  	 		break;
   		    case "korona:soul_chestplate":
-  		   		if (!(playerId in playersData)) {
-		  			playersData[playerId] = {
-			  	 		"soulChestPlateEquipped": false,
-			  	 		"soulBootsEquipped": false,
-			  	 		"soulHelmetEquipped": false,
-			  	 		"soulLeggingsEquipped": false,
-			  	 		"fullSoulArmorEquipped": false,
-			  	 		"playerName": playerName
-			  	 	}
-			  	 	system.log(playersData[playerId])
+			    system.broadcastEvent("minecraft:execute_command", commandConvert("tag " + playerName + " add have_soul_chestplate"))
+			    playersData[playerId].haveSoulChestplate = true
 
-		  		}
-
-			    system.broadcastEvent("minecraft:execute_command", commandConvert("tag " + playerName + " add have_soul_armor"))
   		    	system.log("Założono napierśnik dusz")
-	  	 		playersData[playerId].soulChestPlateEquipped = true
+	  	 		somethingHappend = true
+	  	 		break;
+  		    case "korona:soul_leggings":
+			    system.broadcastEvent("minecraft:execute_command", commandConvert("tag " + playerName + " add have_soul_leggings"))
+			    playersData[playerId].haveSoulLeggings = true
 
-    			system.log("Gracz który założył zbroję nazywa się " + playerName)
+  		    	system.log("Założono spodnie dusz")
+	  	 		somethingHappend = true
+	  	 		break;
+  		    case "korona:soul_boots":
+			    system.broadcastEvent("minecraft:execute_command", commandConvert("tag " + playerName + " add have_soul_boots"))
+			    playersData[playerId].haveSoulBoots = true
 
+  		    	system.log("Założono napierśnik dusz")
 	  	 		somethingHappend = true
 	  	 		break;
 	  	 	case "minecraft:undefined":
-	  	 		if (playersData[playerId].soulChestPlateEquipped == true && armorSlot == "slot.armor.chest") {
-	  	 			playersData[playerId].soulChestPlateEquipped = false
-
-	  	 			system.broadcastEvent("minecraft:execute_command", commandConvert("tag " + playerName + " remove have_soul_armor"))
+	  	 		if (playersData[playerId].haveSoulChestplate == true && armorSlot == "slot.armor.chest") {
+	  	 			system.broadcastEvent("minecraft:execute_command", commandConvert("tag " + playerName + " remove have_soul_chestplate"))
+	  	 			playersData[playerId].haveSoulChestplate = false
 
 	  	 			system.log("Zdjęto napierśnik dusz")
+	  	 			somethingHappend = true
 	  	 		}
-	  	 		somethingHappend = true
 	  	 		break
   		}
 	  	if (somethingHappend == true) {
-	  		if (playersData[playerId].soulChestPlateEquipped == false && playersData[playerId].soulLeggingsEquipped == false && playersData[playerId].soulHelmetEquipped == false && playersData[playerId].soulBootsEquipped == false) {
+	  		if (playersData[playerId].haveSoulHelmet == false && playersData[playerId].haveSoulChestplate == false && playersData[playerId].haveSoulLeggings == false && playersData[playerId].haveSoulBoots == false) {
 		  	 	system.log("Zdjęto zbroję dusz")
-		  	 	playersData[playerId].fullSoulArmorEquipped = false
+		  	 	system.broadcastEvent("minecraft:execute_command", commandConvert("tag " + playerName + " remove have_any_piece"))
 		  	 	somethingHappend = undefined
+		  	} else {
+		  		if (playersData[playerId].haveSoulHelmet == true && playersData[playerId].haveSoulChestplate == true && playersData[playerId].haveSoulLeggings == true && playersData[playerId].haveSoulBoots == true) {
+			  	 	system.log("Założono całą zbroję dusz")
+			  	 	system.broadcastEvent("minecraft:execute_command", commandConvert("tag " + playerName + " remove have_any_piece"))
+			  	 	somethingHappend = undefined
+			  	} else {
+			  		if (playersData[playerId].haveSoulHelmet == true || playersData[playerId].haveSoulChestplate == true || playersData[playerId].haveSoulLeggings == true || playersData[playerId].haveSoulBoots == true) {
+				  	 	system.log("Założono jedną część zbroi dusz")
+				  	 	system.broadcastEvent("minecraft:execute_command", commandConvert("tag " + playerName + " add have_any_piece"))
+				  	 	somethingHappend = undefined
+				  	}
+				}
 		  	}
-		  	if (playersData[playerId].soulChestPlateEquipped == true && playersData[playerId].soulLeggingsEquipped == true && playersData[playerId].soulHelmetEquipped == true && playersData[playerId].soulBootsEquipped == true) {
-		  	 	system.log("Założono zbroję dusz")
-		  	 	playersData[playerId].fullSoulArmorEquipped = true
-		  	 	somethingHappend = undefined
-		 	}
 	  	}
 	});
 
