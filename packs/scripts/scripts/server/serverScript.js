@@ -5,7 +5,7 @@ var playersData = {
 
 }
 
-//command converter
+//command converter. Use system.broadcastEvent("minecraft:execute_command", commandConvert("[here your command]"))
 function commandConvert(command) {
 	return {
 		"__type__" : "event_data",
@@ -159,8 +159,6 @@ systemServer.initialize = function() {
 		  	}
 	  	}
 	});
-
-	// register event data, register components, register queries, listen for events, . . .
 
 	this.counter = 0
 	systemServer.log("initialize finished")
