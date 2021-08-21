@@ -4,6 +4,7 @@
 
 These are Addons used on the Minecraft Bedrock server - **KoronaŚwiat**
 If you want to know more about this server, please visit the [server page](https://wiktorwox.wixsite.com/koronaswiat). Most of the files are in **.json** format, but there are others, such as:
+- **.js** (JavaScript) - on this format are maked scripts that are run in Minecraft
 - **.mcfunction** - it is a file format with a list of commands used in Minecraft Bedrock that can be run in Minecraft using the command `/function [name of .mcfunction file]`
 - **.png** - basic graphic file format. In McAddons, it is most often used for textures, item icons and pack icons
 
