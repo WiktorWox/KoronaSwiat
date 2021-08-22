@@ -1,0 +1,44 @@
+{
+	"format_version": "1.8.0",
+	"animations": {
+		"animation.skeleton.leg_default": {
+			"loop": true,
+			"bones": {
+				"rightLeg": {
+					"rotation": ["math.cos(query.modified_distance_moved * 38.17) * 80.22 * query.modified_move_speed - this", 0, 0]
+				},
+				"leftLeg": {
+					"rotation": ["math.cos(query.modified_distance_moved * 38.17 + 180) * 80.22 * query.modified_move_speed - this", 0, 0]
+				}
+			}
+		},
+		"animation.necromancers_skeleton.leg_default": {
+			"loop": true
+		},
+		"animation.necromancers_skeleton.sitting": {
+			"loop": true,
+			"animation_length": 8,
+			"bones": {
+				"bb_main": {
+					"rotation": [0, 0, 0]
+				},
+				"head": {
+					"rotation": {
+						"0.0": [0, 0, 0],
+						"1.25": [0, -27.5, 0],
+						"1.5": [0, -30, 0],
+						"1.75": [0, -29.96, 0],
+						"2.75": [0, -4.39, 0],
+						"3.0": [0, -1.12, 0],
+						"4.5": [0, -1.12, 0],
+						"4.75": [0, 1.38, 0],
+						"5.75": [0, 18.38, 0],
+						"6.25": [0, 18.46, 0],
+						"7.25": [0, 0.3, 0],
+						"7.5": [0, -1.12, 0]
+					}
+				}
+			}
+		}
+	}
+}
