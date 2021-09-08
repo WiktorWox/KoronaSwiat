@@ -54,15 +54,18 @@
       },
       "soul_boots": {
          "textures" : "textures/items/armor/soul_boots"
-               },
+      },
       "soul_leggings": {
          "textures" : "textures/items/armor/soul_leggins"
-               },
+      },
       "soul_chestplate": {
          "textures" : "textures/items/armor/soul_chestplate"
-               },
+      },
       "soul_helmet": {
          "textures" : "textures/items/armor/soul_helmet"
+      },
+      "soul_pickaxe": {
+         "textures" : "textures/items/soul_pickaxe"
       }
    },
    "texture_name" : "atlas.items"

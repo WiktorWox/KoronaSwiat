@@ -2,9 +2,9 @@ var systemServer = server.registerSystem(0, 0);
 var system = systemServer;
 var tickNumber = 0;
 var playersData = {
-
 };
-var isUpdated
+var countOfPlayers = 0;
+var playersNameList = [];
 
 //command converter. Use "commandConvert("here your command")" to send command in the world
 function commandConvert(command) {
@@ -68,12 +68,16 @@ systemServer.initialize = function() {
 				"haveSoulHelmet": false,
 				"haveSoulChestplate": false,
 				"haveSoulLeggings": false,
-				"haveSoulBoots": false
+				"haveSoulBoots": false,
+				"haveSoulPickaxe": false,
+				"speedDiggingTime": 0
 			};
+			countOfPlayers++;
+			playersNameList.push(playerId);
 		}
 
 		//this is updater of "playersData" based on minecraft tags. When server is shutting down and turning on again things in script are lost but tags in minecraft are saved. In line 64 tags are downloaded
-		if (isUpdated !== true) {
+		if (playersData[playerId].isUpdated !== true) {
 			if (tags.indexOf("have_any_piece") !== -1) {
 				if (tags.indexOf("have_soul_helmet") !== -1) {
 					playersData[playerId].haveSoulHelmet = true;
@@ -95,7 +99,7 @@ systemServer.initialize = function() {
 					playersData[playerId].haveSoulBoots = true;
 					healthModificator("plus", 2, playerId);
 				}
-				isUpdated = true;
+				playersData[playerId].isUpdated = true;
 			}
 		}
 
@@ -191,18 +195,77 @@ systemServer.initialize = function() {
 		  	}
 	  	}
 	});
+	system.listenForEvent("minecraft:player_destroyed_block", function(dataOfEvent) {
+		let playerId = dataOfEvent.data.player;
+  		let nameComponent = system.getComponent(playerId, "minecraft:nameable");
+  		let playerName = nameComponent.data.name;
+		let inHandItems = system.getComponent(playerId, "minecraft:hand_container");
+		let playerPosition = system.getComponent(playerId, "minecraft:position");
+		if (!(playerId in playersData)) {
+			playersData[playerId] = {
+				"haveSoulHelmet": false,
+				"haveSoulChestplate": false,
+				"haveSoulLeggings": false,
+				"haveSoulBoots": false,
+				"haveSoulPickaxe": false,
+				"speedDiggingTime": 0
+			};
+			countOfPlayers++;
+			playersNameList.push(playerId);
+		}
+		if (inHandItems.data[0].item == "korona:soul_pickaxe" && inHandItems.data[1].item == "korona:soul" && playersData[playerId].haveSoulPickaxe !== true && inHandItems.data[1].count > 2) {
+			playersData[playerId].haveSoulPickaxe = true;
+			inHandItems.data[1].count -= 3;
+			if (inHandItems.data[1].count < 1) {
+				commandConvert("replaceitem entity " + playerName + " slot.weapon.offhand 0 minecraft:air");
+			} else {
+				commandConvert("replaceitem entity " + playerName + " slot.weapon.offhand 0 korona:soul " + inHandItems.data[1].count);
+			}	
+			commandConvert("title " + playerName + " actionbar Kilof dusz jest naładowany!");
+			system.broadcastEvent("minecraft:play_sound", {
+				"__type__" : "event_data",
+				"data" : {
+					"pith" : 1.0,
+					"position": [playerPosition.data.x, playerPosition.data.y, playerPosition.data.z],
+					"sound": "korona.soul_pickaxe_power",
+					"volume": 1.0
+				},
+				"__identifier__" : "minecraft:play_sound"
+			});
+		}
+	});
 
 	this.counter = 0;
 	systemServer.log("initialize finished");
 };
 
-//5 secunds updater
+//5 second updater
 systemServer.update = function () {
  	this.counter++;
  	if (this.counter === 100) {
  		//every 5 seconds this updater giving effect for entity who have equipped armor
  		commandConvert("effect @a[tag=have_full_soul_armor] speed 5 0 true");
  		commandConvert("effect @a[tag=have_full_soul_armor] strength 5 0 true");
+ 		for (var myCounter = 0; myCounter < countOfPlayers; myCounter++) {
+ 			let playerId = playersNameList[myCounter];
+	  		let nameComponent = system.getComponent(playerId, "minecraft:nameable");
+	  		let playerName = nameComponent.data.name;
+			let inHandItems = system.getComponent(playerId, "minecraft:hand_container");
+			if (inHandItems.data[0].item == "korona:soul_pickaxe" && playersData[playerId].haveSoulPickaxe == true) {
+				commandConvert("effect " + playerName + " haste 5 3 true");
+			}
+			system.log("sprawdzono gracza " + playerName)
+			system.log(countOfPlayers)
+			system.log(playersNameList)
+	 		if (playersData[playerId].haveSoulPickaxe == true) {
+	 			playersData[playerId].speedDiggingTime++;
+	 			if (playersData[playerId].speedDiggingTime > 83) {
+	 				playersData[playerId].haveSoulPickaxe = false;
+	 				playersData[playerId].speedDiggingTime = 0;
+	 				commandConvert("title " + playerName + " actionbar Szybkie kopanie się skończyło!");
+	 			}
+ 			}
+ 		}
  		this.counter = 0;
  	}
 };

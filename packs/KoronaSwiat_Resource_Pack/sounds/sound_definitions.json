@@ -10,16 +10,11 @@
             "sounds/armor/equip_soul4"
          ]
       },
-      "record.the_echo" : {
-         "__use_legacy_max_distance" : "true",
-         "max_distance" : 64.0,
+      "korona.soul_pickaxe_power" : {
+         "category" : "player",
          "sounds" : [
-            {
-               "load_on_low_memory" : true,
-               "name" : "sounds/the_echo",
-               "stream" : true,
-               "volume" : 0.50
-            }
+            "sounds/soul_pickaxe/soul_pickaxe_power",
+            "sounds/soul_pickaxe/soul_pickaxe_power2"
          ]
       }
    }
