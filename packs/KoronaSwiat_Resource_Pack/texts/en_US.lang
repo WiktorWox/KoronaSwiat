@@ -11,4 +11,6 @@ item.korona:necromancers_stone.name=Necromancer's stone
 item.korona:necromancer_archers_stone.name=Necromancer archer's stone
 tile.korona:armorers_table.name=Armorers table
 tile.korona:armorers_table=nail equipment
+entity.korona:necromancer_archers_skeleton.name=Necromancer archers skeleton
+entity.korona:necromancers_skeleton.name=Necromancers skeleton
 entity.villager.banker=Banker

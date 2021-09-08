@@ -26,7 +26,6 @@
 			"minecraft:icon": {
 				"texture": "soul_helmet"
 			},
-			"minecraft:render_offsets": "helmets",
 			"minecraft:display_name": {
 				"value": "Hełm dusz"
 			},
