@@ -2,7 +2,7 @@
   "format_version": "1.16.0",
   "minecraft:entity": {
     "description": {
-      "identifier": "korona:necromancers_skeleton",
+      "identifier": "korona:necromancer_archers_skeleton",
       "is_spawnable": true,
       "is_summonable": true,
       "is_experimental": false
@@ -181,61 +181,13 @@
       "minecraft:nameable": {
       },
       "minecraft:equipment": {
-        "table": "loot_tables/entities/necromancers_skeleton_gear.json"
+        "table": "loot_tables/entities/necromancer_archers_skeleton_gear.json"
       },
       "minecraft:shooter": {
         "def": "minecraft:arrow"
       },
       "minecraft:shareables": {
         "items": [
-          {
-            "item": "minecraft:netherite_sword",
-            "want_amount": 1,
-            "surplus_amount": 1,
-            "priority": 0
-          },
-          {
-            "item": "korona:anduril",
-            "want_amount": 1,
-            "surplus_amount": 1,
-            "priority": 1
-          },
-          {
-            "item": "minecraft:diamond_sword",
-            "want_amount": 1,
-            "surplus_amount": 1,
-            "priority": 1
-          },
-          {
-            "item": "minecraft:iron_sword",
-            "want_amount": 1,
-            "surplus_amount": 1,
-            "priority": 2
-          },
-          {
-            "item": "korona:scythe",
-            "want_amount": 1,
-            "surplus_amount": 1,
-            "priority": 2
-          },
-          {
-            "item": "minecraft:stone_sword",
-            "want_amount": 1,
-            "surplus_amount": 1,
-            "priority": 3
-          },
-          {
-            "item": "minecraft:golden_sword",
-            "want_amount": 1,
-            "surplus_amount": 1,
-            "priority": 4
-          },
-          {
-            "item": "minecraft:wooden_sword",
-            "want_amount": 1,
-            "surplus_amount": 1,
-            "priority": 5
-          },
           {
             "item": "minecraft:bow",
             "want_amount": 1,
@@ -556,7 +508,7 @@
             "add": {
               "component_groups": [
                 "korona:skeleton_tame",
-                "minecraft:melee_attack"
+                "minecraft:ranged_attack"
               ] 
             }
           },
@@ -580,7 +532,7 @@
           },
           {
             "run_command": {
-              "command": ["replaceitem entity @s slot.armor.chest 0 minecraft:iron_chestplate"]
+              "command": ["replaceitem entity @s slot.armor.head 0 minecraft:leather_helmet"]
             }
           }
         ]

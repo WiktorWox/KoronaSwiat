@@ -54,7 +54,7 @@
 				"sequence": [
 					{
 						"run_command": {
-							"command": ["summon korona:necromancers_skeleton"],
+							"command": ["summon korona:necromancer_archers_skeleton"],
 							"target": "block"
 						}
 					},

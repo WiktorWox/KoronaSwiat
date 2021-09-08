@@ -2,7 +2,7 @@
   "format_version": "1.8.0",
   "minecraft:client_entity": {
     "description": {
-      "identifier": "korona:necromancer_archers_skeleton",
+      "identifier": "korona:necromancers_skeleton",
       "min_engine_version": "1.8.0",
       "particle_effects": {
         "blue_flame": "minecraft:blue_flame_particle"

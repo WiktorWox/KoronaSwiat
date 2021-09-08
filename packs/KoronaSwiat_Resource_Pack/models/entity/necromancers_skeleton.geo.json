@@ -8,6 +8,13 @@
 		"visible_bounds_offset": [0, 1.5, 0],
 		"bones": [
 			{
+				"name": "bb_main2",
+				"pivot": [0, 0, 0],
+				"locators": {
+					"effect": [0, 37, 0]
+				}
+			},
+			{
 				"name": "bb_main",
 				"pivot": [0, 0, 0],
 				"cubes": [

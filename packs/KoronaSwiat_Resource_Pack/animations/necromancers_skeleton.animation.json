@@ -17,26 +17,16 @@
 		},
 		"animation.necromancers_skeleton.sitting": {
 			"loop": true,
-			"animation_length": 8,
+			"animation_length": 1,
 			"bones": {
 				"bb_main": {
 					"rotation": [0, 0, 0]
-				},
-				"head": {
-					"rotation": {
-						"0.0": [0, 0, 0],
-						"1.25": [0, -27.5, 0],
-						"1.5": [0, -30, 0],
-						"1.75": [0, -29.96, 0],
-						"2.75": [0, -4.39, 0],
-						"3.0": [0, -1.12, 0],
-						"4.5": [0, -1.12, 0],
-						"4.75": [0, 1.38, 0],
-						"5.75": [0, 18.38, 0],
-						"6.25": [0, 18.46, 0],
-						"7.25": [0, 0.3, 0],
-						"7.5": [0, -1.12, 0]
-					}
+				}
+			},
+			"particle_effects": {
+				"0.0": {
+					"effect": "blue_flame",
+					"locator": "effect"
 				}
 			}
 		}
