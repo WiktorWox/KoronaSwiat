@@ -99,8 +99,8 @@ systemServer.initialize = function() {
 					playersData[playerId].haveSoulBoots = true;
 					healthModificator("plus", 2, playerId);
 				}
-				playersData[playerId].isUpdated = true;
 			}
+			playersData[playerId].isUpdated = true;
 		}
 
 		//here, using "switch" is checked armor what entity equipped
@@ -254,9 +254,6 @@ systemServer.update = function () {
 			if (inHandItems.data[0].item == "korona:soul_pickaxe" && playersData[playerId].haveSoulPickaxe == true) {
 				commandConvert("effect " + playerName + " haste 5 3 true");
 			}
-			system.log("sprawdzono gracza " + playerName)
-			system.log(countOfPlayers)
-			system.log(playersNameList)
 	 		if (playersData[playerId].haveSoulPickaxe == true) {
 	 			playersData[playerId].speedDiggingTime++;
 	 			if (playersData[playerId].speedDiggingTime > 83) {
