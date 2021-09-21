@@ -1,0 +1,84 @@
+{
+    "format_version": "1.17",
+    "minecraft:npc_dialogue": {
+        "scenes": [
+            {
+                "scene_tag": "geralt_intro",
+                "npc_name": "§7Geralt",
+                "text": "Witaj podróżniku!",
+                "buttons": [
+                    {
+                        "name": "Potrzebna pomoc?",
+                        "commands": [
+                            "/dialogue open @s @initiator geralt_quest_john"
+                        ]
+                    },
+                    {
+                        "name": "Kim jesteś?"
+                    }
+                ]
+            },
+            {
+                "scene_tag": "geralt_intro2",
+                "npc_name": "§7Geralt",
+                "text": "Z kądś cię kojażę...",
+                "buttons": [
+                    {
+                        "name": "Potrzebna pomoc?",
+                        "commands": [
+                            "/dialogue open @s @initiator geralt_quest_john"
+                        ]
+                    },
+                    {
+                        "name": "Geralt?!",
+                        "commands": [
+                            "/dialogue open @s @initiator geralt_ks2_dialogue"
+                        ]
+                    }
+                ]
+            },
+            {
+                "scene_tag": "geralt_ks2_dialogue",
+                "npc_name": "§7Geralt",
+                "text": "Ach, to ty! Wybacz mi moje zniknięcie. Przeczułem jednak nadchodzące niebezpieczeństwo i bez zastanowienia wyruszyłem poszukać bezpiecznego miejsca. Podróżowałem daleko na wschód i trafiłem na tą wyspę. Podczas podróży spotkałem §7Johna §ri §7Ferdynarda§r, z którymi rozbiłem tutaj obóz",
+                "buttons": [
+                    {
+                        "name": "§7John§r?",
+                        "commands": [
+                            "/dialogue open @s @initiator geralt_quest_john"
+                        ]
+                    },
+                    {
+                        "name": "Cieszę się"
+                    }
+                ]
+            },
+            {
+                "scene_tag": "geralt_quest_john",
+                "npc_name": "§7Geralt",
+                "text": "Właśnie... §7John §rposzedł na północ do dżungli. Niestety od tygodnia nie wraca... Nie wiem co robić",
+                "buttons": [
+                    {
+                        "name": "Pomogę ci!",
+                        "commands": [
+                            "/dialogue open @s @initiator geralt_quest_john2"
+                        ]
+                    },
+                    {
+                        "name": "Przykro mi..."
+                    }
+                ]
+            },
+            {
+                "scene_tag": "geralt_quest_john2",
+                "npc_name": "§7Geralt",
+                "text": "Naprawdę? Byłbym ci bardzo wdzięczny. Radziłbym ci kupić w mieście mapę wyspy, myślę że bardzo by to pomogło",
+                "buttons": [
+                    {
+                        "name": "Ruszam w drogę!"
+                    }
+                ]
+            }
+        ]
+    }
+}

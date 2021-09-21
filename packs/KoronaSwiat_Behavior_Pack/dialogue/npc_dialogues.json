@@ -1,0 +1,206 @@
+{
+        "format_version": "1.17",
+        "minecraft:npc_dialogue": {
+            "scenes": [
+                {
+                    "scene_tag": "tymek_intro",
+                    "npc_name": "§7Tymek",
+                    "text": "Cześć. Chcesz coś kupić?",
+                    "buttons": [
+                        {
+                            "name": "Pokaż, co masz",
+                            "commands": [
+                                "/dialogue open @s @initiator tymek_shop"
+                            ]
+                        },
+                        {
+                            "name": "Nie, dzięki"
+                        }
+                    ]
+                },
+                {
+                    "scene_tag": "tymek_intro2",
+                    "npc_name": "§7Tymek",
+                    "text": "Cześć. Chcesz coś kupić?",
+                    "buttons": [
+                        {
+                            "name": "Pokaż, co masz",
+                            "commands": [
+                                "/dialogue open @s @initiator tymek_shop"
+                            ]
+                        },
+                        {
+                            "name": "Nie, dzięki"
+                        }
+                    ]
+                },
+                {
+                    "scene_tag": "tymek_shop",
+                    "npc_name": "§7Tymek",
+                    "text": "Niestety nic nie mam do zaoferowania",
+                    "on_close_commands": [
+                        "/dialogue change @e[tag=npc_tymek] tymek_intro @initiator"
+                    ],
+                    "buttons": [
+                        {
+                            "name": "Oh, to cześć"
+                        }
+                    ]
+                },
+                {
+                    "scene_tag": "wlasciciel_intro",
+                    "npc_name": "§7Właściciel Gospody",
+                    "text": "Witaj, czy mogę ci w czymś pomóc?",
+                    "buttons": [
+                        {
+                            "name": "Pokaż, co masz",
+                            "commands": [
+                                "/dialogue open @s @initiator tymek_shop"
+                            ]
+                        },
+                        {
+                            "name": "Nie, dziękuję"
+                        },
+                        {
+                            "name": "Gdzie jestem...?",
+                            "commands": [
+                                "/dialogue open @s @initiator wlasciciel_town_dialogue"
+                            ]
+                        },
+                        {
+                            "name": "Jestem z 2 edycji",
+                            "commands": [
+                                "/execute @initiator[tag=!2edition, tag=!no2edition] ~ ~ ~ dialogue open @e[tag=npc_wlasciciel] @s wlasciciel_test",
+                                "/execute @initiator[tag=no2edition] ~ ~ ~ dialogue open @e[tag=npc_wlasciciel] @s wlasciciel_test_end",
+                                "/execute @initiator[tag=2edition] ~ ~ ~ dialogue open @e[tag=npc_wlasciciel] @s wlasciciel_test_end"
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "scene_tag": "wlasciciel_town_dialogue",
+                    "npc_name": "§7Właściciel Gospody",
+                    "text": "Witaj, czy mogę ci w czymś pomóc?",
+                    "buttons": [
+                        {
+                            "name": "Pokaż, co masz",
+                            "commands": [
+                                "/dialogue open @s @initiator tymek_shop"
+                            ]
+                        },
+                        {
+                            "name": "Nie, dziękuję"
+                        },
+                        {
+                            "name": "Gdzie jestem...?",
+                            "commands": [
+                                "/dialogue open @s @initiator wlasciciel_town_dialogue"
+                            ]
+                        },
+                        {
+                            "name": "Jestem z 2 edycji",
+                            "commands": [
+                                "/execute @initiator[tag=!2edition, tag=!no2edition] ~ ~ ~ dialogue open @e[tag=npc_wlasciciel] @s wlasciciel_test",
+                                "/execute @initiator[tag=no2edition] ~ ~ ~ dialogue open @e[tag=npc_wlasciciel] @s wlasciciel_test_end",
+                                "/execute @initiator[tag=2edition] ~ ~ ~ dialogue open @e[tag=npc_wlasciciel] @s wlasciciel_test_end"
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "scene_tag": "wlasciciel_test",
+                    "npc_name": "§7Właściciel Gospody",
+                    "text": "Czyżby? Jaki jest kod? §7Masz jedną szansę, możesz również zgłosić uczestnictwo w drugiej edycji u administratora",
+                    "on_close_commands": [
+                        "/dialogue change @s wlasciciel_intro @initiator"
+                    ],
+                    "buttons": [
+                        {
+                            "name": "Nieważne..."
+                        },
+                        {
+                            "name": "Cień",
+                            "commands": [
+                                "/dialogue open @s @initiator wlasciciel_test_false",
+                                "/tag @initiator add no2edition"
+                            ]
+                        },
+                        {
+                            "name": "Pochodnia",
+                            "commands": [
+                                "/dialogue open @s @initiator wlasciciel_test_false",
+                                "/tag @initiator add no2edition"
+                            ]
+                        },
+                        {
+                            "name": "Niebo",
+                            "commands": [
+                                "/dialogue open @s @initiator wlasciciel_test_false",
+                                "/tag @initiator add no2edition"
+                            ]
+                        },
+                        {
+                            "name": "Deska",
+                            "commands": [
+                                "/dialogue open @s @initiator wlasciciel_test_true",
+                                "/tag @initiator add 2edition",
+                                "/dialogue change @e[tag=npc_geralt] geralt_intro2 @initiator"
+                            ]
+                        },
+                        {
+                            "name": "Ściana",
+                            "commands": [
+                                "/dialogue open @s @initiator wlasciciel_test_false",
+                                "/tag @initiator add no2edition"
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "scene_tag": "wlasciciel_test_true",
+                    "npc_name": "§7Właściciel Gospody",
+                    "text": "W takim razie musisz spotkać się z §7Tymkiem§r, z tego co wiem też z tamtąd pochodzi",
+                    "on_close_commands": [
+                        "/dialogue change @s wlasciciel_intro @initiator"
+                    ],
+                    "buttons": [
+                        {
+                            "name": "...Wracając",
+                            "commands": [
+                                "/dialogue open @s @initiator wlasciciel_intro"
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "scene_tag": "wlasciciel_test_false",
+                    "npc_name": "§7Właściciel Gospody",
+                    "text": "Nie prubój mnie nawet okłamywać.",
+                    "on_close_commands": [
+                        "/dialogue change @s wlasciciel_intro @initiator"
+                    ],
+                    "buttons": [
+                        {
+                            "name": "Oh..."
+                        }
+                    ]
+                },
+                {
+                    "scene_tag": "wlasciciel_test_end",
+                    "npc_name": "§7Właściciel Gospody",
+                    "text": "Już próbowałeś podać mi kod, ale mówiłeś jakieś losowe słowa. §7Jeśli wybrałeś błędnie możesz zwrócić się do administratora",
+                    "on_close_commands": [
+                        "/dialogue change @s wlasciciel_intro @initiator"
+                    ],
+                    "buttons": [
+                        {
+                            "name": "...Wracając",
+                            "commands": [
+                                "/dialogue open @s @initiator wlasciciel_intro"
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
+    }
