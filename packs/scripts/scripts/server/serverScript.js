@@ -243,6 +243,17 @@ systemServer.initialize = function() {
 systemServer.update = function () {
  	this.counter++;
  	if (this.counter === 100) {
+ 		let heartQuery = system.registerQuery();
+		system.addFilterToQuery(heartQuery, "minecraft:inventory");
+		let entitiesWithInventory = system.getEntitiesFromQuery(heartQuery);
+		system.log(entitiesWithInventory);
+		for (var myCounter = 0; myCounter < entitiesWithInventory.length; myCounter++) {
+			if (entitiesWithInventory[myCounter].__identifier__ == "korona:heart_of_base") {
+				system.log("znaleziono serce");
+			}
+		}
+
+ 		system.log("working")
  		//every 5 seconds this updater giving effect for entity who have equipped armor
  		commandConvert("effect @a[tag=have_full_soul_armor] speed 5 0 true");
  		commandConvert("effect @a[tag=have_full_soul_armor] strength 5 0 true");

@@ -1,10 +1,23 @@
 var systemServer = server.registerSystem(0, 0);
 var system = systemServer;
 var tickNumber = 0;
+var isAnyCuboid = false
 
 var cuboid1Range = 10;
+let heartData
 
 systemServer.initialize = function() {
+	let heartQuery = system.registerQuery();
+	let countOfHearts = 0
+	system.addFilterToQuery(heartQuery, "minecraft:inventory");
+	entitiesWithInventory = system.getEntitiesFromQuery(heartQuery);
+	system.log(entitiesWithInventory)
+	for (var myCounter = 0; myCounter < entitiesWithInventory.length; myCounter++) {
+		if (entitiesWithInventory[myCounter].__identifier__ == "korona:heart_of_base") {
+			countOfHearts++
+		}
+	}
+
     let globals = system.registerQuery();
 	const scriptLoggerConfig = this.createEventData(
 		'minecraft:script_logger_config'
@@ -14,28 +27,34 @@ systemServer.initialize = function() {
 	scriptLoggerConfig.data.log_warnings = true;
 	this.broadcastEvent('minecraft:script_logger_config', scriptLoggerConfig);
 
-	this.listenForEvent("minecraft:player_placed_block", function(e) {
-		let playerId = e.data.player;
-		let nameComponent = system.getComponent(playerId, "minecraft:nameable");
-  		let playerName = nameComponent.data.name;
-		let blockPosition = e.data.block_position
-		let cuboidPosition = {
-			"block_position": blockPosition,
-			"cuboid_position": {
-				"x": blockPosition.x + cuboid1Range,
-				"y": blockPosition.y + cuboid1Range,
-				"z": blockPosition.z + cuboid1Range,
-				"secondX": blockPosition.x - cuboid1Range,
-				"secondY": blockPosition.y - cuboid1Range,
-				"secondZ": blockPosition.z - cuboid1Range
+	this.listenForEvent("minecraft:entity_created", function(spawningData) {
+  		if (spawningData.data.entity.__identifier__ == "korona:heart_of_base") {
+  			heartData = spawningData.data.entity;
+  		}
+  		system.listenForEvent("minecraft:entity_use_item", function(usingItemData) {
+  			system.log(usingItemData.data)
+			if (usingItemData.data.item_stack.__identifier__ == "korona:heart_of_base_item") {
+				let playerData = usingItemData.data.entity
+				let playerName = system.getComponent(playerData, "minecraft:nameable").data.name;
+				let heartNameData = system.getComponent(heartData, "minecraft:nameable");
+				heartNameData.data.name = "Serce bazy gracza " + playerName;
+				system.applyComponentChanges(heartData, heartNameData);
+
+				isAnyCuboid = true
+  				let heartTags = {
+  					"__type__": "component",
+  					"__identifier__": "minecraft:tag",
+  					"data": []
+  				}
+  				heartTags.data.unshift("tier-0");
+  				heartTags.data.push("player-owner-" + playerName);
+  				if (system.hasComponent(heartData, "minecraft:tag")) {
+  					system.applyComponentChanges(heartData, heartTags);
+  				} else {
+  					system.createComponent(heartTags, "minecraft:tag");
+  				}
 			}
-		}
-		// let test = system.registerQuery();
-		// system.addFilterToQuery(test, "minecraft:scaffolding_climber");
-		// system.log(system.getEntitiesFromQuery(test));
-	    system.addFilterToQuery(globals, nameComponent);
-	    let physics = system.getEntitiesFromQuery(globals);
-	    system.log(physics)
+		});
 	});
 }
 
