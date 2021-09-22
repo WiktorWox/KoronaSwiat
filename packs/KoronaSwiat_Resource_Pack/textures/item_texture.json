@@ -66,6 +66,9 @@
       },
       "soul_pickaxe": {
          "textures" : "textures/items/soul_pickaxe"
+      },
+      "heart_of_base_item": {
+         "textures" : "textures/items/heart_of_base_item"
       }
    },
    "texture_name" : "atlas.items"

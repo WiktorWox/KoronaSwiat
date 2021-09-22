@@ -1,0 +1,20 @@
+{
+  "format_version": "1.16.0",
+  "minecraft:client_entity": {
+    "description": {
+      "identifier": "korona:heart_of_base",
+      "materials": { "default": "cat" },
+      "textures": {
+        "default": "textures/entity/heart_of_base"
+      },
+      "geometry": {
+        "default": "geometry.heart_of_base"
+      },
+      "render_controllers": ["controller.render.heart_of_base"],
+      "spawn_egg": {
+        "base_color": "#949493",
+        "overlay_color": "#651818"
+      }
+    }
+  }
+}

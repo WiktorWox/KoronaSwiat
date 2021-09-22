@@ -13,4 +13,5 @@ tile.korona:armorers_table.name=Armorers table
 tile.korona:armorers_table=nail equipment
 entity.korona:necromancer_archers_skeleton.name=Necromancer archers skeleton
 entity.korona:necromancers_skeleton.name=Necromancers skeleton
+entity.korona:heart_of_base.name=Heart of base
 entity.villager.banker=Banker

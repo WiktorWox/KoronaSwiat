@@ -1,0 +1,14 @@
+{
+    "pools": [
+        {
+            "rolls": 1,
+            "entries": [
+                {
+                    "type": "item",
+                    "name": "korona:heart_of_base_item",
+                    "weight": 1
+                }
+            ]
+        }
+    ]
+}

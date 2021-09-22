@@ -1,0 +1,44 @@
+{
+  "format_version": "1.16.0",
+  "minecraft:entity": {
+    "description": {
+      "identifier": "korona:heart_of_base",
+      "is_spawnable": true,
+      "is_summonable": true,
+      "is_experimental": false
+    },
+    "components": {
+      "minecraft:type_family": {
+        "family": [ "armor_stand", "korona:heart_of_base", "inanimate", "mob" ]
+      },
+      "minecraft:collision_box": {
+        "width": 0.6,
+        "height": 0.6
+      },
+      "minecraft:health": {
+        "value": 2,
+        "max": 2
+      },
+      "minecraft:persistent": {
+      },
+      "minecraft:pushable": {
+        "is_pushable": false,
+        "is_pushable_by_piston": false
+      },
+      "minecraft:conditional_bandwidth_optimization": {
+      },
+      "minecraft:physics": {
+      },
+      "minecraft:inventory": {
+        "container_type": "minecart_hopper",
+        "can_be_siphoned_from": true
+      },
+      "minecraft:loot": {
+        "table": "loot_tables/entities/heart_of_base_loot.json"
+      },
+      "minecraft:nameable": {}
+    },
+    "events": {
+    }
+  }
+}
