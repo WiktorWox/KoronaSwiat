@@ -6,6 +6,18 @@ var isAnyCuboid = false
 var cuboid1Range = 10;
 let heartData
 
+function commandConvert(command) {
+	let commandObject = {
+		"__type__" : "event_data",
+		"data" : {
+			"command" : command
+		},
+		"__identifier__" : "minecraft:execute_command"
+	};
+
+	return system.broadcastEvent("minecraft:execute_command", commandObject);
+}
+
 systemServer.initialize = function() {
 	let heartQuery = system.registerQuery();
 	let countOfHearts = 0
@@ -27,19 +39,35 @@ systemServer.initialize = function() {
 	scriptLoggerConfig.data.log_warnings = true;
 	this.broadcastEvent('minecraft:script_logger_config', scriptLoggerConfig);
 
+	system.listenForEvent("korona:isAnyHeart", function(heartEventData) {
+		isAnyCuboid = true
+	})
+
+	system.listenForEvent("minecraft:entity_move", function(eventData) {
+		if (isAnyCuboid == true) {
+			commandConvert("execute @e[type=korona:heart_of_base, tag=tier-0] ~ ~ ~ gamemode a @a[rm=8, r=10]");
+			commandConvert("execute @e[type=korona:heart_of_base, tag=tier-0] ~ ~ ~ gamemode s @a[rm=10, r=11]");
+			commandConvert("execute @e[type=korona:heart_of_base, tag=tier-1] ~ ~ ~ gamemode a @a[rm=13, r=15]");
+			commandConvert("execute @e[type=korona:heart_of_base, tag=tier-1] ~ ~ ~ gamemode s @a[rm=15, r=16]");
+			commandConvert("execute @e[type=korona:heart_of_base, tag=tier-2] ~ ~ ~ gamemode a @a[rm=17, r=19]");
+			commandConvert("execute @e[type=korona:heart_of_base, tag=tier-2] ~ ~ ~ gamemode s @a[rm=19, r=20]");
+			commandConvert("execute @e[type=korona:heart_of_base, tag=tier-3] ~ ~ ~ gamemode a @a[rm=20, r=22");
+			commandConvert("execute @e[type=korona:heart_of_base, tag=tier-3] ~ ~ ~ gamemode s @a[rm=22, r=23");
+		}
+		system.log(isAnyCuboid)
+	})
+
 	this.listenForEvent("minecraft:entity_created", function(spawningData) {
   		if (spawningData.data.entity.__identifier__ == "korona:heart_of_base") {
   			heartData = spawningData.data.entity;
   		}
   		system.listenForEvent("minecraft:entity_use_item", function(usingItemData) {
-  			system.log(usingItemData.data)
 			if (usingItemData.data.item_stack.__identifier__ == "korona:heart_of_base_item") {
 				let playerData = usingItemData.data.entity
 				let playerName = system.getComponent(playerData, "minecraft:nameable").data.name;
 				let heartNameData = system.getComponent(heartData, "minecraft:nameable");
 				heartNameData.data.name = "Serce bazy gracza " + playerName;
 				system.applyComponentChanges(heartData, heartNameData);
-
 				isAnyCuboid = true
   				let heartTags = {
   					"__type__": "component",
