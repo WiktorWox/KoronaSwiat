@@ -1,0 +1,13 @@
+{
+	"format_version": "1.10",
+	"minecraft:item": {
+		"description": {
+			"identifier": "korona:guild_scroll",
+			"category": "items"
+		},
+		"components": {
+			"minecraft:icon": "guild_scroll",
+			"minecraft:render_offsets": "tools"
+		}
+	}
+}

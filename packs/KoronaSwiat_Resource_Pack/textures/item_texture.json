@@ -69,6 +69,18 @@
       },
       "heart_of_base_item": {
          "textures" : "textures/items/heart_of_base_item"
+      },
+      "guild_scroll": {
+         "textures" : "textures/items/heart_items/guild_scroll"
+      },
+      "blue_energy_rune": {
+         "textures" : "textures/items/heart_items/blue_energy_rune"
+      },
+      "red_energy_rune": {
+         "textures" : "textures/items/heart_items/red_energy_rune"
+      },
+      "purple_energy_rune": {
+         "textures" : "textures/items/heart_items/purple_energy_rune"
       }
    },
    "texture_name" : "atlas.items"

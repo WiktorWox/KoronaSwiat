@@ -1,0 +1,13 @@
+{
+	"format_version": "1.10",
+	"minecraft:item": {
+		"description": {
+			"identifier": "korona:blue_energy_rune",
+			"category": "items"
+		},
+		"components": {
+			"minecraft:icon": "blue_energy_rune",
+			"minecraft:render_offsets": "tools"
+		}
+	}
+}
