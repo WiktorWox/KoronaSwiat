@@ -5,6 +5,47 @@ var playersData = {
 };
 var countOfPlayers = 0;
 var playersNameList = [];
+let isAnyCuboid = false
+let time = 0
+let heartData
+let heartList = []
+
+function tagConverter (tagData) {
+	let returnData = {
+		"id": null,
+		"name": null,
+		"owner": null,
+		"tier": null,
+		"players": [],
+		"upgrades": []
+	}
+	let playerTags = tagData
+	for (var myCounter = 0; myCounter < playerTags.length; myCounter++) {
+		switch (playerTags[myCounter].split("-")[0]) {
+			case "player":
+				let playerName = playerTags[myCounter].split("-")[1];
+				if (playerTags[myCounter].split("-")[1] == "owner") {
+					playerName = playerTags[myCounter].split("-")[2];
+					returnData.owner = playerName;
+				}
+				returnData.players.push(playerName);
+				break;
+			case "tier":
+				returnData.tier = playerTags[myCounter].split("-")[1];
+				break;
+			case "upgrade":
+				returnData.upgrades.push(playerTags[myCounter].split("-")[1]);
+				break;
+			case "name":
+				returnData.name = playerTags[myCounter].split("-")[1];
+				break;
+			case "id":
+				returnData.id = playerTags[myCounter].split("-")[1];
+				break;
+		}
+	}
+	return (returnData)
+}
 
 //command converter. Use "commandConvert("here your command")" to send command in the world
 function commandConvert(command) {
@@ -195,6 +236,10 @@ systemServer.initialize = function() {
 		  	}
 	  	}
 	});
+	system.listenForEvent("korona:isAnyHeart", function(heartEvent) {
+		isAnyCuboid = true
+	});
+
 	system.listenForEvent("minecraft:player_destroyed_block", function(dataOfEvent) {
 		let playerId = dataOfEvent.data.player;
   		let nameComponent = system.getComponent(playerId, "minecraft:nameable");
@@ -235,45 +280,140 @@ systemServer.initialize = function() {
 		}
 	});
 
+	this.listenForEvent("minecraft:entity_death", function(deathData) {
+		if (deathData.data.entity.__identifier__ == "korona:heart_of_base") {
+			let heartTagsData = tagConverter(system.getComponent(deathData.data.entity, "minecraft:tag").data);
+			let message
+			if (heartTagsData.name !== null) {
+				message = '§cSerce bazy gildii "§6' + heartTagsData.name + '§c" zostało zniszczone!'
+			} else if (heartTagsData.players.length > 1) {
+				message = '§cSerce bazy twojej gildii (Której właścicielem jest §6' + heartTagsData.owner + '§c) zostało zniszczone!'
+			} else {
+				message = '§cTwoje serce bazy zostało zniszczone!'
+			}
+			let heartPosition = system.getComponent(deathData.data.entity, "minecraft:position").data
+
+			for (var myCounter = 0; myCounter < heartTagsData.players.length; myCounter++) {
+				commandConvert('tellraw ' + heartTagsData.players[myCounter] + ' {"rawtext":[{"text": "' + message + '"}]}')
+			}
+			if (heartTagsData.tier == 0) {
+				commandConvert('execute @r ' + heartPosition.x + ' ' + heartPosition.y + ' ' + heartPosition.z + ' gamemode s @a[r=10, tag=!admin_mode, m=adventure]');
+			} else if (heartTagsData.tier == 1) {
+				commandConvert('execute @r ' + heartPosition.x + ' ' + heartPosition.y + ' ' + heartPosition.z + ' gamemode s @a[r=10, tag=!admin_mode, m=adventure]');
+			} else if (heartTagsData.tier == 2) {
+				commandConvert('execute @r ' + heartPosition.x + ' ' + heartPosition.y + ' ' + heartPosition.z + ' gamemode s @a[r=10, tag=!admin_mode, m=adventure]');
+			} else if (heartTagsData.tier == 3) {
+				commandConvert('execute @r ' + heartPosition.x + ' ' + heartPosition.y + ' ' + heartPosition.z + ' gamemode s @a[r=10, tag=!admin_mode, m=adventure]');
+			}
+			for (var myCounter = 0; myCounter < heartList.length; myCounter++) {
+				if (heartList[myCounter].id == heartTagsData.id) {
+					heartList.splice(myCounter, 1)
+				}
+			}
+		}
+	})
+
+	this.listenForEvent("minecraft:entity_created", function(spawningData) {
+  		if (spawningData.data.entity.__identifier__ == "korona:heart_of_base") {
+  			heartData = spawningData.data.entity;
+  		}
+	});
+  	system.listenForEvent("minecraft:entity_use_item", function(usingItemData) {
+		if (usingItemData.data.item_stack.__identifier__ == "korona:heart_of_base_item") {
+			let playerData = usingItemData.data.entity
+			let playerName = system.getComponent(playerData, "minecraft:nameable").data.name;
+			let heartNameData = system.getComponent(heartData, "minecraft:nameable");
+			heartNameData.data.name = "Serce bazy gracza " + playerName;
+			system.applyComponentChanges(heartData, heartNameData);
+			isAnyCuboid = true
+  			let heartTags = {
+  				"__type__": "component",
+  				"__identifier__": "minecraft:tag",
+  				"data": []
+  			}
+  			heartTags.data.push("id-" + Math.floor(Math.random()*10).toString() + Math.floor(Math.random()*10).toString() + Math.floor(Math.random()*10).toString() + Math.floor(Math.random()*10).toString() + Math.floor(Math.random()*10).toString() + Math.floor(Math.random()*10).toString())
+  			heartTags.data.unshift("tier-0");
+  			heartTags.data.push("player-owner-" + playerName);
+  			if (system.hasComponent(heartData, "minecraft:tag")) {
+  				system.applyComponentChanges(heartData, heartTags);
+  			} else {
+  				system.createComponent(heartTags, "minecraft:tag");
+  			}
+  			heartList.push(tagConverter(heartTags.data));
+		}
+	});
+
 	this.counter = 0;
 	systemServer.log("initialize finished");
 };
-
-//5 second updater
 systemServer.update = function () {
  	this.counter++;
- 	if (this.counter === 100) {
- 		let heartQuery = system.registerQuery();
-		system.addFilterToQuery(heartQuery, "minecraft:inventory");
-		let entitiesWithInventory = system.getEntitiesFromQuery(heartQuery);
-		system.log(entitiesWithInventory);
-		for (var myCounter = 0; myCounter < entitiesWithInventory.length; myCounter++) {
-			if (entitiesWithInventory[myCounter].__identifier__ == "korona:heart_of_base") {
-				system.log("znaleziono serce");
+	if (isAnyCuboid == true) {
+		for (var myCounter = 0; myCounter < heartList.length; myCounter++) {
+			commandConvert("execute @e[type=korona:heart_of_base, tag=tier-0] ~ ~ ~ gamemode a @a[rm=8, r=10, tag=!admin_mode, m=survival, name=!" + heartList[myCounter].players.toString().replace(/,/g, ', name!=') + "]");
+			commandConvert("execute @e[type=korona:heart_of_base, tag=tier-0] ~ ~ ~ gamemode s @a[rm=10, r=11, tag=!admin_mode, m=adventure, name=!" + heartList[myCounter].players.toString().replace(/,/g, ', name!=') + "]");
+			commandConvert("execute @e[type=korona:heart_of_base, tag=tier-1] ~ ~ ~ gamemode a @a[rm=13, r=15, tag=!admin_mode, m=survival, name=!" + heartList[myCounter].players.toString().replace(/,/g, ', name!=') + "]");
+			commandConvert("execute @e[type=korona:heart_of_base, tag=tier-1] ~ ~ ~ gamemode s @a[rm=15, r=16, tag=!admin_mode, m=adventure, name=!" + heartList[myCounter].players.toString().replace(/,/g, ', name!=') + "]");
+			commandConvert("execute @e[type=korona:heart_of_base, tag=tier-2] ~ ~ ~ gamemode a @a[rm=17, r=19, tag=!admin_mode, m=survival, name=!" + heartList[myCounter].players.toString().replace(/,/g, ', name!=') + "]");
+			commandConvert("execute @e[type=korona:heart_of_base, tag=tier-2] ~ ~ ~ gamemode s @a[rm=19, r=20, tag=!admin_mode, m=adventure, name=!" + heartList[myCounter].players.toString().replace(/,/g, ', name!=') + "]");
+			commandConvert("execute @e[type=korona:heart_of_base, tag=tier-3] ~ ~ ~ gamemode a @a[rm=20, r=22, tag=!admin_mode, m=survival, name=!" + heartList[myCounter].players.toString().replace(/,/g, ', name!=') + "]");
+			commandConvert("execute @e[type=korona:heart_of_base, tag=tier-3] ~ ~ ~ gamemode s @a[rm=22, r=23, tag=!admin_mode, m=adventure, name=!" + heartList[myCounter].players.toString().replace(/,/g, ', name!=') + "]");
+		}
+	}
+	let heartQuery = system.registerQuery();
+	system.addFilterToQuery(heartQuery, "minecraft:inventory");
+	let entitiesWithInventory = system.getEntitiesFromQuery(heartQuery);
+	for (var myCounter = 0; myCounter < entitiesWithInventory.length; myCounter++) {
+		if (entitiesWithInventory[myCounter].__identifier__ == "korona:heart_of_base") {
+			let isInHeartList = false
+			let newHeartData = tagConverter(system.getComponent(entitiesWithInventory[myCounter], "minecraft:tag").data);
+			for (var myCounter2 = 0; myCounter2 < heartList.length; myCounter2++) {
+				if (heartList[myCounter2].id == newHeartData.id) {
+					isInHeartList = true
+				}
+			}
+			if (isInHeartList == false) {
+				heartList.push(newHeartData);
+			}
+			isAnyCuboid = true
+			let heartInventoryData = system.getComponent(entitiesWithInventory[myCounter], "minecraft:inventory_container");
+			for (var inventoryCounter = 0; inventoryCounter < heartInventoryData.data.length; inventoryCounter++) {
+				system.log(heartInventoryData.data)
+				//Here add some heart upgrading items (e.g. "guild scroll")
+				switch (heartInventoryData.data[inventoryCounter].__identifier__) {
+
+				}
 			}
 		}
+	}
+
+ 	if (this.counter === 100) {
+		time++
 
  		system.log("working")
  		//every 5 seconds this updater giving effect for entity who have equipped armor
- 		commandConvert("effect @a[tag=have_full_soul_armor] speed 5 0 true");
- 		commandConvert("effect @a[tag=have_full_soul_armor] strength 5 0 true");
- 		for (var myCounter = 0; myCounter < countOfPlayers; myCounter++) {
- 			let playerId = playersNameList[myCounter];
-	  		let nameComponent = system.getComponent(playerId, "minecraft:nameable");
-	  		let playerName = nameComponent.data.name;
-			let inHandItems = system.getComponent(playerId, "minecraft:hand_container");
-			if (inHandItems.data[0].item == "korona:soul_pickaxe" && playersData[playerId].haveSoulPickaxe == true) {
-				commandConvert("effect " + playerName + " haste 5 3 true");
-			}
-	 		if (playersData[playerId].haveSoulPickaxe == true) {
-	 			playersData[playerId].speedDiggingTime++;
-	 			if (playersData[playerId].speedDiggingTime > 83) {
-	 				playersData[playerId].haveSoulPickaxe = false;
-	 				playersData[playerId].speedDiggingTime = 0;
-	 				commandConvert("title " + playerName + " actionbar Szybkie kopanie się skończyło!");
-	 			}
- 			}
- 		}
+
+ 		//Make ERROR - to rapair//
+
+ 		// commandConvert("effect @a[tag=have_full_soul_armor] speed 5 0 true");
+ 		// commandConvert("effect @a[tag=have_full_soul_armor] strength 5 0 true");
+ 		// for (var myCounter = 0; myCounter < countOfPlayers; myCounter++) {
+ 		// 	let playerId = playersNameList[myCounter];
+	  	// 		let nameComponent = system.getComponent(playerId, "minecraft:nameable");
+	  	// 		let playerName = nameComponent.data.name;
+			// let inHandItems = system.getComponent(playerId, "minecraft:hand_container");
+			// if (inHandItems.data[0].item == "korona:soul_pickaxe" && playersData[playerId].haveSoulPickaxe == true) {
+			// 	commandConvert("effect " + playerName + " haste 5 3 true");
+			// }
+	 	// 	if (playersData[playerId].haveSoulPickaxe == true) {
+	 	// 		playersData[playerId].speedDiggingTime++;
+	 	// 		if (playersData[playerId].speedDiggingTime > 83) {
+	 	// 			playersData[playerId].haveSoulPickaxe = false;
+	 	// 			playersData[playerId].speedDiggingTime = 0;
+	 	// 			commandConvert("title " + playerName + " actionbar Szybkie kopanie się skończyło!");
+	 	// 		}
+ 		// 	}
+ 		// }
  		this.counter = 0;
  	}
 };
