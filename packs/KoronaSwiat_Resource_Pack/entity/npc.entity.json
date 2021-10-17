@@ -28,7 +28,9 @@
 				 "npc_scientist_9": "textures/entity/npc/npc_tymek" ,
 				 "npc_scientist_10": "textures/entity/npc/npc_geralt",
          "npc_tymek": "textures/entity/npc/npc_tymek",
-         "npc_geralt": "textures/entity/npc/npc_geralt"
+         "npc_geralt": "textures/entity/npc/npc_geralt",
+         "npc_ferdynand": "textures/entity/npc/npc_ferdynand",
+         "npc_harry": "textures/entity/npc/npc_harry"
       },
       "geometry": {
         "default": "geometry.npc"

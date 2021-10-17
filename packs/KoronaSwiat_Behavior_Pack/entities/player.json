@@ -12,11 +12,6 @@
           "1", 
           "2"
         ]
-      },
-      "animations": {
-        "0": "controller.animation.0",
-        "1": "controller.animation.death_counter",
-        "2": "controller.animation.kill_counter"
       }
     },
     "component_groups": {
@@ -51,20 +46,6 @@
         },
         "minecraft:spell_effects": {
           "remove_effects": "bad_omen"
-        }
-      },
-      "marked_player": {
-        "minecraft:is_saddled": {},
-        "minecraft:timer": {
-          "time": [
-            2.0,
-2.0
-          ],
-          "looping": false,
-          "time_down_event": {
-            "event": "event_mark_expire",
-            "target": "self"
-          }
         }
       }
     },
@@ -241,20 +222,6 @@
         "remove": {
           "component_groups": [
 "minecraft:raid_trigger"
-          ]
-        }
-      },
-      "event_marked_player": {
-        "add": {
-          "component_groups": [
-"marked_player"
-          ]
-        }
-      },
-      "event_mark_expire": {
-        "remove": {
-          "component_groups": [
-"marked_player"
           ]
         }
       }

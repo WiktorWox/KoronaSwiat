@@ -78,6 +78,47 @@
                         "name": "Ruszam w drogę!"
                     }
                 ]
+            },
+            {
+                "scene_tag": "harry_intro",
+                "npc_name": "§7Harry",
+                "text": "Witaj! Mam dużo pracy w młynie i chciałbym się zapytać czy mógłbyś zebrać dla mnie miód z uli? Jeśli mi pomożesz, myślę że znajdę czas, aby z tobą porozmawiać",
+                "buttons": [
+                    {
+                        "name": "Chętnie ci pomogę",
+                        "commands": [
+                            "/dialogue open @s @initiator harry_quest_honey",
+                            "/tag @initiator add harry_quest_honey",
+                            "/dialogue change @s @initiator harry_quest_honey2"
+                        ]
+                    },
+                    {
+                        "name": "Może później..."
+                    }
+                ]
+            },
+            {
+                "scene_tag": "harry_quest_honey",
+                "npc_name": "§7Harry",
+                "text": "Świetnie! Proszę, tu masz 4 butelki. Wróć, gdy będą pełne. Jeśli nie zauważyłeś, ule są za polem, idąc drogą dalej",
+                "buttons": [
+                    {
+                        "name": "Zaraz wrócę"
+                    }
+                ]
+            },
+            {
+                "scene_tag": "harry_quest_honey2",
+                "npc_name": "§7Harry",
+                "text": "Masz już miód?",
+                "buttons": [
+                    {
+                        "name": "Proszę, mam go tutaj"
+                    },
+                    {
+                        "name": "Nie, poczekaj jeszcze chwilę"
+                    }
+                ]
             }
         ]
     }
