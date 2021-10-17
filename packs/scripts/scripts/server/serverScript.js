@@ -235,6 +235,15 @@ systemServer.initialize = function() {
 		}
 	});
 
+	system.listenForEvent("minecraft:entity_death", function(deathData) {
+		if (deathData.data.killer.__identifier__ == "minecraft:player" && deathData.data.entity.__identifier__ == "minecraft:player") {
+			let killerName = system.getComponent(deathData.data.killer, "minecraft:nameable").data.name;
+			let entityName = system.getComponent(deathData.data.entity, "minecraft:nameable").data.name;
+			commandConvert(`tellraw @a {"rawtext":[{"text":"[§l§6Hunting Day log§r] Gracz ` + killerName + ` (§cZabójca§r) zabił gracza ` + entityName + ` (§cOfiara§r)"}]}`);
+			commandConvert(`scoreboard players add ` + killerName + ` kills 1`)
+			commandConvert(`scoreboard players add "§6Wszystkie zabójstwa " kills 1`)
+		}
+	});
 	this.counter = 0;
 	systemServer.log("initialize finished");
 };
