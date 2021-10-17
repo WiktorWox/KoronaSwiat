@@ -279,7 +279,6 @@ systemServer.initialize = function() {
 			});
 		}
 	});
-
 	this.listenForEvent("minecraft:entity_death", function(deathData) {
 		if (deathData.data.entity.__identifier__ == "korona:heart_of_base") {
 			let heartTagsData = tagConverter(system.getComponent(deathData.data.entity, "minecraft:tag").data);
@@ -308,6 +307,7 @@ systemServer.initialize = function() {
 			for (var myCounter = 0; myCounter < heartList.length; myCounter++) {
 				if (heartList[myCounter].id == heartTagsData.id) {
 					heartList.splice(myCounter, 1)
+					heartList = heartList.splice(myCounter, 1)
 				}
 			}
 		}
@@ -342,13 +342,62 @@ systemServer.initialize = function() {
   			heartList.push(tagConverter(heartTags.data));
 		}
 	});
-
 	this.counter = 0;
 	systemServer.log("initialize finished");
 };
+	this.counter = 0;
+	systemServer.log("initialize finished");
+};
+
+//5 second updater
+let delayedFunctions = [];
+
+function delayFunction(funct, ticks){
+    delayedFunctions[ticks] = delayedFunctions[ticks] || [];
+    delayedFunctions[ticks].push(funct);
+}
+
+function callDelayedFunctions(){
+	let functions = delayedFunctions.shift();
+	if (functions == undefined) return;
+	functions.forEach(f => f());
+}
+
 systemServer.update = function () {
+    callDelayedFunctions();
+    if(this.counter == 0) system.log("working1");
+ 	if (this.counter % 5 == 0){
+ 		let tagQuery = system.registerQuery();
+		system.addFilterToQuery(tagQuery, "minecraft:tag");
+		let entitiesWithTags = system.getEntitiesFromQuery(tagQuery);
+		for (var myCounter = 0; myCounter < entitiesWithTags.length; myCounter++) {
+			let entityTags = system.getComponent(entitiesWithTags[myCounter], "minecraft:tag").data;
+			for (var myCounter2 = 0; myCounter2 < entityTags.length; myCounter2++) {
+				if (entityTags[myCounter2].split("-")[0] == "tag_event") {
+					let npcTag
+					system.log(entityTags[myCounter2].split("-")[0])
+					//Here you can add events based on minecraft tags. E.g. you adding to entity tag "tag_event-remove_trading" and then in this entity trading is removed
+					switch (entityTags[myCounter2].split("-")[1]) {
+						case "remove_trading":
+							for (var myCounter3 = 0; myCounter3 < entityTags.length; myCounter3++) {
+								if (entityTags[myCounter3].split("_")[0] == "npc") {
+									npcTag = entityTags[myCounter3]
+								}
+							}
+							delayFunction(()=>{
+								commandConvert("event entity @e[tag=" + npcTag + "] korona:add_npc");
+							}, 20 * 5 )
+							break;
+					}
+
+					commandConvert("tag @e[tag=" + npcTag + "] remove " + entityTags[myCounter2])
+				}
+			}
+		}
+ 	}
+
  	this.counter++;
-	if (isAnyCuboid == true) {
+ 	if (isAnyCuboid == true) {
 		for (var myCounter = 0; myCounter < heartList.length; myCounter++) {
 			commandConvert("execute @e[type=korona:heart_of_base, tag=tier-0] ~ ~ ~ gamemode a @a[rm=8, r=10, tag=!admin_mode, m=survival, name=!" + heartList[myCounter].players.toString().replace(/,/g, ', name!=') + "]");
 			commandConvert("execute @e[type=korona:heart_of_base, tag=tier-0] ~ ~ ~ gamemode s @a[rm=10, r=11, tag=!admin_mode, m=adventure, name=!" + heartList[myCounter].players.toString().replace(/,/g, ', name!=') + "]");
@@ -435,7 +484,6 @@ systemServer.update = function () {
 	}
 
  	if (this.counter === 100) {
-		time++
 
  		system.log("working")
  		//every 5 seconds this updater giving effect for entity who have equipped armor
