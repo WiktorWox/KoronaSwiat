@@ -345,9 +345,6 @@ systemServer.initialize = function() {
 	this.counter = 0;
 	systemServer.log("initialize finished");
 };
-	this.counter = 0;
-	systemServer.log("initialize finished");
-};
 
 //5 second updater
 let delayedFunctions = [];
@@ -409,76 +406,78 @@ systemServer.update = function () {
 			commandConvert("execute @e[type=korona:heart_of_base, tag=tier-3] ~ ~ ~ gamemode s @a[rm=22, r=23, tag=!admin_mode, m=adventure, name=!" + heartList[myCounter].players.toString().replace(/,/g, ', name!=') + "]");
 		}
 	}
-	let heartQuery = system.registerQuery();
-	system.addFilterToQuery(heartQuery, "minecraft:inventory");
-	let entitiesWithInventory = system.getEntitiesFromQuery(heartQuery);
-	for (var myCounter = 0; myCounter < entitiesWithInventory.length; myCounter++) {
-		if (entitiesWithInventory[myCounter].__identifier__ == "korona:heart_of_base") {
-			let isInHeartList = false
-			let newHeartData = tagConverter(system.getComponent(entitiesWithInventory[myCounter], "minecraft:tag").data);
-			isAnyCuboid = true
-			let heartInventoryData = system.getComponent(entitiesWithInventory[myCounter], "minecraft:inventory_container");
-			let heartTags = system.getComponent(entitiesWithInventory[myCounter], "minecraft:tag")
-			let isBlueRune = false
-			let isRedRune = false
-			let isPurpleRune = false
-			for (var inventoryCounter = 0; inventoryCounter < heartInventoryData.data.length; inventoryCounter++) {
-				//Here add some heart upgrading items (e.g. "guild scroll")
-				switch (heartInventoryData.data[inventoryCounter].__identifier__) {
-					case "korona:blue_energy_rune":
-						if (newHeartData.tier < 1) {
-							newHeartData.tier = 1
-							for (var playerCounter = 0; playerCounter < newHeartData.players.length; playerCounter++) {
-								commandConvert('tellraw ' + newHeartData.players[playerCounter] + ' {"rawtext":[{"text": "§7Twoje serce bazy ma teraz zasięg 15 bloków (31x31)"}]}')
+	if (this.counter % 5 == 0){
+		let heartQuery = system.registerQuery();
+		system.addFilterToQuery(heartQuery, "minecraft:inventory");
+		let entitiesWithInventory = system.getEntitiesFromQuery(heartQuery);
+		for (var myCounter = 0; myCounter < entitiesWithInventory.length; myCounter++) {
+			if (entitiesWithInventory[myCounter].__identifier__ == "korona:heart_of_base") {
+				let isInHeartList = false
+				let newHeartData = tagConverter(system.getComponent(entitiesWithInventory[myCounter], "minecraft:tag").data);
+				isAnyCuboid = true
+				let heartInventoryData = system.getComponent(entitiesWithInventory[myCounter], "minecraft:inventory_container");
+				let heartTags = system.getComponent(entitiesWithInventory[myCounter], "minecraft:tag")
+				let isBlueRune = false
+				let isRedRune = false
+				let isPurpleRune = false
+				for (var inventoryCounter = 0; inventoryCounter < heartInventoryData.data.length; inventoryCounter++) {
+					//Here add some heart upgrading items (e.g. "guild scroll")
+					switch (heartInventoryData.data[inventoryCounter].__identifier__) {
+						case "korona:blue_energy_rune":
+							if (newHeartData.tier < 1) {
+								newHeartData.tier = 1
+								for (var playerCounter = 0; playerCounter < newHeartData.players.length; playerCounter++) {
+									commandConvert('tellraw ' + newHeartData.players[playerCounter] + ' {"rawtext":[{"text": "§7Twoje serce bazy ma teraz zasięg 15 bloków (31x31)"}]}')
+								}
 							}
-						}
-						isBlueRune = true
-						break
-					case "korona:red_energy_rune":
-						if (newHeartData.tier < 2) {
-							newHeartData.tier = 2
-							for (var playerCounter = 0; playerCounter < newHeartData.players.length; playerCounter++) {
-								commandConvert('tellraw ' + newHeartData.players[playerCounter] + ' {"rawtext":[{"text": "§7Twoje serce bazy ma teraz zasięg 19 bloków (39x39)"}]}')
+							isBlueRune = true
+							break
+						case "korona:red_energy_rune":
+							if (newHeartData.tier < 2) {
+								newHeartData.tier = 2
+								for (var playerCounter = 0; playerCounter < newHeartData.players.length; playerCounter++) {
+									commandConvert('tellraw ' + newHeartData.players[playerCounter] + ' {"rawtext":[{"text": "§7Twoje serce bazy ma teraz zasięg 19 bloków (39x39)"}]}')
+								}
 							}
-						}
-						isRedRune = true
-						break
-					case "korona:purple_energy_rune":
-						if (newHeartData.tier < 3) {
-							newHeartData.tier = 3
-							for (var playerCounter = 0; playerCounter < newHeartData.players.length; playerCounter++) {
-								commandConvert('tellraw ' + newHeartData.players[playerCounter] + ' {"rawtext":[{"text": "§7Twoje serce bazy ma teraz zasięg 22 bloków (45x45). Jest to maksymalny zasięg"}]}')
+							isRedRune = true
+							break
+						case "korona:purple_energy_rune":
+							if (newHeartData.tier < 3) {
+								newHeartData.tier = 3
+								for (var playerCounter = 0; playerCounter < newHeartData.players.length; playerCounter++) {
+									commandConvert('tellraw ' + newHeartData.players[playerCounter] + ' {"rawtext":[{"text": "§7Twoje serce bazy ma teraz zasięg 22 bloków (45x45). Jest to maksymalny zasięg"}]}')
+								}
 							}
-						}
-						isPurpleRune = true
-						break
-				}
-			}
-			if (isBlueRune == false && isRedRune == false && isPurpleRune == false) {
-				if (newHeartData.tier != 0) {
-					for (var playerCounter = 0; playerCounter < newHeartData.players.length; playerCounter++) {
-						commandConvert('tellraw ' + newHeartData.players[playerCounter] + ' {"rawtext":[{"text": "§7Twoje serce bazy ma teraz zasięg 10 bloków (21x21). Jest to minimalny zasięg"}]}')
+							isPurpleRune = true
+							break
 					}
 				}
-				newHeartData.tier = 0
-			} else if (isBlueRune == true && isRedRune == false && isPurpleRune == false) {
-				newHeartData.tier = 1
-			} else if (isRedRune == true && isPurpleRune == false) {
-				newHeartData.tier = 2
-			}
-			for (var tagCounter = 0; tagCounter < heartTags.data.length; tagCounter++) {
-				if (heartTags.data[tagCounter].split("-")[0] == "tier") {
-					heartTags.data.splice(tagCounter, 1, "tier-" + newHeartData.tier.toString())
-					system.applyComponentChanges(entitiesWithInventory[myCounter], heartTags)
+				if (isBlueRune == false && isRedRune == false && isPurpleRune == false) {
+					if (newHeartData.tier != 0) {
+						for (var playerCounter = 0; playerCounter < newHeartData.players.length; playerCounter++) {
+							commandConvert('tellraw ' + newHeartData.players[playerCounter] + ' {"rawtext":[{"text": "§7Twoje serce bazy ma teraz zasięg 10 bloków (21x21). Jest to minimalny zasięg"}]}')
+						}
+					}
+					newHeartData.tier = 0
+				} else if (isBlueRune == true && isRedRune == false && isPurpleRune == false) {
+					newHeartData.tier = 1
+				} else if (isRedRune == true && isPurpleRune == false) {
+					newHeartData.tier = 2
 				}
-			}
-			for (var myCounter2 = 0; myCounter2 < heartList.length; myCounter2++) {
-				if (heartList[myCounter2].id == newHeartData.id) {
-					isInHeartList = true
+				for (var tagCounter = 0; tagCounter < heartTags.data.length; tagCounter++) {
+					if (heartTags.data[tagCounter].split("-")[0] == "tier") {
+						heartTags.data.splice(tagCounter, 1, "tier-" + newHeartData.tier.toString())
+						system.applyComponentChanges(entitiesWithInventory[myCounter], heartTags)
+					}
 				}
-			}
-			if (isInHeartList == false) {
-				heartList.push(newHeartData);
+				for (var myCounter2 = 0; myCounter2 < heartList.length; myCounter2++) {
+					if (heartList[myCounter2].id == newHeartData.id) {
+						isInHeartList = true
+					}
+				}
+				if (isInHeartList == false) {
+					heartList.push(newHeartData);
+				}
 			}
 		}
 	}
