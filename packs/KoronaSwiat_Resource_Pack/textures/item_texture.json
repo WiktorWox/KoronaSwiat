@@ -81,6 +81,9 @@
       },
       "purple_energy_rune": {
          "textures" : "textures/items/heart_items/purple_energy_rune"
+      },
+      "unsealed_guild_scroll": {
+         "textures" : "textures/items/heart_items/unsealed_guild_scroll"
       }
    },
    "texture_name" : "atlas.items"
