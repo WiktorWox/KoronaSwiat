@@ -9,6 +9,17 @@ let isAnyCuboid = false
 let time = 0
 let heartData
 let heartList = []
+let guildGuyIsFounded = false
+
+let guildGuyData = {
+	"__type__": "entity",
+	"__identifier__": "minecraft:npc",
+	"id": 2097175,
+	"__unique_id__": {
+		"64bit_low": 29,
+		"64bit_high": -121
+	}
+}
 
 function tagConverter (tagData) {
 	let returnData = {
@@ -323,7 +334,8 @@ systemServer.initialize = function() {
 			let playerData = usingItemData.data.entity
 			let playerName = system.getComponent(playerData, "minecraft:nameable").data.name;
 			let heartNameData = system.getComponent(heartData, "minecraft:nameable");
-			heartNameData.data.name = "Serce bazy gracza " + playerName;
+			let heartId = Math.floor(Math.random()*10).toString() + Math.floor(Math.random()*10).toString() + Math.floor(Math.random()*10).toString() + Math.floor(Math.random()*10).toString() + Math.floor(Math.random()*10).toString() + Math.floor(Math.random()*10).toString()
+			heartNameData.data.name = `Serce bazy (` + heartId + `)`
 			system.applyComponentChanges(heartData, heartNameData);
 			isAnyCuboid = true
   			let heartTags = {
@@ -331,7 +343,7 @@ systemServer.initialize = function() {
   				"__identifier__": "minecraft:tag",
   				"data": []
   			}
-  			heartTags.data.push("id-" + Math.floor(Math.random()*10).toString() + Math.floor(Math.random()*10).toString() + Math.floor(Math.random()*10).toString() + Math.floor(Math.random()*10).toString() + Math.floor(Math.random()*10).toString() + Math.floor(Math.random()*10).toString())
+  			heartTags.data.push("id-" + heartId)
   			heartTags.data.unshift("tier-0");
   			heartTags.data.push("player-owner-" + playerName);
   			if (system.hasComponent(heartData, "minecraft:tag")) {
@@ -370,11 +382,13 @@ systemServer.update = function () {
 		for (var myCounter = 0; myCounter < entitiesWithTags.length; myCounter++) {
 			let entityTags = system.getComponent(entitiesWithTags[myCounter], "minecraft:tag").data;
 			for (var myCounter2 = 0; myCounter2 < entityTags.length; myCounter2++) {
-				if (entityTags[myCounter2].split("-")[0] == "tag_event") {
+				let splitedEntityTags = entityTags[myCounter2].split("-")
+				if (splitedEntityTags[0] == "tag_event") {
 					let npcTag
-					system.log(entityTags[myCounter2].split("-")[0])
+					let playerName
+					let mode = null
 					//Here you can add events based on minecraft tags. E.g. you adding to entity tag "tag_event-remove_trading" and then in this entity trading is removed
-					switch (entityTags[myCounter2].split("-")[1]) {
+					switch (splitedEntityTags[1]) {
 						case "remove_trading":
 							for (var myCounter3 = 0; myCounter3 < entityTags.length; myCounter3++) {
 								if (entityTags[myCounter3].split("_")[0] == "npc") {
@@ -384,10 +398,173 @@ systemServer.update = function () {
 							delayFunction(()=>{
 								commandConvert("event entity @e[tag=" + npcTag + "] korona:add_npc");
 							}, 20 * 5 )
+							mode = "npcTag"
+							break;
+						case "using_scroll":
+							system.log("used_scroll")
+							mode = "playerName";
+							playerName = system.getComponent(entitiesWithTags[myCounter], "minecraft:nameable").data.name;
+							if (guildGuyIsFounded == true) {
+								let guildGuyTags = system.getComponent(guildGuyData, "minecraft:tag")
+								let playersGuildNumber = 0
+								for (var myCounter4 = 0; myCounter4 < guildGuyTags.data.length; myCounter4++) {
+									let splitedTags = guildGuyTags.data[myCounter4].split('-')
+									if (splitedTags[0] == "guild" && splitedTags[1] == playerName) {
+										system.log("yes");
+										playersGuildNumber += 1
+									}
+								}
+								system.log('gracz posiada ' + playersGuildNumber + ' gildii');
+								if (playersGuildNumber < 6) {
+									let guildId = Math.floor(Math.random()*(999999 - 100000 + 1)) + 100000
+									commandConvert("tag @e[tag=npc_yalio] add guild-" + playerName + '-no-' + guildId);
+									commandConvert("clear " + playerName + " korona:unsealed_guild_scroll 0 1");
+									commandConvert("give " + playerName + " korona:guild_scroll");
+									commandConvert("give " + playerName + " korona:heart_of_base_item");
+									commandConvert('tellraw ' + playerName + ' {"rawtext":[{"text": "§7 Stworzyłeś gildię o identifikatorze ' + guildId + '. Aby ją aktywować użyj komendy: !guild activate [identifikator gildii] [nazwa gildii] [prefiks gildii]"}]}')
+								} else {
+									commandConvert('tellraw ' + playerName + ' {"rawtext":[{"text": "[§cError§f] §cMożesz posiadać maksymalnie 5 gildii. Aby stworzyć nową, usuń inną używając komendy: §7!guild remove [nazwa gildii lub identifikator]"}]}')
+								}
+							} else {
+								commandConvert('tellraw ' + playerName + ' {"rawtext":[{"text": "[§cError§f] §cNie znaleziono §7Yalio (Dyplomaty) §c. Podejź do niego, aby serwer mógł zapisać jego dane"}]}')
+							}
+							break;
+						case "list_guilds":
+							let guildGuyTags = system.getComponent(guildGuyData, "minecraft:tag").data
+							mode = "playerName";
+							let playerGuilds = []
+							playerName = system.getComponent(entitiesWithTags[myCounter], "minecraft:nameable").data.name;
+							for (var myCounter4 = 0; myCounter4 < guildGuyTags.length; myCounter4++) {
+								let splitedTag = guildGuyTags[myCounter4].split('-')
+								if (splitedTag[0] == 'guild' && splitedTag[1] == playerName){
+									if (splitedTag[2] == "yes") {
+										playerGuilds.push(' §c[§6aktywne: §ftak, §6nazwa: §f' + splitedTag[3] + ', §6prefiks: §f' + splitedTag[4] + ', §6gracze: §f' + splitedTag[5] + ' §6kuboidy: §f' + splitedTag[6] + '§c]')
+									} else if (splitedTag[2] == "no") {
+										playerGuilds.push(' §c[§6aktywne: §fnie, §6id: §f' + splitedTag[3] + '§c]')
+									}
+								}
+							}
+							if (playerGuilds.length !== 0) {
+								commandConvert('tellraw ' + playerName + ' {"rawtext":[{"text": "Posiadasz następujące gildie: ' + playerGuilds + '"}]}')
+							} else {
+								commandConvert('tellraw ' + playerName + ' {"rawtext":[{"text": "Nie posiadasz żadnych gildii"}]}')
+							}
+							break;
+						case "activate_guild":
+							playerName = system.getComponent(entitiesWithTags[myCounter], "minecraft:nameable").data.name;
+							mode = "playerName";
+							if (guildGuyIsFounded == true) {
+								let activatedGuild = undefined
+								let guildGuyTags = system.getComponent(guildGuyData, "minecraft:tag");
+								let duplicatedGuild = false
+								for (var myCounter5 = 0; myCounter5 < guildGuyTags.data.length; myCounter5++) {
+									let splitedTag = guildGuyTags.data[myCounter5].split('-');
+									if (splitedTag[0] == `guild`) {
+										if (splitedTag[3] == splitedEntityTags[3] || splitedTag[4] == splitedEntityTags[4]) {
+											commandConvert('tellraw ' + playerName + ' {"rawtext":[{"text": "[§cError§f] §cGildia o podanej nazwie lub prefiksie już istnieje. Prosimy o ich zmianę"}]}')
+											duplicatedGuild = true
+										}
+									}
+								}
+								if (duplicatedGuild == false) {
+									for (var myCounter5 = 0; myCounter5 < guildGuyTags.data.length; myCounter5++) {
+										let splitedTag = guildGuyTags.data[myCounter5].split('-');
+										if (activatedGuild !== true) {
+											if (splitedTag[0] == `guild` && splitedTag[1] == playerName && splitedTag[2] == `no` && splitedTag[3] == splitedEntityTags[2]) {
+												guildGuyTags.data[myCounter5] = `guild-` + playerName + `-yes-` + splitedEntityTags[3] + `-` + splitedEntityTags[4] + `-` + playerName + `-brak`
+												system.applyComponentChanges(guildGuyData, guildGuyTags)
+												activatedGuild = true
+												commandConvert('tellraw ' + playerName + ' {"rawtext":[{"text": "Aktywowano gildię. Nazywa się ona teraz §6' + splitedEntityTags[3] + '§f i posiada prefiks §6' + splitedEntityTags[4] + '"}]}')
+											} else {
+												activatedGuild = false
+											}
+										}
+									}
+								}
+								if (activatedGuild == false) {
+									commandConvert('tellraw ' + playerName + ' {"rawtext":[{"text": "[§cError§f] §cNie znaleziono gildii o podanym identyfikatorze (guild activate >>' + splitedEntityTags[2] + '<<)"}]}')
+								}
+							} else {
+								commandConvert('tellraw ' + playerName + ' {"rawtext":[{"text": "[§cError§f] §cNie znaleziono §7Yalio (Dyplomaty) §c. Podejź do niego, aby serwer mógł zapisać jego dane"}]}')
+							}
+							break;
+						case "remove_guild":
+							playerName = system.getComponent(entitiesWithTags[myCounter], "minecraft:nameable").data.name;
+							mode = "playerName";
+							if (guildGuyIsFounded == true) {
+								let guildIsFound = false
+								let guildGuyTags = system.getComponent(guildGuyData, "minecraft:tag");
+								for (var myCounter5 = 0; myCounter5 < guildGuyTags.data.length; myCounter5++) {
+									let splitedTag = guildGuyTags.data[myCounter5].split('-');
+									if (splitedTag[0] == `guild` && splitedTag[1] == playerName && splitedTag[3] == splitedEntityTags[2]) {
+										guildIsFound = true;
+										if (splitedTag[2] == "yes") {
+											commandConvert('tellraw ' + playerName + ' {"rawtext":[{"text": "Usunięto gildię o nazwie §6' + splitedTag[3] + '§f[§6' + splitedTag[4] + '§f] i nie jest ona teraz przypisana do serc bazy: §6' + splitedTag[6] + '"}]}')
+										} else if (splitedTag[2] == "no") {
+											commandConvert('tellraw ' + playerName + ' {"rawtext":[{"text": "Usunięto gildię o identyfikatorze §6' + splitedTag[3] + '"}]}')
+										}
+										guildGuyTags.data.splice(myCounter5, 1)
+										system.applyComponentChanges(guildGuyData, guildGuyTags)
+									}
+								}
+							} else {
+								commandConvert('tellraw ' + playerName + ' {"rawtext":[{"text": "[§cError§f] §cNie znaleziono §7Yalio (Dyplomaty) §c. Podejź do niego, aby serwer mógł zapisać jego dane"}]}')
+							}
+							break;
+						case "assign_guild":
+							playerName = system.getComponent(entitiesWithTags[myCounter], "minecraft:nameable").data.name;
+							mode = "playerName";
+							if (guildGuyIsFounded == true) {
+								let guildGuyTags = system.getComponent(guildGuyData, "minecraft:tag");
+								let foundedCuboid = undefined;
+								let guildIsFounded = false;
+								system.log(`siema`)
+								//----TO FINISH. NOT END YET {
+								for (var myCounter5 = 0; myCounter5 < heartList.length; myCounter5++) {
+									if (heartList[myCounter5].id == splitedEntityTags[3] && `guild_scroll` in heartList[myCounter5].upgrades) {
+										if (heartList[myCounter5].owner == playerName) {
+											foundedCuboidNumber = myCounter5
+										} else {
+											commandConvert('tellraw ' + playerName + ' {"rawtext":[{"text": "[§cError§f] §cNie jesteś właścicielem wprowadzonego serca bazy"}]}');
+											foundedCuboid = false
+										}
+									}
+								}
+								if (foundedCuboid !== undefined && foundedCuboid !== false) {
+									for (var myCounter5 = 0; myCounter5 < guildGuyTags.length; myCounter5++) {
+										let splitedTag = guildGuyTags.data[myCounter5].split('-');
+										if (splitedTag[0] == `guild` && splitedTag[3] == splitedEntityTags[2]) {
+											if (splitedTag[2] == `no`) {
+												if (splitedTag[1] == playerName) {
+													system.log(`działa!`)
+												} else {
+													commandConvert('tellraw ' + playerName + ' {"rawtext":[{"text": "[§cError§f] §cNie jesteś właścicielem wprowadzonej gildii"}]}')
+												}
+											} else {
+												commandConvert('tellraw ' + playerName + ' {"rawtext":[{"text": "[§cError§f] §cGildia musi być aktywna"}]}')
+											}
+										}
+									}
+								} else if (foundedCuboid !== false) {
+									commandConvert('tellraw ' + playerName + ' {"rawtext":[{"text": "[§cError§f] §cNie znaleziono wprowadzonego serca bazy. Pamiętaj, że serce bazy musi mieć włożony zwój gildii, aby przypisać do niego gildię"}]}')
+								}
+								//----}
+							} else {
+								commandConvert('tellraw ' + playerName + ' {"rawtext":[{"text": "[§cError§f] §cNie znaleziono §7Yalio (Dyplomaty) §c. Podejź do niego, aby serwer mógł zapisać jego dane"}]}')
+							}
 							break;
 					}
-
-					commandConvert("tag @e[tag=" + npcTag + "] remove " + entityTags[myCounter2])
+					switch (mode) {
+						case "playerName":
+							commandConvert("tag @e[name=" + playerName + "] remove " + entityTags[myCounter2]);
+							break;
+						case "npcTag":
+							commandConvert("tag @e[tag=" + npcTag + "] remove " + entityTags[myCounter2]);
+							break;
+					}
+				} else if (splitedEntityTags[0] == "npc_yalio" && guildGuyIsFounded !== true) {
+					guildGuyData = entitiesWithTags[myCounter]
+					guildGuyIsFounded = true
 				}
 			}
 		}
@@ -420,6 +597,7 @@ systemServer.update = function () {
 				let isBlueRune = false
 				let isRedRune = false
 				let isPurpleRune = false
+				let isGuildScroll = false
 				for (var inventoryCounter = 0; inventoryCounter < heartInventoryData.data.length; inventoryCounter++) {
 					//Here add some heart upgrading items (e.g. "guild scroll")
 					switch (heartInventoryData.data[inventoryCounter].__identifier__) {
@@ -450,6 +628,15 @@ systemServer.update = function () {
 							}
 							isPurpleRune = true
 							break
+						case `korona:guild_scroll`:
+							isGuildScroll = true
+							if (!(`upgrade-guild_scroll` in heartTags.data)) {
+								newHeartData.upgrades.push(`guild_scroll`);
+								heartTags.data.push(`upgrade-guild_scroll`);
+								system.log(`upgrade-guild_scroll` in heartTags.data)
+								system.applyComponentChanges(entitiesWithInventory[myCounter], heartTags)
+							}
+							break;
 					}
 				}
 				if (isBlueRune == false && isRedRune == false && isPurpleRune == false) {
@@ -473,6 +660,14 @@ systemServer.update = function () {
 				for (var myCounter2 = 0; myCounter2 < heartList.length; myCounter2++) {
 					if (heartList[myCounter2].id == newHeartData.id) {
 						isInHeartList = true
+					}
+				}
+				if (isGuildScroll == false && `upgrade-guild_scroll` in heartTags.data) {
+					for (var tagCounter = 0; tagCounter < heartTags.data.length; tagCounter++) {
+						if (heartTags.data[tagCounter] == `upgrade-guild_scroll`) {
+							heartTags.data.splice(tagCounter, 1)
+							system.applyComponentChanges(entitiesWithInventory[myCounter], heartTags)
+						}
 					}
 				}
 				if (isInHeartList == false) {
