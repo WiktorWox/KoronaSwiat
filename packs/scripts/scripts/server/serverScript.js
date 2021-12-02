@@ -10,6 +10,19 @@ let time = 0
 let heartData
 let heartList = []
 let guildGuyIsFounded = false
+let victimIsFounded = false
+let victimData
+
+function getArrow(angle) {
+    angle = angle + 360 * (angle < 0)
+    const directions = ['↑', '↗', '→', '↘', '↓', '↙', '←', '↖'];
+    return directions[Math.round(angle / 45) % 8];
+}
+
+function getRelativeAngle(playerAngle, hunterX, hunterZ, targetX, targetZ) {
+    let targetAngle = Math.atan2(targetX - hunterX, targetZ - hunterZ) * 180 / Math.PI;
+    return -targetAngle - playerAngle;
+}
 
 let guildGuyData = {
 	"__type__": "entity",
@@ -371,6 +384,20 @@ function callDelayedFunctions(){
 	if (functions == undefined) return;
 	functions.forEach(f => f());
 }
+function tier(max1, max2, max3, max4, value) {
+	let tiers = [`§c·····§7`, `§c····§7·`, `§c···§7··`, `§c··§7···`, `§c·§7····`];
+	if (value <= max1) {
+		return tiers[0];
+	} else if (value <= max2) {
+		return tiers[1];
+	} else if (value <= max3) {
+		return tiers[2];
+	} else if (value <= max4) {
+		return tiers[3];
+	} else {
+		return tiers[4];
+	}
+}
 
 systemServer.update = function () {
     callDelayedFunctions();
@@ -428,6 +455,16 @@ systemServer.update = function () {
 							} else {
 								commandConvert('tellraw ' + playerName + ' {"rawtext":[{"text": "[§cError§f] §cNie znaleziono §7Yalio (Dyplomaty) §c. Podejź do niego, aby serwer mógł zapisać jego dane"}]}')
 							}
+							break;
+						case "using_horn":
+							mode = "playerName";
+							playerName = system.getComponent(entitiesWithTags[myCounter], "minecraft:nameable").data.name;
+							let playerPosition = system.getComponent(entitiesWithTags[myCounter], "minecraft:position").data;
+							let victimPosition = system.getComponent(victimData, "minecraft:position").data;
+							let playerRotation = system.getComponent(entitiesWithTags[myCounter], "minecraft:rotation").data;
+							let distance = Math.round(Math.sqrt(Math.pow(Math.abs(victimPosition.x - playerPosition.x), 2) + Math.pow(Math.abs(victimPosition.z - playerPosition.z), 2)))
+							commandConvert('title ' + playerName + ' actionbar ' + tier(5, 35, 85, 200, distance) + ' §2' + distance + `m §6` + getArrow(getRelativeAngle(playerRotation.y, playerPosition.x, playerPosition.z, victimPosition.x, victimPosition.z)));
+
 							break;
 						case "list_guilds":
 							let guildGuyTags = system.getComponent(guildGuyData, "minecraft:tag").data
@@ -565,6 +602,9 @@ systemServer.update = function () {
 				} else if (splitedEntityTags[0] == "npc_yalio" && guildGuyIsFounded !== true) {
 					guildGuyData = entitiesWithTags[myCounter]
 					guildGuyIsFounded = true
+				} else if (splitedEntityTags[0] == "victim" && victimIsFounded !== true) {
+					victimData = entitiesWithTags[myCounter];
+					victimIsFounded = true;
 				}
 			}
 		}
@@ -633,7 +673,6 @@ systemServer.update = function () {
 							if (!(`upgrade-guild_scroll` in heartTags.data)) {
 								newHeartData.upgrades.push(`guild_scroll`);
 								heartTags.data.push(`upgrade-guild_scroll`);
-								system.log(`upgrade-guild_scroll` in heartTags.data)
 								system.applyComponentChanges(entitiesWithInventory[myCounter], heartTags)
 							}
 							break;
