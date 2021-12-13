@@ -4,7 +4,7 @@ time set day
 gamerule dodaylightcycle false
 gamerule pvp true
 scoreboard objectives remove kills
-scoreboard objectives add kills dummy §cZabójstwar
+scoreboard objectives add kills dummy §cZabójstwa
 scoreboard players add "§6Wszystkie zabójstwa " kills 0
 scoreboard objectives setdisplay sidebar kills
 

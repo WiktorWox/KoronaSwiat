@@ -1,4 +1,4 @@
-gamemode s @a
+gamemode s @a[m=adventure]
 gamerule keepinventory false
 gamerule dodaylightcycle true
 gamerule pvp false
