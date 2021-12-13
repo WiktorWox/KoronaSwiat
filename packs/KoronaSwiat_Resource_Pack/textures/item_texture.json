@@ -18,6 +18,9 @@
       },
       "soul": {
          "textures" : "textures/items/soul"
+      },
+      "amulet": {
+         "textures" : "textures/items/amulet"
       }
    },
    "texture_name" : "atlas.items"

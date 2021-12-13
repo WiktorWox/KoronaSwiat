@@ -1,0 +1,13 @@
+{
+	"format_version": "1.10",
+	"minecraft:item": {
+		"description": {
+			"identifier": "korona:amulet",
+			"category": "Items"
+		},
+		"components": {
+			"minecraft:icon": "amulet",
+			"minecraft:render_offsets": "tools"
+		}
+	}
+}
