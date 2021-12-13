@@ -1,0 +1,232 @@
+{
+    "format_version": "1.17",
+    "minecraft:npc_dialogue": {
+        "scenes": [
+            {
+                "scene_tag": "led_intro",
+                "npc_name": "§7Książe Led",
+                "text": "O, witaj. Czekam tu na jakiegoś przybysza od dwóch dni. Myślałem już ze ta wioska jest opuszczona. Zjawiłeś się w samą porę, zostałem okradziony!",
+                "buttons": [
+                    {
+                        "name": "Okradziony?",
+                        "commands": [
+                            "/dialogue open @s @initiator led_quest_amulet"
+                        ]
+                    },
+                    {
+                        "name": "Kim jesteś?",
+                        "commands": [
+                            "/dialogue open @s @initiator led_discription"
+                        ]
+                    },
+                    {
+                        "name": "Kto pytał"
+                    }
+                ]
+            },
+            {
+                "scene_tag": "led_quest_amulet",
+                "npc_name": "§7Książe Led",
+                "text": "Tak, ten badacz Akir ukradł mi mój medalion!",
+                "buttons": [
+                    {
+                        "name": "Akir?",
+                        "commands": [
+                            "/dialogue open @s @initiator led_quest_amulet_akir"
+                        ]
+                    },
+                    {
+                        "name": "Załatwię to",
+                        "commands": [
+                            "/dialogue open @s @initiator led_quest_amulet_1",
+                            "/dialogue change @e[tag=npc_akir] akir_intro @initiator"
+                        ]
+                    },
+                    {
+                        "name": "Odzyskałem go",
+                        "commands": [
+                            "/dialogue open @s @initiator led_quest_amulet_test",
+                            "/tag @initiator add quest",
+                            "/setblock 1459 31 32 redstone_block"
+                        ]
+                    },
+                    {
+                        "name": "Przykro mi"
+                    }
+                ]
+            },
+            {
+                "scene_tag": "led_discription",
+                "npc_name": "§7Książe Led",
+                "text": "Jestem księciem z miasta Helion. Przyjechałem tu z rozkazami kontrolowania badań nad tym czymś co nazywacie areną. A ten łuczarz którego spotkałem po drodze... Znaczy... nieważne",
+                "buttons": [
+                    {
+                        "name": "Gdzie jest Helion?",
+                        "commands": [
+                            "/dialogue open @s @initiator led_discription_helion"
+                        ]
+                    }
+                ]
+            },
+            {
+                "scene_tag": "led_quest_amulet_akir",
+                "npc_name": "§7Książe Led",
+                "text": "Na północnym-zachodzie na pustyni znajduje się dziwna okrągła struktura. Bada ją razem ze swoim przyjacielem",
+                "buttons": [
+                    {
+                        "name": "Pomogę ci",
+                        "commands": [
+                            "/dialogue open @s @initiator led_quest_amulet_1",
+                            "/dialogue change @e[tag=npc_akir] akir_intro @initiator"
+                        ]
+                    }
+                ]
+            },
+            {
+                "scene_tag": "led_quest_amulet_1",
+                "npc_name": "§7Książe Led",
+                "text": "Proszę odzyskaj mój medalion...",
+                "buttons": [
+                    {
+                        "name": "Co bd z tg miał?",
+                        "commands": [
+                            "/dialogue open @s @initiator led_quest_amulet_2"
+                        ]
+                    }
+                ]
+            },
+            {
+                "scene_tag": "led_discription_helion",
+                "npc_name": "§7Książe Led",
+                "text": "Leży daleko na wyspie Helmah. Szkoda że przez następne parę miesięcy nie będę mógł tam wrócić",
+                "buttons": [
+                    {
+                        "name": "Co do kradzieży...",
+                        "commands": [
+                            "/dialogue open @s @initiator led_quest_amulet"
+                        ]
+                    }
+                ]
+            },
+            {
+                "scene_tag": "led_quest_amulet_2",
+                "npc_name": "§7Książe Led",
+                "text": "Mogę zrobić wszystko. Hmmmm… Gdybyś kiedyś zawitał do miasta Helion z którego pochodzę, załatwię to, abyś był tam jak najlepiej traktowany",
+                "buttons": [
+                    {
+                        "name": "Zgoda"
+                    }
+                ]
+            },
+            {
+                "scene_tag": "led_quest_amulet_test",
+                "npc_name": "§7Książe Led",
+                "text": "Daj go tu",
+                "buttons": [
+                    {
+                        "name": "[dalej]",
+                        "commands": [
+                            "/dialogue open @s @initiator[tag=!have_amulet] led_quest_amulet_3",
+                            "/dialogue open @s @initiator[tag=have_amulet] led_quest_amulet_4"
+                        ]
+                    }
+                ]
+            },
+            {
+                "scene_tag": "led_quest_amulet_3",
+                "npc_name": "§7Książe Led",
+                "text": "Serio? Bo to co trzymasz to napewno nie jest mój medalion",
+                "buttons": [
+                    {
+                        "name": "[wróć]",
+                        "commands": [
+                            "/dialogue open @s @initiator led_quest_amulet"
+                        ]
+                    }
+                ]
+            },
+            {
+                "scene_tag": "led_quest_amulet_4",
+                "npc_name": "§7Książe Led",
+                "text": "Nie wiem jak ci dziękować. Bramy Helionu stoją dla ciebie otworem",
+                "buttons": [
+                    {
+                        "name": "Nie ma za co",
+                        "commands": [
+                            "/dialogue open @s @initiator led_talk",
+                            "/dialogue change @s led_talk @a",
+                            "/dialogue change @e[tag=npc_akir] akir_talk @a",
+                            "/kill @e[type=villager, name=badacz]",
+                            "/tag @initiator remove have_amulet"
+                        ]
+                    }
+                ]
+            },
+            {
+                "scene_tag": "led_talk",
+                "npc_name": "§7Książe Led",
+                "text": "Ehhh... Dziwna ta wasza wioska..."
+            },
+            {
+                "scene_tag": "akir_intro",
+                "npc_name": "§7Akir",
+                "text": "Nie widzisz że przeszkadzasz?",
+                "buttons": [
+                    {
+                        "name": "Oddawaj medalion!",
+                        "commands": [
+                            "/dialogue open @s @initiator akir_quest_amulet"
+                        ]
+                    }
+                ]
+            },
+            {
+                "scene_tag": "akir_quest_amulet",
+                "npc_name": "§7Akir",
+                "text": "Chyba sobie żartujesz. Moja rodzina w Helionie głoduje. Kiedy wrócę, sprzedam go i będę miał jedzenia na rok!",
+                "buttons": [
+                    {
+                        "name": "Dam ci jedzenie",
+                        "commands": [
+                            "/dialogue open @s @initiator akir_quest_amulet_1"
+                        ]
+                    },
+                    {
+                        "name": "Ehhh..."
+                    }
+                ]
+            },
+            {
+                "scene_tag": "akir_quest_amulet_1",
+                "npc_name": "§7Akir",
+                "text": "Naprawdę? Byłbym ci bardzo wdzięczny. Jeśli to zrobisz oddam medalion Ledowi. Jeśli zdobędziesz jedzenie zanieś je proszę mojemu przyjacielowi. Myślę że wystarczy 448 chleba",
+                "buttons": [
+                    {
+                        "name": "ILE?!",
+                        "commands": [
+                            "/dialogue open @s @initiator akir_quest_amulet_2"
+                        ]
+                    },
+                    {
+                        "name": "Ok"
+                    }
+                ]
+            },
+            {
+                "scene_tag": "akir_quest_amulet_2",
+                "npc_name": "§7Akir",
+                "text": "Pamiętaj że mam na utrzymaniu całą rodzinę. Zresztą, chcesz ten amulet czy nie",
+                "buttons": [
+                    {
+                        "name": "No ok"
+                    }
+                ]
+            },
+            {
+                "scene_tag": "akir_talk",
+                "npc_name": "§7Akir",
+                "text": "Te ruiny wyglądają ciekawie… A te wyżłobienia… Rytuały? Hmmm…"
+            }
+        ]
+    }
+}
