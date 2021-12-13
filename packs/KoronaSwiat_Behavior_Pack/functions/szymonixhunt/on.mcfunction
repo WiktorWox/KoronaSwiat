@@ -9,3 +9,5 @@ setblock 1265 58 661 redstone_block
 
 gamerule keepinventory true
 gamerule pvp true
+
+fill 199 86 115 197 86 113 air
