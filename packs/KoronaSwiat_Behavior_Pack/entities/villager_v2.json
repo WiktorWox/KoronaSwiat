@@ -9,6 +9,13 @@
     },
 
     "component_groups": {
+      "korona:researcher": {
+        "minecraft:economy_trade_table": {
+          "display_name": "Badacz",
+          "table": "trading/economy_trades/researcher_trades.json",
+          "new_screen": true
+        }
+      },
       "trade_resupply_component_group": {
         "minecraft:trade_resupply": {}
       },
@@ -1622,6 +1629,13 @@
       }
     },
     "events":{
+      "korona:become_researcher": {
+        "add": {
+          "component_groups": [
+            "korona:researcher"
+          ]
+        }
+      },
       "become_witch": {
         "add": {
           "component_groups": [
