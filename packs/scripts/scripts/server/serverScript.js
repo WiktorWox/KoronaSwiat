@@ -362,6 +362,31 @@ systemServer.initialize = function() {
   			if (system.hasComponent(heartData, "minecraft:tag")) {
   				system.applyComponentChanges(heartData, heartTags);
   			} else {
+	system.listenForEvent("minecraft:entity_death", function(deathData) {
+		if (deathData.data.killer.__identifier__ == "minecraft:player" && deathData.data.entity.__identifier__ == "minecraft:player") {
+			let killerName = system.getComponent(deathData.data.killer, "minecraft:nameable").data.name;
+			let entityName = system.getComponent(deathData.data.entity, "minecraft:nameable").data.name;
+			let itemInHand = system.getComponent(deathData.data.killer, "minecraft:hand_container").data[0];
+			let message
+			switch (deathData.data.cause) {
+				case "entity_attack":
+					message = `Gracz §c` + killerName + `§r zadźgał gracza §c` + entityName + `§r za pomocą przedmiotu §6` + itemInHand.item
+					break;
+				case "magic":
+					message = `Gracz §c` + killerName + `§r użył magii aby zabić gracza §c` + entityName + `§r używając przy tym przedmiotu §6` + itemInHand.item
+					break;
+				case "projectile":
+					message = `Gracz §c` + entityName + `§r został zastrzelony przez gracza §c` + killerName + `§r z §6` + itemInHand.item + `§r i użył jako pocisku §6` + deathData.data.projectile_type
+					break;
+				default:
+					system.log("coś nie tak")
+			}
+			commandConvert(`tellraw @a {"rawtext":[{"text":"[§l§6Hunting Day log§r] ` + message + `"}]}`);
+			commandConvert(`scoreboard players add ` + killerName + ` kills 1`)
+			commandConvert(`scoreboard players add "§6Wszystkie zabójstwa " kills 1`)
+			commandConvert(`give ` + killerName + ` korona:players_head`)
+		}
+	});
   				system.createComponent(heartTags, "minecraft:tag");
   			}
   			heartList.push(tagConverter(heartTags.data));
