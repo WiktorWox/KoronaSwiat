@@ -10,6 +10,9 @@
 			"minecraft:foil": false,
 			"minecraft:use_duration": 1,
 			"minecraft:max_stack_size": 1,
+			"minecraft:icon": {
+				"texture": "horn"
+			},
 			"minecraft:display_name": {
 				"value": "Róg Millagornu"
 			},
