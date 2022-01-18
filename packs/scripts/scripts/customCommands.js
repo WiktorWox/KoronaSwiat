@@ -8,6 +8,14 @@ function customCommand(command, msg) {
         case "help":
             Commands.run(`tellraw "${msg.sender.name}" {"rawtext":[{"text":"§6${commandPrefix}spawn §f- Teleportuje gracza z powrotem na spawn\\n§7|spawn\\n§6${commandPrefix}cuboid §f- Zarządza twoimi cuboidami\\n§7|cuboid add [pozycjaX] [pozycjaY] [pozycjaZ] [drugaPozycjaX] [drugaPozycjaY] [drugaPozycjaZ] [nazwaCuboida] [lista graczy z permisją]\\n§6${commandPrefix}help §f- Pokazuje listę komend\\n§7|help"}]}`, World.getDimension("overworld"));
             break;
+        case "horn":
+            try{
+                Commands.run(`execute "${msg.sender.name}" ~ ~ ~ give @s[tag=!victim] korona:horn`, World.getDimension("overworld"));
+            } catch {
+            }
+ 
+            Commands.run(`execute "${msg.sender.name}" ~ ~ ~ tellraw @s[tag=victim] {"rawtext":[{"text":"[§cError§f] §cNie jesteś łowcą"}]}`, World.getDimension("overworld"));
+            break;
         case "guild":
             switch (splitedCommand[1]) {
                 case "activate":
