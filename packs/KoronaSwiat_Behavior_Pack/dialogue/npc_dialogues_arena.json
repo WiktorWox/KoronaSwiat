@@ -25,6 +25,32 @@
                 ]
             },
             {
+                "scene_tag": "led_itemstorage",
+                "npc_name": "§7Książe Led",
+                "text": "Pomyślałem że może masz jakieś bliskie ci przedmioty. Wybierz sobie ich parę, a ja zawiozę je do Helionu gdy będę wracał. Przetrzymam je do czasu, gdy się spotkamy. Co o tym myślisz?",
+                "buttons": [
+                    {
+                        "name": "Chyba wybrałem",
+                        "commands": [
+                            "/dialogue open @s @initiator led_itemstorage2"
+                        ]
+                    },
+                    {
+                        "name": "Nie, dzięki"
+                    }
+                ]
+            },
+            {
+                "scene_tag": "led_itemstorage2",
+                "npc_name": "§7Książe Led",
+                "text": "Jeśli już wybrałeś powiedz o nich mojemu przyjacielowi. Sporządzi on listę przedmiotów które mi dasz. §7Skontaktuj się z §c@Administratorem§7 na discordzie, aby odebrał przedmioty",
+                "buttons": [
+                    {
+                        "name": "Dzięki"
+                    }
+                ]
+            },
+            {
                 "scene_tag": "led_quest_amulet",
                 "npc_name": "§7Książe Led",
                 "text": "Tak, ten badacz Akir ukradł mi mój medalion!",
