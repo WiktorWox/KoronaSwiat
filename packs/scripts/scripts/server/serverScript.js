@@ -13,6 +13,15 @@ let guildGuyIsFounded = false
 let victimIsFounded = false
 let victimData
 
+function updatePlayers(players, numberInList) {
+	heartList[numberInList].players = players
+	for (var myCounter = 0; myCounter < players.length; myCounter++) {
+		if (players[myCounter] !== heartList[numberInList].owner) {
+			commandConvert('tag @e[type=korona:heart_of_base, tag=id-' + heartList[numberInList].id + '] add player-' + players[myCounter]);
+		}
+	}
+}
+
 function getArrow(angle) {
     angle = angle + 360 * (angle < 0)
     const directions = ['↑', '↗', '→', '↘', '↓', '↙', '←', '↖'];
@@ -311,18 +320,11 @@ systemServer.initialize = function() {
 		if (deathData.data.entity.__identifier__ == "korona:heart_of_base") {
 			let heartTagsData = tagConverter(system.getComponent(deathData.data.entity, "minecraft:tag").data);
 			let message
-			if (heartTagsData.name !== null) {
-				message = '§cSerce bazy gildii "§6' + heartTagsData.name + '§c" zostało zniszczone!'
-			} else if (heartTagsData.players.length > 1) {
-				message = '§cSerce bazy twojej gildii (Której właścicielem jest §6' + heartTagsData.owner + '§c) zostało zniszczone!'
-			} else {
-				message = '§cTwoje serce bazy zostało zniszczone!'
+			if (heartTagsData.guilds == null) {
+				message = "§cUWAGA: §7Twoje serce bazy o identyfikatorze §6" + heartTagsData + " §7zostało zniszczone"
 			}
 			let heartPosition = system.getComponent(deathData.data.entity, "minecraft:position").data
 
-			for (var myCounter = 0; myCounter < heartTagsData.players.length; myCounter++) {
-				commandConvert('tellraw ' + heartTagsData.players[myCounter] + ' {"rawtext":[{"text": "' + message + '"}]}')
-			}
 			if (heartTagsData.tier == 0) {
 				commandConvert('execute @r ' + heartPosition.x + ' ' + heartPosition.y + ' ' + heartPosition.z + ' gamemode s @a[r=10, tag=!admin_mode, m=adventure]');
 			} else if (heartTagsData.tier == 1) {
@@ -335,21 +337,18 @@ systemServer.initialize = function() {
 			for (var myCounter = 0; myCounter < heartList.length; myCounter++) {
 				if (heartList[myCounter].id == heartTagsData.id) {
 					if (heartList[myCounter].guilds !== null) {
-						system.log("faza1");
 						let guildGuyTags = system.getComponent(guildGuyData, "minecraft:tag");
 						for (var myCounter5 = 0; myCounter5 < guildGuyTags.data.length; myCounter5++) {
-							system.log("faza2");
 							let splitedTag = guildGuyTags.data[myCounter5].split('-');
-							if (splitedTag[0] == `guild` && splitedTag[1] == heartList[myCounter].owner && splitedTag[3] == heartList[myCounter].name) {
-								system.log("faza3");
+							// (sprawdzanie czy gildia, sprawdzanie czy właściciel serca jest gildii, sprawdzanie czy nazwa jest zgodna)
+							if (splitedTag[0] == `guild` && splitedTag[1] == heartList[myCounter].owner && splitedTag[3] == heartList[myCounter].guilds) {
 								let splitedGuilds = splitedTag[6].split("_")
 								for (var myCounter6 = 0; myCounter6 < splitedGuilds.length; myCounter6++) {
-									system.log("faza4");
 									if (splitedGuilds[myCounter6] == heartList[myCounter].id) {
-										system.log("faza5");
+										message = "§cUWAGA: §7Twoje serce bazy o identyfikatorze §6" + heartTagsData + " §7zostało zniszczone. Gildia o nazwie §6" + heartList[myCounter].guilds + " §7nie jest już przypisana do niego"
 										splitedGuilds.splice(myCounter6, 1);
 										splitedTag[6] = splitedGuilds.toString().replace(/,/g, '_');
-										guildGuyTags[myCounter5] = splitedTag.toString().replace(/,/g, '-');
+										guildGuyTags.data[myCounter5] = splitedTag.toString().replace(/,/g, '-');
 										system.applyComponentChanges(guildGuyData, guildGuyTags);
 									}
 								}
@@ -358,6 +357,9 @@ systemServer.initialize = function() {
 					}
 					heartList = heartList.splice(myCounter, 1)
 				}
+			}
+			for (var myCounter = 0; myCounter < heartTagsData.players.length; myCounter++) {
+				commandConvert('tellraw ' + heartTagsData.players[myCounter] + ' {"rawtext":[{"text": "' + message + '"}]}')
 			}
 		}
 	})
@@ -480,7 +482,7 @@ systemServer.update = function () {
 							mode = "npcTag";
 							break;
 						case "using_scroll":
-							system.log("used_scroll");
+							// system.log("used_scroll");
 							mode = "playerName";
 							playerName = system.getComponent(entitiesWithTags[myCounter], "minecraft:nameable").data.name;
 							if (guildGuyIsFounded == true) {
@@ -489,18 +491,18 @@ systemServer.update = function () {
 								for (var myCounter4 = 0; myCounter4 < guildGuyTags.data.length; myCounter4++) {
 									let splitedTags = guildGuyTags.data[myCounter4].split('-');
 									if (splitedTags[0] == "guild" && splitedTags[1] == playerName) {
-										system.log("yes");
+										// system.log("yes");
 										playersGuildNumber += 1;
 									}
 								}
-								system.log('gracz posiada ' + playersGuildNumber + ' gildii');
+								// system.log('gracz posiada ' + playersGuildNumber + ' gildii');
 								if (playersGuildNumber < 6) {
 									let guildId = Math.floor(Math.random()*(999999 - 100000 + 1)) + 100000;
 									commandConvert("tag @e[tag=npc_yalio] add guild-" + playerName + '-no-' + guildId);
 									commandConvert("clear " + playerName + " korona:unsealed_guild_scroll 0 1");
 									commandConvert("give " + playerName + " korona:guild_scroll");
 									commandConvert("give " + playerName + " korona:heart_of_base_item");
-									commandConvert('tellraw ' + playerName + ' {"rawtext":[{"text": "§7 Stworzyłeś gildię o identifikatorze ' + guildId + '. Aby ją aktywować użyj komendy: !guild activate [identifikator gildii] [nazwa gildii] [prefiks gildii]"}]}');
+									commandConvert('tellraw ' + playerName + ' {"rawtext":[{"text": "§7Stworzyłeś gildię o identifikatorze §c' + guildId + '§7. Aby ją aktywować użyj komendy: !guild activate [identifikator gildii] [nazwa gildii] [prefiks gildii]"}]}');
 								} else {
 									commandConvert('tellraw ' + playerName + ' {"rawtext":[{"text": "[§cError§f] §cMożesz posiadać maksymalnie 5 gildii. Aby stworzyć nową, usuń inną używając komendy: §7!guild remove [nazwa gildii lub identifikator]"}]}');
 								}
@@ -563,7 +565,7 @@ systemServer.update = function () {
 												guildGuyTags.data[myCounter5] = `guild-` + playerName + `-yes-` + splitedEntityTags[3] + `-` + splitedEntityTags[4] + `-` + playerName + `-brak`;
 												system.applyComponentChanges(guildGuyData, guildGuyTags)
 												activatedGuild = true;
-												commandConvert('tellraw ' + playerName + ' {"rawtext":[{"text": "Aktywowano gildię. Nazywa się ona teraz §6' + splitedEntityTags[3] + '§f i posiada prefiks §6' + splitedEntityTags[4] + '"}]}');
+												commandConvert('tellraw ' + playerName + ' {"rawtext":[{"text": "§7Aktywowano gildię. Nazywa się ona teraz §6' + splitedEntityTags[3] + '§7 i posiada prefiks §6' + splitedEntityTags[4] + '"}]}');
 											} else {
 												activatedGuild = false;
 											}
@@ -588,9 +590,9 @@ systemServer.update = function () {
 									if (splitedTag[0] == `guild` && splitedTag[1] == playerName && splitedTag[3] == splitedEntityTags[2]) {
 										guildIsFound = true;
 										if (splitedTag[2] == "yes") {
-											commandConvert('tellraw ' + playerName + ' {"rawtext":[{"text": "Usunięto gildię o nazwie §6' + splitedTag[3] + '§f[§6' + splitedTag[4] + '§f] i nie jest ona teraz przypisana do serc bazy: §6' + splitedTag[6] + '"}]}');
+											commandConvert('tellraw ' + playerName + ' {"rawtext":[{"text": "§7Usunięto gildię o nazwie §6' + splitedTag[3] + '§7[§6' + splitedTag[4] + '§7] i nie jest ona teraz przypisana do serc bazy: §6' + splitedTag[6] + '"}]}');
 										} else if (splitedTag[2] == "no") {
-											commandConvert('tellraw ' + playerName + ' {"rawtext":[{"text": "Usunięto gildię o identyfikatorze §6' + splitedTag[3] + '"}]}');
+											commandConvert('tellraw ' + playerName + ' {"rawtext":[{"text": "§7Usunięto gildię o identyfikatorze §6' + splitedTag[3] + '"}]}');
 										}
 										guildGuyTags.data.splice(myCounter5, 1);
 										system.applyComponentChanges(guildGuyData, guildGuyTags);
@@ -609,9 +611,11 @@ systemServer.update = function () {
 								let guildIsFounded = false;
 								let foundedGuild = false;
 								let foundedCuboidNumber = undefined;
+								let cuboidsId
 								for (var myCounter5 = 0; myCounter5 < heartList.length; myCounter5++) {
 									if (heartList[myCounter5].id == splitedEntityTags[3] && heartList[myCounter5].upgrades.indexOf('guild_scroll') >= 0) {
 										if (heartList[myCounter5].owner == playerName) {
+											cuboidsId = heartList[myCounter5].id;
 											foundedCuboidNumber = myCounter5;
 											foundedCuboid = true;
 										} else {
@@ -620,14 +624,12 @@ systemServer.update = function () {
 										}
 									}
 								}
-								//----TO FINISH. NOT END YET {
 								if (foundedCuboid !== undefined && foundedCuboid !== false) {
 									for (var myCounter5 = 0; myCounter5 < guildGuyTags.data.length; myCounter5++) {
 										let splitedTag = guildGuyTags.data[myCounter5].split('-');
 										if (splitedTag[0] == 'guild' && splitedTag[3] == splitedEntityTags[2]) {
 											if (splitedTag[2] == `yes`) {
 												if (splitedTag[1] == playerName) {
-													system.log(`działa!`);
 													foundedGuild = true;
 													let returnData = undefined;
 													let listOfCuboids = splitedTag[6].split("_");
@@ -639,6 +641,9 @@ systemServer.update = function () {
 														} else {
 															returnData = splitedTag[6] + "_" + splitedEntityTags[3];
 														}
+														listOfPlayers = splitedTag[5].split('_');
+														updatePlayers(listOfPlayers, foundedCuboidNumber)
+														commandConvert('tellraw ' + playerName + ' {"rawtext":[{"text": "§7Przypisałeś/aś serce bazy o identyfikatorze §6' + cuboidsId + ' §7do gildii o nazwie §6' + splitedTag[3] + '§7. Gracze z tej gildii będą mieli teraz dostęp do budowanie na obszarze tego serca bazy"}]}');
 														commandConvert('tag @e[type=korona:heart_of_base, tag=id-' + heartList[foundedCuboidNumber].id + '] add guild-' + splitedTag[3]);
 														heartList[foundedCuboidNumber].guilds = splitedTag[3];
 														guildGuyTags.data[myCounter5] = "guild-" + splitedTag[1] + "-" + splitedTag[2] + "-" + splitedTag[3] + "-" + splitedTag[4] + "-" + splitedTag[5] + "-" + returnData;
@@ -660,7 +665,194 @@ systemServer.update = function () {
 								if (foundedGuild == undefined) {
 									commandConvert('tellraw ' + playerName + ' {"rawtext":[{"text": "[§cError§f] §cGildia o podanej nazwie lub identyfikatorze nie istnieje"}]}');
 								}
-								//----}
+							} else {
+								commandConvert('tellraw ' + playerName + ' {"rawtext":[{"text": "[§cError§f] §cNie znaleziono §7Yalio (Dyplomaty) §c. Podejź do niego, aby serwer mógł zapisać jego dane"}]}');
+							}
+							break;
+						case "unassign_guild":
+							playerName = system.getComponent(entitiesWithTags[myCounter], "minecraft:nameable").data.name;
+							mode = "playerName";
+							if (guildGuyIsFounded == true) {
+								let heartIsFounded = false;
+								let guildIsFounded = false;
+								// system.log("faza0");
+								for (var myCounter8 = 0; myCounter8 < heartList.length; myCounter8++) {
+									if (heartList[myCounter8].id == splitedEntityTags[3]) {
+										heartIsFounded = true;
+										if (heartList[myCounter8].guilds !== null) {
+											// system.log("faza1");
+											let guildGuyTags = system.getComponent(guildGuyData, "minecraft:tag");
+											for (var myCounter5 = 0; myCounter5 < guildGuyTags.data.length; myCounter5++) {
+												// system.log("faza2 - " + guildGuyTags.data[myCounter5]);
+												let splitedTag = guildGuyTags.data[myCounter5].split('-');
+												// (sprawdzanie czy gildia, sprawdzanie czy właściciel serca jest gildii, sprawdzanie czy nazwa jest zgodna)
+												if (splitedTag[0] == `guild` && splitedTag[1] == playerName && splitedTag[3] == splitedEntityTags[2]) {
+													// system.log("faza3");
+													guildIsFounded = true;
+													if (splitedTag[3] == heartList[myCounter8].guilds) {
+														let splitedGuilds = splitedTag[6].split("_");
+														for (var myCounter6 = 0; myCounter6 < splitedGuilds.length; myCounter6++) {
+															// system.log("faza4");
+															if (splitedGuilds[myCounter6] == heartList[myCounter8].id) {
+																let thisHeartTags;
+																let thisHeartData;
+																let heartQuery = system.registerQuery();
+																system.addFilterToQuery(heartQuery, "minecraft:inventory");
+																let entitiesWithInventory = system.getEntitiesFromQuery(heartQuery);
+																for (var myCounter9 = 0; myCounter9 < entitiesWithInventory.length; myCounter9++) {
+																	if (entitiesWithInventory[myCounter9].__identifier__ == "korona:heart_of_base") {
+																		let heartTags = system.getComponent(entitiesWithInventory[myCounter9], "minecraft:tag");
+																		for (var myCounter7 = 0; myCounter7 < heartTags.data.length; myCounter7++) {
+																			let splitedTag = heartTags.data[myCounter7].split("-");
+																			if (splitedTag[0] == "id" && splitedTag[1] == splitedEntityTags[3]) {
+																				thisHeartTags = heartTags;
+																				thisHeartData = entitiesWithInventory[myCounter9];
+																			}
+																		}
+																	}
+																}
+																for (var myCounter9 = 0; myCounter9 < thisHeartTags.data.length; myCounter9++) {
+																	let splitedTag = thisHeartTags.data[myCounter9].split("-");
+																	if (splitedTag[0] == "guild") {
+																		thisHeartTags.data.splice(myCounter9, 1);
+																		system.applyComponentChanges(thisHeartData, thisHeartTags);
+																	}
+																}
+																for (var myCounter9 = 0; myCounter9 < heartList[myCounter8].players.length; myCounter9++) {
+																	let heartPlayer = heartList[myCounter8].players[myCounter9];
+																	if (heartPlayer !== heartList[myCounter8].owner) {
+																		commandConvert('tag @e[tag=id-' + heartList[myCounter8].id + '] remove player-' + heartPlayer);
+																	}
+																}
+																heartList[myCounter8].players = [heartList[myCounter8].owner];
+
+																commandConvert('tellraw ' + playerName + ' {"rawtext":[{"text": "§7Do twojego serca bazy o identyfikatorze §6' + splitedEntityTags[3] + ' §7nie jest już przypisana gildia o nazwie §6' + splitedEntityTags[2] + '"}]}');
+																splitedGuilds.splice(myCounter6, 1);
+
+																heartList[myCounter8].guilds = null;
+																splitedTag[6] = splitedGuilds.toString().replace(/,/g, '_');
+																if (splitedTag[6] == '') {
+																	splitedTag[6] = 'brak'
+																}
+
+																guildGuyTags.data[myCounter5] = splitedTag.toString().replace(/,/g, '-');
+																system.applyComponentChanges(guildGuyData, guildGuyTags);
+																// system.log("faza5 - " + playerName + " - " + entityTags[myCounter2]);
+															}
+														}
+													} else {
+														commandConvert('tellraw ' + playerName + ' {"rawtext":[{"text": "[§cError§f] §cWprowadzona gildia (' + splitedEntityTags[2] + ') nie jest przypisana do wprowadzonego serca bazy (' + splitedEntityTags[3] + ')"}]}');
+													}
+												}
+											}
+										} else {
+											commandConvert('tellraw ' + playerName + ' {"rawtext":[{"text": "[§cError§f] §cDo wprowadzonego serca bazy (' + splitedEntityTags[3] + ') nie jest przypisana żadna gildia"}]}');
+											guildIsFounded = undefined;
+										}
+									}
+								}
+								if (heartIsFounded == false) {
+									commandConvert('tellraw ' + playerName + ' {"rawtext":[{"text": "[§cError§f] §cSerce bazy o wprowadzonym identyfikatorze (' + splitedEntityTags[3] + ') nie istnieje"}]}');
+								} else if (guildIsFounded == false) {
+									commandConvert('tellraw ' + playerName + ' {"rawtext":[{"text": "[§cError§f] §cGildia o podanej nazwie (' + splitedEntityTags[2] + ') nie istnieje lub nie jesteś jej właścicielem"}]}');
+								}
+							} else {
+								commandConvert('tellraw ' + playerName + ' {"rawtext":[{"text": "[§cError§f] §cNie znaleziono §7Yalio (Dyplomaty) §c. Podejź do niego, aby serwer mógł zapisać jego dane"}]}');
+							}
+							break;
+						case "add_player":
+							playerName = system.getComponent(entitiesWithTags[myCounter], "minecraft:nameable").data.name;
+							mode = "playerName";
+							if (guildGuyIsFounded == true) {
+								let guildIsFounded = false;
+								let guildGuyTags = system.getComponent(guildGuyData, "minecraft:tag");
+								for (var myCounter9 = 0; myCounter9 < guildGuyTags.data.length; myCounter9++) {
+									let splitedTag = guildGuyTags.data[myCounter9].split('-');
+									if (splitedTag[0] == 'guild' && splitedTag[3] == splitedEntityTags[2] && splitedTag[1] == playerName) {
+										guildIsFounded = true;
+										let isPlayerInList = false;
+										let splitedPlayers = splitedTag[5].split('_');
+										for (var myCounter10 = 0; myCounter10 < splitedPlayers.length; myCounter10++) {
+											if (splitedPlayers[myCounter10] == splitedEntityTags[3]) {
+												isPlayerInList = true;
+											}
+										}
+										if (isPlayerInList == true) {
+											commandConvert('tellraw ' + playerName + ' {"rawtext":[{"text": "[§cError§f] §cPodany gracz jest już w tej gildii"}]}');
+										} else {
+											let splitedHearts = splitedTag[6].split('_');
+											splitedPlayers.push(splitedEntityTags[3]);
+											commandConvert('tellraw ' + splitedEntityTags[3] + ' {"rawtext":[{"text": "§6Zostałeś dodany do gildii §c' + splitedTag[3] + '§6!"}]}');
+											commandConvert('tellraw ' + playerName + ' {"rawtext":[{"text": "§7Gracz §6' + splitedEntityTags[3] + ' §7został dodany do gildii §6' + splitedTag[3] + '§7!"}]}');
+											for (var myCounter11 = 0; myCounter11 < splitedHearts.length; myCounter11++) {
+												for (var myCounter12 = 0; myCounter12 < heartList.length; myCounter12++) {
+													if (heartList[myCounter12].id == splitedHearts[myCounter11]) {
+														updatePlayers(splitedPlayers, myCounter12);
+													}
+												}
+											}
+											splitedTag[5] = splitedPlayers.toString().replace(/,/g, '_');
+											if (splitedTag[5] == '') {
+												splitedTag[5] = splitedTag[1]
+											}
+											guildGuyTags.data[myCounter9] = splitedTag.toString().replace(/,/g, '-');
+											system.applyComponentChanges(guildGuyData, guildGuyTags);
+										}
+									}
+								}
+								if (guildIsFounded == false) {
+									commandConvert('tellraw ' + playerName + ' {"rawtext":[{"text": "[§cError§f] §cPodana gildia nie istnieje lub nie jesteś jej właścicielem"}]}');
+								}
+							} else {
+								commandConvert('tellraw ' + playerName + ' {"rawtext":[{"text": "[§cError§f] §cNie znaleziono §7Yalio (Dyplomaty) §c. Podejź do niego, aby serwer mógł zapisać jego dane"}]}');
+							}
+							break;
+						case "remove_player":
+							playerName = system.getComponent(entitiesWithTags[myCounter], "minecraft:nameable").data.name;
+							mode = "playerName";
+							if (guildGuyIsFounded == true) {
+								let guildIsFounded = false;
+								let guildGuyTags = system.getComponent(guildGuyData, "minecraft:tag");
+								for (var myCounter9 = 0; myCounter9 < guildGuyTags.data.length; myCounter9++) {
+									let splitedTag = guildGuyTags.data[myCounter9].split('-');
+									if (splitedTag[0] == 'guild' && splitedTag[3] == splitedEntityTags[2] && splitedTag[1] == playerName) {
+										guildIsFounded = true;
+										let isPlayerInList = false;
+										let splitedPlayers = splitedTag[5].split('_');
+										for (var myCounter10 = 0; myCounter10 < splitedPlayers.length; myCounter10++) {
+											if (splitedPlayers[myCounter10] == splitedEntityTags[3]) {
+												if (splitedPlayers[myCounter10] !== splitedTag[1]) {
+													isPlayerInList = true;
+													let splitedHearts = splitedTag[6].split('_');
+													splitedPlayers.splice(myCounter10, 1);
+													commandConvert('tellraw ' + splitedEntityTags[3] + ' {"rawtext":[{"text": "§6Zostałeś usunięty do gildii §c' + splitedTag[3] + '§6!"}]}');
+													commandConvert('tellraw ' + playerName + ' {"rawtext":[{"text": "§7Gracz §6' + splitedEntityTags[3] + ' §7został usunięty z gildii §6' + splitedTag[3] + '§7!"}]}');
+													for (var myCounter11 = 0; myCounter11 < splitedHearts.length; myCounter11++) {
+														for (var myCounter12 = 0; myCounter12 < heartList.length; myCounter12++) {
+															if (heartList[myCounter12].id == splitedHearts[myCounter11]) {
+																updatePlayers(splitedPlayers, myCounter12);
+															}
+														}
+													}
+													splitedTag[5] = splitedPlayers.toString().replace(/,/g, '_');
+													if (splitedTag[5] == '') {
+														splitedTag[5] = splitedTag[1]
+													}
+													guildGuyTags.data[myCounter9] = splitedTag.toString().replace(/,/g, '-');
+													system.applyComponentChanges(guildGuyData, guildGuyTags);
+												} else {
+													commandConvert('tellraw ' + playerName + ' {"rawtext":[{"text": "[§cError§f] §cPodany gracz to właściciel gildii"}]}');
+												}
+											}
+										}
+										if (isPlayerInList == false) {
+											commandConvert('tellraw ' + playerName + ' {"rawtext":[{"text": "[§cError§f] §cPodanego gracza nie ma w gildii"}]}');
+										}
+									}
+								}
+								if (guildIsFounded == false) {
+									commandConvert('tellraw ' + playerName + ' {"rawtext":[{"text": "[§cError§f] §cPodana gildia nie istnieje lub nie jesteś jej właścicielem"}]}');
+								}
 							} else {
 								commandConvert('tellraw ' + playerName + ' {"rawtext":[{"text": "[§cError§f] §cNie znaleziono §7Yalio (Dyplomaty) §c. Podejź do niego, aby serwer mógł zapisać jego dane"}]}');
 							}

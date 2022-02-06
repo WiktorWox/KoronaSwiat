@@ -26,6 +26,21 @@ function customCommand(command, msg) {
                     }
                     break;
                 case "player":
+                    if (splitedCommand[2] == `add`) {
+                        if (splitedCommand[3] !== undefined && splitedCommand[4] !== undefined) {
+                            Commands.run(`tag "${msg.sender.name}" add tag_event-add_player-` + splitedCommand[3] + '-' + splitedCommand[4], World.getDimension("overworld"));
+                        } else {
+                            Commands.run(`tellraw "${msg.sender.name}" {"rawtext":[{"text":"[§cError§f] §cBłąd w składni. Brak nazwy gildii lub gracza"}]}`, World.getDimension("overworld"));
+                        }
+                    } else if (splitedCommand[2] == `remove`) {
+                        if (splitedCommand[3] !== undefined && splitedCommand[4] !== undefined) {
+                            Commands.run(`tag "${msg.sender.name}" add tag_event-remove_player-` + splitedCommand[3] + '-' + splitedCommand[4], World.getDimension("overworld"));
+                        } else {
+                            Commands.run(`tellraw "${msg.sender.name}" {"rawtext":[{"text":"[§cError§f] §cBłąd w składni. Brak nazwy gildii lub gracza"}]}`, World.getDimension("overworld"));
+                        }
+                    } else {
+                        Commands.run(`tellraw "${msg.sender.name}" {"rawtext":[{"text":"[§cError§f] §cBłąd w składni (guild cuboid >>` + splitedCommand[2] + `<<)"}]}`, World.getDimension("overworld"));
+                    }
                     break;
                 case "list":
                     Commands.run(`tag "${msg.sender.name}" add tag_event-list_guilds`, World.getDimension("overworld"));
@@ -41,6 +56,12 @@ function customCommand(command, msg) {
                     if (splitedCommand[2] == `assign`) {
                         if (splitedCommand[3] !== undefined && splitedCommand[4] !== undefined) {
                             Commands.run(`tag "${msg.sender.name}" add tag_event-assign_guild-` + splitedCommand[3] + `-` + splitedCommand[4], World.getDimension("overworld"));
+                        } else {
+                            Commands.run(`tellraw "${msg.sender.name}" {"rawtext":[{"text":"[§cError§f] §cBłąd w składni. Brak identyfikatora gildii lub serca bazy"}]}`, World.getDimension("overworld"));
+                        }
+                    } else if (splitedCommand[2] == `unassign`) {
+                        if (splitedCommand[3] !== undefined && splitedCommand[4] !== undefined) {
+                            Commands.run(`tag "${msg.sender.name}" add tag_event-unassign_guild-` + splitedCommand[3] + `-` + splitedCommand[4], World.getDimension("overworld"));
                         } else {
                             Commands.run(`tellraw "${msg.sender.name}" {"rawtext":[{"text":"[§cError§f] §cBłąd w składni. Brak identyfikatora gildii lub serca bazy"}]}`, World.getDimension("overworld"));
                         }
