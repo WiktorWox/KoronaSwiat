@@ -13,6 +13,20 @@
         "type": "resources",
         "uuid": "684307a9-336d-4a3b-b9fc-f278f60437e7",
         "version": [0, 8, 0]
+        }
+    ],
+    "dependencies": [
+        {
+            "uuid": "1b44c3e0-c747-415a-9aa7-cb440493dfa3",
+            "version": [0, 8, 0]
+        },
+        {
+            "uuid": "b768c32a-c039-410e-8039-62193ced1180",
+            "version": [0, 0, 3]
+        }
+    ],
+    "metdata": {
+        "authors": "WiktorWox",
+        "url": "https://wiktorwox.wixsite.com/koronaswiat"
     }
-  ]
 }

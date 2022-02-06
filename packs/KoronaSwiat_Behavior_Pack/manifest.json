@@ -1,7 +1,7 @@
 {
     "format_version": 2,
     "header": {
-        "description": "Behavior pack for KoronaŚwiat",
+        "description": "Pack for KoronaŚwiat server. This is Behavior pack",
         "name": "§7[v8.0]§r KoronaŚwiat [BP]",
         "uuid": "1b44c3e0-c747-415a-9aa7-cb440493dfa3",
         "version": [0, 8, 0],
@@ -16,5 +16,19 @@
             "uuid": "e83488ef-c86f-4382-b5ff-d707d6608ee5",
             "version": [0, 8, 0]
         }
-    ]
+    ],
+    "dependencies": [
+        {
+            "uuid": "068c0dd1-fdae-41a0-99f9-6660c1d9b2ae",
+            "version": [0, 8, 0]
+        },
+        {
+            "uuid": "b768c32a-c039-410e-8039-62193ced1180",
+            "version": [0, 0, 3]
+        }
+    ],
+    "metdata": {
+        "authors": "WiktorWox",
+        "url": "https://wiktorwox.wixsite.com/koronaswiat"
+    }
 }
