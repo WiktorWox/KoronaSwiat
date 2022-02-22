@@ -84,6 +84,36 @@
       },
       "unsealed_guild_scroll": {
          "textures" : "textures/items/heart_items/unsealed_guild_scroll"
+      },
+      "admin_levitation": {
+         "textures" : "textures/items/admin_ui/admin_levitation"
+      },
+      "admin_invisibility_true": {
+         "textures" : "textures/items/admin_ui/admin_invisibility_true"
+      },
+      "admin_invisibility_false": {
+         "textures" : "textures/items/admin_ui/admin_invisibility_false"
+      },
+      "admin_speed_0": {
+         "textures" : "textures/items/admin_ui/speed/admin_speed_0"
+      },
+      "admin_speed_1": {
+         "textures" : "textures/items/admin_ui/speed/admin_speed_1"
+      },
+      "admin_speed_2": {
+         "textures" : "textures/items/admin_ui/speed/admin_speed_2"
+      },
+      "admin_speed_3": {
+         "textures" : "textures/items/admin_ui/speed/admin_speed_3"
+      },
+      "admin_speed_4": {
+         "textures" : "textures/items/admin_ui/speed/admin_speed_4"
+      },
+      "admin_speed_5": {
+         "textures" : "textures/items/admin_ui/speed/admin_speed_5"
+      },
+      "admin_food": {
+         "textures" : "textures/items/admin_ui/admin_food"
       }
    },
    "texture_name" : "atlas.items"

@@ -1,0 +1,49 @@
+{
+	"format_version": "1.16.100",
+	"minecraft:item": {
+		"description": {
+			"identifier": "korona:admin_speed_3"
+		},
+		"components": {
+			"minecraft:hand_equipped": false,
+			"minecraft:stacked_by_data": true,
+			"minecraft:foil": false,
+			"minecraft:use_duration": 1,
+			"minecraft:max_stack_size": 1,
+			"minecraft:icon": {
+				"texture": "admin_speed_3"
+			},
+			"minecraft:display_name": {
+				"value": "Szybkość (3)"
+			},
+			"minecraft:on_use": {
+				"on_use": {
+					"event": "korona:spd_use"
+				}
+			}
+		},
+		"events": {
+			"korona:spd_use": {
+				"sequence": [
+					{
+    					"run_command": {
+							"command": ["tag @s add adm-spd4"],
+			           		"target": "holder"
+			           	}
+			        },
+			        {
+    					"run_command": {
+							"command": ["tag @s remove adm-spd3"],
+			           		"target": "holder"
+			           	}
+			        },
+			        {
+			        	"transform_item": {
+							"transform": "korona:admin_speed_4"
+						}
+			        }
+			    ]
+			}
+		}
+	}
+}

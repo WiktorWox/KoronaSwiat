@@ -15,6 +15,16 @@
       }
     },
     "component_groups": {
+      "korona:remove_damage": {
+        "minecraft:attack": {
+          "damage": 0
+        }
+      },
+      "korona:add_damage": {
+        "minecraft:attack": {
+          "damage": 1
+        }
+      },
       "minecraft:add_bad_omen": {
         "minecraft:spell_effects": {
           "add_effects": [
@@ -222,6 +232,30 @@
         "remove": {
           "component_groups": [
 "minecraft:raid_trigger"
+          ]
+        }
+      },
+      "korona:remove_damage": {
+        "add": {
+          "component_groups": [
+            "korona:remove_damage"
+          ]
+        },
+        "remove": {
+          "component_groups": [
+            "korona:add_damage"
+          ]
+        }
+      },
+      "korona:add_damage": {
+        "remove": {
+          "component_groups": [
+            "korona:remove_damage"
+          ]
+        },
+        "add": {
+          "component_groups": [
+            "korona:add_damage"
           ]
         }
       }

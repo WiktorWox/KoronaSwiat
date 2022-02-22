@@ -1,0 +1,42 @@
+{
+	"format_version": "1.16.100",
+	"minecraft:item": {
+		"description": {
+			"identifier": "korona:admin_levitation"
+		},
+		"components": {
+			"minecraft:hand_equipped": false,
+			"minecraft:stacked_by_data": true,
+			"minecraft:foil": false,
+			"minecraft:use_duration": 1,
+			"minecraft:max_stack_size": 1,
+			"minecraft:icon": {
+				"texture": "admin_levitation"
+			},
+			"minecraft:cooldown": {
+				"category": "lightning_wand",
+				"duration": 3.5
+			},
+			"minecraft:display_name": {
+				"value": "Lewitacja"
+			},
+			"minecraft:on_use": {
+				"on_use": {
+					"event": "korona:lev_use"
+				}
+			}
+		},
+		"events": {
+			"korona:lev_use": {
+				"sequence": [
+					{
+    					"run_command": {
+							"command": ["effect @s levitation 3 5 true"],
+			           		"target": "holder"
+			           	}
+			        }
+			    ]
+			}
+		}
+	}
+}

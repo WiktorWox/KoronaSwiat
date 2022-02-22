@@ -12,6 +12,7 @@ let heartList = []
 let guildGuyIsFounded = false
 let victimIsFounded = false
 let victimData
+let adminModeData = []
 
 function updatePlayers(players, numberInList) {
 	heartList[numberInList].players = players
@@ -20,6 +21,16 @@ function updatePlayers(players, numberInList) {
 			commandConvert('tag @e[type=korona:heart_of_base, tag=id-' + heartList[numberInList].id + '] add player-' + players[myCounter]);
 		}
 	}
+}
+
+function itemConvert(identifier, count) {
+	let returnData = {
+		"__type__": "item_stack",
+		"__identifier__": identifier,
+		"count": count,
+		"item": identifier
+	}
+	return returnData;
 }
 
 function getArrow(angle) {
@@ -121,9 +132,9 @@ systemServer.initialize = function() {
 	const scriptLoggerConfig = this.createEventData(
 		'minecraft:script_logger_config'
 	);
-	scriptLoggerConfig.data.log_errors = false;
-	scriptLoggerConfig.data.log_information = false;
-	scriptLoggerConfig.data.log_warnings = false;
+	scriptLoggerConfig.data.log_errors = true;
+	scriptLoggerConfig.data.log_information = true;
+	scriptLoggerConfig.data.log_warnings = true;
 	this.broadcastEvent('minecraft:script_logger_config', scriptLoggerConfig);
 	systemServer.log("initialize started");
 
@@ -345,7 +356,7 @@ systemServer.initialize = function() {
 								let splitedGuilds = splitedTag[6].split("_")
 								for (var myCounter6 = 0; myCounter6 < splitedGuilds.length; myCounter6++) {
 									if (splitedGuilds[myCounter6] == heartList[myCounter].id) {
-										message = "§cUWAGA: §7Twoje serce bazy o identyfikatorze §6" + heartTagsData + " §7zostało zniszczone. Gildia o nazwie §6" + heartList[myCounter].guilds + " §7nie jest już przypisana do niego"
+										message = "§cUWAGA: §7Twoje serce bazy o identyfikatorze §6" + heartTagsData.id + " §7zostało zniszczone. Gildia o nazwie §6" + heartList[myCounter].guilds + " §7nie jest już przypisana do niego"
 										splitedGuilds.splice(myCounter6, 1);
 										splitedTag[6] = splitedGuilds.toString().replace(/,/g, '_');
 										guildGuyTags.data[myCounter5] = splitedTag.toString().replace(/,/g, '-');
@@ -456,7 +467,7 @@ function tier(max1, max2, max3, max4, value) {
 
 systemServer.update = function () {
     callDelayedFunctions();
- 	if (this.counter % 5 == 0){
+ 	if (this.counter % 5 == 0) {
  		let tagQuery = system.registerQuery();
 		system.addFilterToQuery(tagQuery, "minecraft:tag");
 		let entitiesWithTags = system.getEntitiesFromQuery(tagQuery);
@@ -857,6 +868,115 @@ systemServer.update = function () {
 								commandConvert('tellraw ' + playerName + ' {"rawtext":[{"text": "[§cError§f] §cNie znaleziono §7Yalio (Dyplomaty) §c. Podejź do niego, aby serwer mógł zapisać jego dane"}]}');
 							}
 							break;
+						case "admin_mode":
+							playerName = system.getComponent(entitiesWithTags[myCounter], "minecraft:nameable").data.name;
+							let adminTags = system.getComponent(entitiesWithTags[myCounter], "minecraft:tag");
+							mode = "playerName";
+							let isAdmin = false;
+							let isAdminMode = false;
+							for (var myCounter9 = 0; myCounter9 < adminTags.data.length; myCounter9++) {
+								if (adminTags.data[myCounter9] == 'admin') {
+									isAdmin = true;
+								}
+								if (adminTags.data[myCounter9] == 'admin_mode') {
+									isAdminMode = true;
+								}
+							}
+							if (isAdmin == true) {
+								if (isAdminMode == false) {
+									let adminInventoryData = system.getComponent(entitiesWithTags[myCounter], "minecraft:inventory_container");
+									let adminHotbarData = system.getComponent(entitiesWithTags[myCounter], "minecraft:hotbar_container");
+									let isAnyItem = false;
+									for (var myCounter10 = 0; myCounter10 < adminInventoryData.data.length; myCounter10++) {
+										if (adminInventoryData.data[myCounter10].__identifier__ !== 'minecraft:undefined') {
+											system.log('jakiś przedmiot1');
+											isAnyItem = true;
+										}
+									}
+									for (var myCounter10 = 0; myCounter10 < adminHotbarData.data.length; myCounter10++) {
+										if (adminHotbarData.data[myCounter10].__identifier__ !== 'minecraft:undefined') {
+											system.log('jakiś przedmiot2');
+											isAnyItem = true;
+										}
+									}
+									if (isAnyItem == true) {
+										commandConvert('tellraw ' + playerName + ' {"rawtext":[{"text": "§cUWAGA: §7W twoim ekwipunku znajdują się przedmioty. Wyciągnij je z ekwipunku i schowaj w bezpieczne miejsce aby ich nie stracić. Upewnij się również czy nie masz założonej zbroi"}]}');
+									} else {
+										let adminPosition = system.getComponent(entitiesWithTags[myCounter], "minecraft:position");
+										commandConvert('give ' + playerName + ' korona:admin_levitation');
+										commandConvert('give ' + playerName + ' korona:admin_food');
+										commandConvert('give ' + playerName + ' korona:admin_invisibility_false');
+										commandConvert('give ' + playerName + ' korona:admin_speed_0');
+										commandConvert('tag ' + playerName + ' add admin_mode');
+										commandConvert('tag ' + playerName + ' add adm-bsc');
+										commandConvert('event entity ' + playerName + ' korona:remove_damage');
+										commandConvert('tellraw ' + playerName + ' {"rawtext":[{"text": "§6TRYB ADMINISTRATORA AKTYWNY"}]}');
+										adminModeData.push({
+											"name": playerName,
+											"position": {
+												"x": adminPosition.data.x,
+												"y": adminPosition.data.y,
+												"z": adminPosition.data.z
+											}
+										})
+									}
+								} else {
+									commandConvert('tellraw ' + playerName + ' {"rawtext":[{"text": "[§cError§f] §cJesteś już w trybie administratora"}]}');
+								}
+							} else {
+								commandConvert('tellraw ' + playerName + ' {"rawtext":[{"text": "[§cError§f] §cNie jesteś administratorem serwera"}]}');
+							}
+							break;
+						case "admin_mode_leave":
+							playerName = system.getComponent(entitiesWithTags[myCounter], "minecraft:nameable").data.name;
+							mode = "playerName";
+
+							let adminTags2 = system.getComponent(entitiesWithTags[myCounter], "minecraft:tag");
+
+							let isAdmin2 = false;
+							let isAdminMode2 = false;
+							for (var myCounter9 = 0; myCounter9 < adminTags2.data.length; myCounter9++) {
+								if (adminTags2.data[myCounter9] == 'admin') {
+									isAdmin2 = true;
+								}
+								if (adminTags2.data[myCounter9] == 'admin_mode') {
+									isAdminMode2 = true;
+								}
+							}
+							if (isAdmin2 == true) {
+								if (isAdminMode2 == true) {
+									let adminPosition = system.getComponent(entitiesWithTags[myCounter], "minecraft:position");
+									let isPlayerData = false;
+									commandConvert('clear ' + playerName);
+									commandConvert('tag ' + playerName + ' remove adm-bsc');
+									commandConvert('tag ' + playerName + ' remove admin_mode');
+									commandConvert('tag ' + playerName + ' remove adm-spd1');
+									commandConvert('tag ' + playerName + ' remove adm-spd2');
+									commandConvert('tag ' + playerName + ' remove adm-spd3');
+									commandConvert('tag ' + playerName + ' remove adm-spd4');
+									commandConvert('tag ' + playerName + ' remove adm-spd5');
+									commandConvert('tag ' + playerName + ' remove adm-inv');
+									commandConvert('event entity ' + playerName + ' korona:add_damage');
+									commandConvert('tellraw ' + playerName + ' {"rawtext":[{"text": "§6TRYB ADMINISTRATORA WYŁĄCZONY"}]}');
+									for (myCounter9 = 0; myCounter9 < adminModeData.length; myCounter9++) {
+										if (adminModeData[myCounter9].name == playerName) {
+											isPlayerData = true;
+											adminPosition.data.x = adminModeData[myCounter9].position.x;
+											adminPosition.data.y = adminModeData[myCounter9].position.y;
+											adminPosition.data.z = adminModeData[myCounter9].position.z;
+											system.applyComponentChanges(entitiesWithTags[myCounter], adminPosition);
+										}
+									}
+									if (isPlayerData == false) {
+										commandConvert('tellraw ' + playerName + ' {"rawtext":[{"text": "[§cError§f] §cNie znaleziono twoich danych na liście. Nie zostajesz przeteleportowany w ostatnie miejsce pobytu"}]}');
+									}
+								} else {
+									commandConvert('tellraw ' + playerName + ' {"rawtext":[{"text": "[§cError§f] §cNie jesteś w trybie administratora"}]}');
+								}
+							} else {
+								commandConvert('tellraw ' + playerName + ' {"rawtext":[{"text": "[§cError§f] §cNie jesteś administratorem serwera"}]}');
+							}
+							break;
 					}
 					switch (mode) {
 						case "playerName":
@@ -872,6 +992,33 @@ systemServer.update = function () {
 				} else if (splitedEntityTags[0] == "victim" && victimIsFounded !== true) {
 					victimData = entitiesWithTags[myCounter];
 					victimIsFounded = true;
+				} else if (splitedEntityTags[0] == "adm") {
+					let playerName = system.getComponent(entitiesWithTags[myCounter], "minecraft:nameable").data.name;
+					switch (splitedEntityTags[1]) {
+						case 'inv':
+							commandConvert('effect ' + playerName + ' invisibility 1 1 true');
+							break;
+						case 'bsc':
+							commandConvert('effect ' + playerName + ' resistance 1 100 true');
+							commandConvert('effect ' + playerName + ' mining_fatigue 1 100 true');
+							commandConvert('effect ' + playerName + ' regeneration 1 100 true');
+							break;
+						case 'spd1':
+							commandConvert('effect ' + playerName + ' speed 1 0 true');
+							break;
+						case 'spd2':
+							commandConvert('effect ' + playerName + ' speed 1 1 true');
+							break;
+						case 'spd3':
+							commandConvert('effect ' + playerName + ' speed 1 2 true');
+							break;
+						case 'spd4':
+							commandConvert('effect ' + playerName + ' speed 1 3 true');
+							break;
+						case 'spd5':
+							commandConvert('effect ' + playerName + ' speed 1 4 true');
+							break;
+					}
 				}
 			}
 		}
@@ -937,7 +1084,13 @@ systemServer.update = function () {
 							break
 						case `korona:guild_scroll`:
 							isGuildScroll = true
-							if (!(`upgrade-guild_scroll` in heartTags.data)) {
+							isGuildScrollInTags = false
+							for (var tagCounter = 0; tagCounter < heartTags.data.length; tagCounter++) {
+								if (heartTags.data[tagCounter] == 'upgrade-guild_scroll') {
+									isGuildScrollInTags = true
+								}
+							}
+							if (isGuildScrollInTags == false) {
 								newHeartData.upgrades.push(`guild_scroll`);
 								heartTags.data.push(`upgrade-guild_scroll`);
 								system.applyComponentChanges(entitiesWithInventory[myCounter], heartTags)

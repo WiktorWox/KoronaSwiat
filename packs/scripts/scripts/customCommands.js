@@ -74,6 +74,12 @@ function customCommand(command, msg) {
                     break;
             }
             break;
+        case 'adm':
+            Commands.run(`tag "${msg.sender.name}" add tag_event-admin_mode`, World.getDimension("overworld"));
+            break;
+        case 'adml':
+            Commands.run(`tag "${msg.sender.name}" add tag_event-admin_mode_leave`, World.getDimension("overworld"));
+            break;
         default:
             Commands.run(`tellraw "${msg.sender.name}" {"rawtext":[{"text":"[§cError§f] §cNie znaleziono komendy! Sprawdź pisownię"}]}`, World.getDimension("overworld"));
             break;
