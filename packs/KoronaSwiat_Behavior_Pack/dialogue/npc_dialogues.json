@@ -3,6 +3,24 @@
         "minecraft:npc_dialogue": {
             "scenes": [
                 {
+                    "scene_tag": "fabuła_intro",
+                    "npc_name": "§6Strefa Fabuły",
+                    "text": "Poznaj sekrety KoronŚwiata. Jeśli grałeś na poprzedniej edycji może znajdziesz tam kogoś znajomego? Możesz znaleść tam różne przedmioty które mogą przydać ci się w Strefie Survival!"
+                },
+                {
+                    "scene_tag": "survival_intro",
+                    "npc_name": "§cStrefa Survival",
+                    "text": "Przetrwaj w losowo generowanym świecie Minecraft. Walcz pomiędzy gildiami i stwórz własną. Zdobywaj i twórz potężne bronie i przedmioty",
+                    "buttons": [
+                        {
+                            "name": "Przepłyń",
+                            "commands": [
+                                "/tp @initiator -729 69 15"
+                            ]
+                        }
+                    ]
+                },
+                {
                     "scene_tag": "tymek_intro",
                     "npc_name": "§7Tymek",
                     "text": "Cześć. Chcesz coś kupić?",
@@ -10,7 +28,8 @@
                         {
                             "name": "Pokaż, co masz",
                             "commands": [
-                                "/dialogue open @s @initiator tymek_shop"
+                                "/event entity @s korona:remove_npc",
+                                "/tag @s add tag_event-remove_trading-tymek_intro"
                             ]
                         },
                         {
@@ -26,24 +45,12 @@
                         {
                             "name": "Pokaż, co masz",
                             "commands": [
-                                "/dialogue open @s @initiator tymek_shop"
+                                "/event entity @s korona:remove_npc",
+                                "/tag @s add tag_event-remove_trading"
                             ]
                         },
                         {
                             "name": "Nie, dzięki"
-                        }
-                    ]
-                },
-                {
-                    "scene_tag": "tymek_shop",
-                    "npc_name": "§7Tymek",
-                    "text": "Niestety nic nie mam do zaoferowania",
-                    "on_close_commands": [
-                        "/dialogue change @e[tag=npc_tymek] tymek_intro @initiator"
-                    ],
-                    "buttons": [
-                        {
-                            "name": "Oh, to cześć"
                         }
                     ]
                 },

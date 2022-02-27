@@ -487,6 +487,12 @@ systemServer.update = function () {
 									npcTag = entityTags[myCounter3];
 								}
 							}
+							system.log("działa");
+							if (splitedEntityTags[2] !== undefined) {
+								delayFunction(()=>{
+									commandConvert("dialogue change @e[tag=" + npcTag + "] " + splitedEntityTags[2]);
+								}, 20 * 5 + 2)
+							}
 							delayFunction(()=>{
 								commandConvert("event entity @e[tag=" + npcTag + "] korona:add_npc");
 							}, 20 * 5 )

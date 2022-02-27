@@ -8,6 +8,13 @@
 			"is_experimental": false
 		},
 		"component_groups": {
+			"korona:tymek_trades": {
+				"minecraft:trade_table": {
+					"display_name": "Tymek",
+					"table": "trading/economy_trades/tymek_trades.json",
+					"new_screen": true
+				}
+			},
 			"korona:npc_component": {
 				"minecraft:npc": {
 					"npc_data": {
@@ -134,6 +141,13 @@
 			}
 		},
 		"events": {
+			"korona:tymek_trades": {
+				"add": {
+					"component_groups": [
+						"korona:tymek_trades"
+					]
+				}
+			},
 			"minecraft:entity_spawned": {
 				"add": {
 					"component_groups": [
