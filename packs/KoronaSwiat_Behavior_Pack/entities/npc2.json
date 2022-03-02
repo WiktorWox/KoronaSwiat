@@ -11,7 +11,14 @@
 			"korona:tymek_trades": {
 				"minecraft:trade_table": {
 					"display_name": "Tymek",
-					"table": "trading/economy_trades/tymek_trades.json",
+					"table": "trading/economy_trades/tymeks_shop.json",
+					"new_screen": true
+				}
+			},
+			"korona:wlasciciel_trades": {
+				"minecraft:trade_table": {
+					"display_name": "Właściciel gospody",
+					"table": "trading/economy_trades/wlasciciels_shop.json",
 					"new_screen": true
 				}
 			},
@@ -79,7 +86,7 @@
 								"variant": 16
 							},
 							{
-									"variant": 17
+								"variant": 17
 							},
 							{
 								"variant": 18
@@ -99,11 +106,6 @@
 			}
 		},
 		"components": {
-			"minecraft:trade_table": {
-				"display_name": "MyNpc",
-				"table": "trading/economy_trades/farmer_trades.json",
-				"new_screen": true
-			},
 			"minecraft:damage_sensor": {
 				"triggers": {
 					"cause": "all",
@@ -141,10 +143,25 @@
 			}
 		},
 		"events": {
+			"korona:remove_trades": {
+				"remove": {
+					"component_groups": [
+						"korona:tymek_trades",
+						"korona:wlasciciel_trades"
+					]
+				}
+			},
 			"korona:tymek_trades": {
 				"add": {
 					"component_groups": [
 						"korona:tymek_trades"
+					]
+				}
+			},
+			"korona:wlasciciel_trades": {
+				"add": {
+					"component_groups": [
+						"korona:wlasciciel_trades"
 					]
 				}
 			},

@@ -1,0 +1,70 @@
+{
+  "format_version": "1.16.100",
+  "minecraft:item": {
+    "description": {
+      "identifier": "korona:beer",
+      "category": "equipment"
+    },
+    "components": {
+      "minecraft:hand_equipped": false,
+      "minecraft:stacked_by_data": true,
+      "minecraft:foil": false,
+      "minecraft:max_stack_size": 1,
+      "minecraft:use_duration": 2,
+      "minecraft:food": {
+        "nutrition": 1,
+        "saturation_modifier": "normal",
+        "can_always_eat": true,
+        "on_consume": {
+          "event": "korona:consume",
+          "target": "self"
+        }
+      },
+      "minecraft:use_animation": "drink",
+      "minecraft:icon": {
+        "texture": "beer"
+      },
+      "minecraft:display_name": {
+        "value": "Kufel piwa"
+      }
+    },
+    "events": {
+      "korona:consume": {
+        "sequence": [
+          {
+            "add_mob_effect": {
+              "effect": "nausea",
+              "target": "holder",
+              "duration": 6,
+              "amplifier": 5
+            }
+          },
+          {
+            "add_mob_effect": {
+              "effect": "slowness",
+              "target": "holder",
+              "duration": 6,
+              "amplifier": 2
+            }
+          },
+          {
+            "add_mob_effect": {
+              "effect": "blindness",
+              "target": "holder",
+              "duration": 6,
+              "amplifier": 3
+            }
+          },
+          {
+            "add_mob_effect": {
+              "effect": "regeneration",
+              "target": "holder",
+              "duration": 2,
+              "amplifier": 0
+            }
+          }
+        ] 
+      }
+    }
+  }
+}

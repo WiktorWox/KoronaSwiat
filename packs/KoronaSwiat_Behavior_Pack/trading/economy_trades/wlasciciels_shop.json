@@ -1,0 +1,216 @@
+{
+  "tiers": [
+    {
+      "total_exp_required": 0,
+      "groups": [
+        {
+          "num_to_select": 1,
+          "trades": [
+            {
+              "wants": [
+                {
+                  "item": "korona:coronacoin",
+                  "quantity": 4,
+                  "price_multiplier": 0
+                }
+              ],
+              "gives": [
+                {
+                  "item": "minecraft:potion",
+                  "quantity": 6
+                }
+              ],
+              "trader_exp": 2,
+              "max_uses": 1000,
+              "reward_exp": false
+            }
+          ]
+        },
+        {
+          "num_to_select": 1,
+          "trades": [
+            {
+              "wants": [
+                {
+                  "item": "korona:coronacoin",
+                  "quantity": 10,
+                  "price_multiplier": 0
+                }
+              ],
+              "gives": [
+                {
+                  "item": "korona:earl_grey",
+                  "quantity": 1
+                }
+              ],
+              "trader_exp": 3,
+              "max_uses": 1000,
+              "reward_exp": false
+            }
+          ]
+        },
+        {
+          "num_to_select": 1,
+          "trades": [
+            {
+              "wants": [
+                {
+                  "item": "korona:coronacoin",
+                  "quantity": 12,
+                  "price_multiplier": 0
+                }
+              ],
+              "gives": [
+                {
+                  "item": "korona:green_tea",
+                  "quantity": 1
+                }
+              ],
+              "trader_exp": 3,
+              "max_uses": 1000,
+              "reward_exp": false
+            }
+          ]
+        },
+        {
+          "num_to_select": 1,
+          "trades": [
+            {
+              "wants": [
+                {
+                  "item": "korona:coronacoin",
+                  "quantity": 12,
+                  "price_multiplier": 0
+                }
+              ],
+              "gives": [
+                {
+                  "item": "korona:yunnan",
+                  "quantity": 1
+                }
+              ],
+              "trader_exp": 3,
+              "max_uses": 1000,
+              "reward_exp": false
+            }
+          ]
+        },
+        {
+          "num_to_select": 1,
+          "trades": [
+            {
+              "wants": [
+                {
+                  "item": "korona:coronacoin",
+                  "quantity": 16,
+                  "price_multiplier": 0
+                }
+              ],
+              "gives": [
+                {
+                  "item": "korona:yerba",
+                  "quantity": 1
+                }
+              ],
+              "trader_exp": 3,
+              "max_uses": 1000,
+              "reward_exp": false
+            }
+          ]
+        },
+        {
+          "num_to_select": 1,
+          "trades": [
+            {
+              "wants": [
+                {
+                  "item": "korona:coronacoin",
+                  "quantity": 8,
+                  "price_multiplier": 0
+                }
+              ],
+              "gives": [
+                {
+                  "item": "korona:beer",
+                  "quantity": 1
+                }
+              ],
+              "trader_exp": 3,
+              "max_uses": 1000,
+              "reward_exp": false
+            }
+          ]
+        },
+        {
+          "num_to_select": 1,
+          "trades": [
+            {
+              "wants": [
+                {
+                  "item": "korona:coronacoin",
+                  "quantity": 9,
+                  "price_multiplier": 0
+                }
+              ],
+              "gives": [
+                {
+                  "item": "minecraft:rabbit_stew",
+                  "quantity": 1
+                }
+              ],
+              "trader_exp": 3,
+              "max_uses": 1000,
+              "reward_exp": false
+            }
+          ]
+        },
+        {
+          "num_to_select": 1,
+          "trades": [
+            {
+              "wants": [
+                {
+                  "item": "korona:coronacoin",
+                  "quantity": 10,
+                  "price_multiplier": 0
+                }
+              ],
+              "gives": [
+                {
+                  "item": "minecraft:cooked_fish",
+                  "quantity": 1
+                }
+              ],
+              "trader_exp": 3,
+              "max_uses": 1000,
+              "reward_exp": false
+            }
+          ]
+        },
+        {
+          "num_to_select": 1,
+          "trades": [
+            {
+              "wants": [
+                {
+                  "item": "korona:coronacoin",
+                  "quantity": 6,
+                  "price_multiplier": 0
+                }
+              ],
+              "gives": [
+                {
+                  "item": "minecraft:pumpkin_pie",
+                  "quantity": 1
+                }
+              ],
+              "trader_exp": 3,
+              "max_uses": 1000,
+              "reward_exp": false
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

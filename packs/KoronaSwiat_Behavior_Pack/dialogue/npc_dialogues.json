@@ -21,6 +21,81 @@
                     ]
                 },
                 {
+                    "scene_tag": "gospoda_intro",
+                    "npc_name": "§5Gospoda",
+                    "text": "Odpocznij od walk i podróży. Porozmawiaj pokojowo z przyjaciółmi kożystając z kanału §8Dyskusja w gospodzie §rna §9Discordzie§r. Napij się ciepłej herbaty lub dobrego piwa od §7właściciela gospody"
+                },
+                {
+                    "scene_tag": "warsztat_intro",
+                    "npc_name": "§9Warsztat",
+                    "text": "Skorzystaj z stołów i narzędzi w warsztacie aby tworzyć nowe bronie i przedmioty. Przejrzyj oferty kowala §7Tymka§r, a może znajdziesz coś ciekawego"
+                },
+                {
+                    "scene_tag": "survival_intro",
+                    "npc_name": "§cStrefa Survival",
+                    "text": "Przetrwaj w losowo generowanym świecie Minecraft. Walcz pomiędzy gildiami i stwórz własną. Zdobywaj i twórz potężne bronie i przedmioty",
+                    "buttons": [
+                        {
+                            "name": "Przepłyń",
+                            "commands": [
+                                "/tp @initiator -729 69 15"
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "scene_tag": "tymek_intro_beforeprofessions",
+                    "npc_name": "§7Tymek",
+                    "text": "Cześć. Chcesz coś kupić? A może szukasz jakiejś profesji?",
+                    "buttons": [
+                        {
+                            "name": "Pokaż, co masz",
+                            "commands": [
+                                "/event entity @s korona:remove_npc",
+                                "/tag @s add tag_event-remove_trading-tymek_intro"
+                            ]
+                        },
+                        {
+                            "name": "Nie, dzięki"
+                        },
+                        {
+                            "name": "Profesji?",
+                            "commands": [
+                                "/dialogue open @s @initiator tymek_professions_dialogue"
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "scene_tag": "tymek_intro_ks2_beforeprofessions",
+                    "npc_name": "§7Tymek",
+                    "text": "Cześć. Chcesz coś kupić? A może szukasz jakiejś profesji? Czekaj, czy my się nie znamy...?",
+                    "buttons": [
+                        {
+                            "name": "Pokaż, co masz",
+                            "commands": [
+                                "/event entity @s korona:remove_npc",
+                                "/tag @s add tag_event-remove_trading"
+                            ]
+                        },
+                        {
+                            "name": "Nie, dzięki"
+                        },
+                        {
+                            "name": "Profesji?",
+                            "commands": [
+                                "/dialogue open @s @initiator tymek_professions_dialogue"
+                            ]
+                        },
+                        {
+                            "name": "Tymek?",
+                            "commands": [
+                                "/dialogue open @s @initiator tymek_ks2_dialogue"
+                            ]
+                        }
+                    ]
+                },
+                {
                     "scene_tag": "tymek_intro",
                     "npc_name": "§7Tymek",
                     "text": "Cześć. Chcesz coś kupić?",
@@ -34,35 +109,86 @@
                         },
                         {
                             "name": "Nie, dzięki"
+                        },
+                        {
+                            "name": "Profesji?",
+                            "commands": [
+                                "/dialogue open @s @initiator tymek_professions_dialogue"
+                            ]
                         }
                     ]
                 },
                 {
-                    "scene_tag": "tymek_intro2",
+                    "scene_tag": "tymek_intro_ks2",
                     "npc_name": "§7Tymek",
-                    "text": "Cześć. Chcesz coś kupić?",
+                    "text": "Cześć. Chcesz coś kupić? Czekaj, czy my się nie znamy...?",
                     "buttons": [
                         {
                             "name": "Pokaż, co masz",
                             "commands": [
                                 "/event entity @s korona:remove_npc",
-                                "/tag @s add tag_event-remove_trading"
+                                "/tag @s add tag_event-remove_trading-tymek_intro_ks2"
                             ]
                         },
                         {
                             "name": "Nie, dzięki"
+                        },
+                        {
+                            "name": "Profesji?",
+                            "commands": [
+                                "/dialogue open @s @initiator tymek_professions_dialogue"
+                            ]
+                        },
+                        {
+                            "name": "Tymek?",
+                            "commands": [
+                                "/dialogue open @s @initiator tymek_ks2_dialogue"
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "scene_tag": "tymek_professions_dialogue",
+                    "npc_name": "§7Tymek",
+                    "text": "Tak, możesz wybrać swoją ścieżkę którą będziesz podążał. W zależności od profesji możesz posiadać konkretne umiejętności i przedmioty. Może chcesz się dowiedzieć kim mógłbyś zostać?",
+                    "buttons": [
+                        {
+                            "name": "Chętnie",
+                            "commands": [
+                                "/dialogue open @s @initiator proffesions_choosing_paladyn"
+                            ]
+                        },
+                        {
+                            "name": "Może innym razem",
+                            "commands": [
+                                "/dialogue open @s @initiator tymek_intro"
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "scene_tag": "tymek_professions_dialogue2",
+                    "npc_name": "§7Tymek",
+                    "text": "Gratuluję! Mam nadzieję że dobrze wykorzystasz posiadane umiejętności. W moim sklepie możesz kupić zmianę profesji. Mógłbym cię potem przeszkolić na kogoś innego. Nie jest to jednak prosta rzecz i wymaga dużo czasu dlatego będę chciał za to większą kwotę. Może §66 sakiewek KoronaCoinów§r?",
+                    "buttons": [
+                        {
+                            "name": "Do zobaczenia",
+                            "commands": [
+                                "/dialogue open @s @initiator proffesions_choosing_paladyn"
+                            ]
                         }
                     ]
                 },
                 {
                     "scene_tag": "wlasciciel_intro",
                     "npc_name": "§7Właściciel Gospody",
-                    "text": "Witaj, czy mogę ci w czymś pomóc?",
+                    "text": "Witaj, czy mogę ci w czymś pomóc? Mamy duży wybór herbaty",
                     "buttons": [
                         {
-                            "name": "Pokaż, co masz",
+                            "name": "Masz coś dobrgo?",
                             "commands": [
-                                "/dialogue open @s @initiator tymek_shop"
+                                "/event entity @s korona:remove_npc",
+                                "/tag @s add tag_event-remove_trading-wlasciciel_intro"
                             ]
                         },
                         {
@@ -87,30 +213,104 @@
                 {
                     "scene_tag": "wlasciciel_town_dialogue",
                     "npc_name": "§7Właściciel Gospody",
-                    "text": "Witaj, czy mogę ci w czymś pomóc?",
+                    "text": "W mojej gospodzie a gdzie. Niewiem z kąd żeś się urwał, ale jeśli szukasz innych ludzi niż ja i §7Tymek §r, powinieneś zajrzeć §ldo miasta Helion§r. To tą ścieżką na w prost, a na rozwidleniu w lesie w prawo. Potem podążasz cały czas główną ścieżką. Myślę że trafisz. Przydałaby ci się §lmapa§r, a słyszałem że w Helionie jest jakiś kartograf",
                     "buttons": [
                         {
-                            "name": "Pokaż, co masz",
+                            "name": "Dzięki"
+                        },
+                        {
+                            "name": "A oprócz Helionu?",
                             "commands": [
-                                "/dialogue open @s @initiator tymek_shop"
+                                "/dialogue open @s @initiator wlasciciel_island_dialogue"
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "scene_tag": "proffesions_choosing_paladyn",
+                    "npc_name": "PALADYN",
+                    "text": "§8Nie jesteś może wybitnym wojownikiem? A może chcesz nim zostać? W chwale i majestacie przemierzaj świat KoronaŚwiata\n\n§r§lUMIEJĘTNOŚCI§r\n§o§lAtleta§r§8 - Każdy atak zadaje 1 punkt obrażeń więcej (damage)\n\n§r§lPRZEDMIOTY§r\n§o§lMiecz paladyna§r§8 - Standardowy miecz paladyński. Stworzony w najlepszych ludzkich kuźniach z najlepszych niemagicznych metali\n§r§o§lŻelazny napierśnik\n§o2 KoronaCoiny",
+                    "buttons": [
+                        {
+                            "name": "Wróć...",
+                            "commands": [
+                                "/dialogue open @s @initiator tymek_intro"
                             ]
                         },
                         {
-                            "name": "Nie, dziękuję"
-                        },
-                        {
-                            "name": "Gdzie jestem...?",
+                            "name": "<-Poprzednie",
                             "commands": [
-                                "/dialogue open @s @initiator wlasciciel_town_dialogue"
+                                "/dialogue open @s @initiator proffesions_choosing_rzemieslnik"
                             ]
                         },
                         {
-                            "name": "Jestem z 2 edycji",
+                            "name": "Następne->",
                             "commands": [
-                                "/execute @initiator[tag=!2edition, tag=!no2edition] ~ ~ ~ dialogue open @e[tag=npc_wlasciciel] @s wlasciciel_test",
-                                "/execute @initiator[tag=no2edition] ~ ~ ~ dialogue open @e[tag=npc_wlasciciel] @s wlasciciel_test_end",
-                                "/execute @initiator[tag=2edition] ~ ~ ~ dialogue open @e[tag=npc_wlasciciel] @s wlasciciel_test_end"
+                                "/dialogue open @s @initiator proffesions_choosing_rzemieslnik"
                             ]
+                        },
+                        {
+                            "name": "Wybierz",
+                            "commands": [
+                                "/dialogue open @s @initiator tymek_intro"
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "scene_tag": "proffesions_choosing_rzemieslnik",
+                    "npc_name": "RZEMIEŚLNIK",
+                    "text": "§8Wychowałeś się w miejscu gdzie ceniona jest praca fizyczna. Jesteś świetny w wytwarzaniu różnych przedmiotów. Masz również spore doświadczenie w budowie\n\n§r§lUMIEJĘTNOŚCI§r\n§o§lAtleta§r§8 - Każdy atak zadaje 1 punkt obrażeń więcej (damage)\n\n§r§lPRZEDMIOTY§r\n§o§lStół z narzędziami§r§8 - Przenośne stanowisko w którym możesz wytwarzać w prostszy i tańszy sposób przedmioty\n§r§o§lKamienny kilof",
+                    "buttons": [
+                        {
+                            "name": "Wróć...",
+                            "commands": [
+                                "/dialogue open @s @initiator tymek_intro"
+                            ]
+                        },
+                        {
+                            "name": "<-Poprzednie",
+                            "commands": [
+                                "/dialogue open @s @initiator proffesions_choosing_paladyn"
+                            ]
+                        },
+                        {
+                            "name": "Następne->",
+                            "commands": [
+                                "/dialogue open @s @initiator proffesions_choosing_paladyn"
+                            ]
+                        },
+                        {
+                            "name": "Wybierz",
+                            "commands": [
+                                "/dialogue open @s @initiator tymek_intro"
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "scene_tag": "wlasciciel_island_dialogue",
+                    "npc_name": "§7Właściciel Gospody",
+                    "text": "Nie polecam zwiedzać na razie niczego innego niż okolic Helionu i do niego ścieżki, a przynajmniej z twoim wyposażeniem. Jeśli nie zjedzą cię wilki to dopadną cię jakieś dzikusy z lasu",
+                    "buttons": [
+                        {
+                            "name": "OK"
+                        },
+                        {
+                            "name": "Lepszy sprzęt?",
+                            "commands": [
+                                "/dialogue open @s @initiator wlasciciel_tymek_dialogue"
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "scene_tag": "wlasciciel_tymek_dialogue",
+                    "npc_name": "§7Właściciel Gospody",
+                    "text": "Pogadaj z §7Tymkiem§r. Jeśli jeszcze nie zauważyłeś to ma warsztat obok mojej gospody. Możesz również odpłynąć z tąd i zdobyć wyposażenie poza wyspą. Tam jest jednak bardziej niebezpiecznie niż tu",
+                    "buttons": [
+                        {
+                            "name": "Jeszcze raz dzk"
                         }
                     ]
                 },
@@ -118,9 +318,6 @@
                     "scene_tag": "wlasciciel_test",
                     "npc_name": "§7Właściciel Gospody",
                     "text": "Czyżby? Jaki jest kod? §7Masz jedną szansę, możesz również zgłosić uczestnictwo w drugiej edycji u administratora",
-                    "on_close_commands": [
-                        "/dialogue change @s wlasciciel_intro @initiator"
-                    ],
                     "buttons": [
                         {
                             "name": "Nieważne..."
@@ -151,7 +348,10 @@
                             "commands": [
                                 "/dialogue open @s @initiator wlasciciel_test_true",
                                 "/tag @initiator add 2edition",
-                                "/dialogue change @e[tag=npc_geralt] geralt_intro2 @initiator"
+                                "/dialogue change @e[tag=npc_geralt] geralt_intro_ks2 @initiator",
+                                "/dialogue change @e[tag=npc_tymek] tymek_intro_ks2 @initiator",
+                                "/give @initiator korona:coronacoin 23",
+                                "/give @initiator korona:blue_energy_rune 1"
                             ]
                         },
                         {
@@ -166,10 +366,7 @@
                 {
                     "scene_tag": "wlasciciel_test_true",
                     "npc_name": "§7Właściciel Gospody",
-                    "text": "W takim razie musisz spotkać się z §7Tymkiem§r, z tego co wiem też z tamtąd pochodzi",
-                    "on_close_commands": [
-                        "/dialogue change @s wlasciciel_intro @initiator"
-                    ],
+                    "text": "W takim razie musisz spotkać się z §7Tymkiem§r, z tego co wiem też z tamtąd pochodzi. I wiesz co? Myślę że dam ci coś fajnego, wyglądasz na osobę która wiele przeżyła. Proszę, §623 KoronaCoiny §ri jakiś kamień który znalazłem wczoraj na ziemi. Może tobie się jakoś przyda",
                     "buttons": [
                         {
                             "name": "...Wracając",
@@ -183,9 +380,6 @@
                     "scene_tag": "wlasciciel_test_false",
                     "npc_name": "§7Właściciel Gospody",
                     "text": "Nie prubój mnie nawet okłamywać.",
-                    "on_close_commands": [
-                        "/dialogue change @s wlasciciel_intro @initiator"
-                    ],
                     "buttons": [
                         {
                             "name": "Oh..."
@@ -196,9 +390,6 @@
                     "scene_tag": "wlasciciel_test_end",
                     "npc_name": "§7Właściciel Gospody",
                     "text": "Już próbowałeś podać mi kod, ale mówiłeś jakieś losowe słowa. §7Jeśli wybrałeś błędnie możesz zwrócić się do administratora",
-                    "on_close_commands": [
-                        "/dialogue change @s wlasciciel_intro @initiator"
-                    ],
                     "buttons": [
                         {
                             "name": "...Wracając",

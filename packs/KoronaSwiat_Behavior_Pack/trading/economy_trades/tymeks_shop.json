@@ -1,0 +1,216 @@
+{
+  "tiers": [
+    {
+      "total_exp_required": 0,
+      "groups": [
+        {
+          "num_to_select": 1,
+          "trades": [
+            {
+              "wants": [
+                {
+                  "item": "korona:coronacoin",
+                  "quantity": 14,
+                  "price_multiplier": 0
+                }
+              ],
+              "gives": [
+                {
+                  "item": "minecraft:iron_ingot",
+                  "quantity": 4
+                }
+              ],
+              "trader_exp": 0,
+              "max_uses": 1000,
+              "reward_exp": false
+            }
+          ]
+        },
+        {
+          "num_to_select": 1,
+          "trades": [
+            {
+              "wants": [
+                {
+                  "item": "minecraft:raw_gold",
+                  "quantity": 10,
+                  "price_multiplier": 0
+                }
+              ],
+              "gives": [
+                {
+                  "item": "korona:coronacoin",
+                  "quantity":8
+                }
+              ],
+              "trader_exp": 0,
+              "max_uses": 1000,
+              "reward_exp": true
+            }
+          ]
+        },
+        {
+          "num_to_select": 1,
+          "trades": [
+            {
+              "wants": [
+                {
+                  "item": "korona:coronacoin",
+                  "quantity": 39,
+                  "price_multiplier": 0
+                }
+              ],
+              "gives": [
+                {
+                  "item": "minecraft:iron_sword",
+                  "quantity": 1
+                }
+              ],
+              "trader_exp": 0,
+              "max_uses": 1000,
+              "reward_exp": true
+            }
+          ]
+        },
+        {
+          "num_to_select": 1,
+          "trades": [
+            {
+              "wants": [
+                {
+                  "item": "korona:coronacoin",
+                  "quantity": 48,
+                  "price_multiplier": 0
+                }
+              ],
+              "gives": [
+                {
+                  "item": "minecraft:iron_chestplate",
+                  "quantity": 1
+                }
+              ],
+              "trader_exp": 0,
+              "max_uses": 1000,
+              "reward_exp": true
+            }
+          ]
+        },
+        {
+          "num_to_select": 1,
+          "trades": [
+            {
+              "wants": [
+                {
+                  "item": "korona:coronacoin",
+                  "quantity": 43,
+                  "price_multiplier": 0
+                }
+              ],
+              "gives": [
+                {
+                  "item": "minecraft:iron_helmet",
+                  "quantity": 1
+                }
+              ],
+              "trader_exp": 0,
+              "max_uses": 1000,
+              "reward_exp": true
+            }
+          ]
+        },
+        {
+          "num_to_select": 1,
+          "trades": [
+            {
+              "wants": [
+                {
+                  "item": "korona:pouch_of_coronacoins",
+                  "quantity": 1,
+                  "price_multiplier": 0
+                }
+              ],
+              "gives": [
+                {
+                  "item": "minecraft:diamond_leggings",
+                  "quantity": 1
+                }
+              ],
+              "trader_exp": 0,
+              "max_uses": 1000,
+              "reward_exp": true
+            }
+          ]
+        },
+        {
+          "num_to_select": 1,
+          "trades": [
+            {
+              "wants": [
+                {
+                  "item": "korona:coronacoin",
+                  "quantity": 57,
+                  "price_multiplier": 0
+                }
+              ],
+              "gives": [
+                {
+                  "item": "minecraft:diamond_axe",
+                  "quantity": 1
+                }
+              ],
+              "trader_exp": 0,
+              "max_uses": 1000,
+              "reward_exp": true
+            }
+          ]
+        },
+        {
+          "num_to_select": 1,
+          "trades": [
+            {
+              "wants": [
+                {
+                  "item": "korona:coronacoin",
+                  "quantity": 58,
+                  "price_multiplier": 0
+                }
+              ],
+              "gives": [
+                {
+                  "item": "minecraft:diamond_pickaxe",
+                  "quantity": 1
+                }
+              ],
+              "trader_exp": 0,
+              "max_uses": 1000,
+              "reward_exp": true
+            }
+          ]
+        },
+        {
+          "num_to_select": 1,
+          "trades": [
+            {
+              "wants": [
+                {
+                  "item": "korona:pouch_of_coronacoins",
+                  "quantity": 2,
+                  "price_multiplier": 0
+                }
+              ],
+              "gives": [
+                {
+                  "item": "korona:soul_ingot",
+                  "quantity": 1
+                }
+              ],
+              "trader_exp": 0,
+              "max_uses": 1000,
+              "reward_exp": true
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

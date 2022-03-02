@@ -983,6 +983,16 @@ systemServer.update = function () {
 								commandConvert('tellraw ' + playerName + ' {"rawtext":[{"text": "[§cError§f] §cNie jesteś administratorem serwera"}]}');
 							}
 							break;
+						case "quest":
+							mode = "playerName";
+							playerName = system.getComponent(entitiesWithTags[myCounter], "minecraft:nameable").data.name;
+							switch (splitedEntityTags[2]) {
+								case "first_quest":
+									commandConvert('tellraw ' + playerName + ' {"rawtext":[{"text": "§6Dostałeś swojego pierwszego questa! §rMożesz podejżeć aktywne questy pod komendą §7!quest"}]}');
+								case "john":
+									commandConvert('tellraw ' + playerName + ' {"rawtext":[{"text": "§l§6-!- §r§lNowy quest: §6Zniknięcie Johna"}]}');
+							}
+							break;
 					}
 					switch (mode) {
 						case "playerName":

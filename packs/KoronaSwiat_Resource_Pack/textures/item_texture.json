@@ -114,6 +114,21 @@
       },
       "admin_food": {
          "textures" : "textures/items/admin_ui/admin_food"
+      },
+      "earl_grey": {
+         "textures" : "textures/items/teas/earl_grey"
+      },
+      "green_tea": {
+         "textures" : "textures/items/teas/green_tea"
+      },
+      "yunnan": {
+         "textures" : "textures/items/teas/yunnan"
+      },
+      "yerba": {
+         "textures" : "textures/items/teas/yerba"
+      },
+      "beer": {
+         "textures" : "textures/items/beer"
       }
    },
    "texture_name" : "atlas.items"
