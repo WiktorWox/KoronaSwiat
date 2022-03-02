@@ -14,12 +14,15 @@
                         ]
                     },
                     {
-                        "name": "Kim jesteś?"
+                        "name": "Kim jesteś?",
+                        "commands": [
+                            "/dialogue open @s @initiator geralt_dialogue_aboutme"
+                        ]
                     }
                 ]
             },
             {
-                "scene_tag": "geralt_intro2",
+                "scene_tag": "geralt_intro_ks2",
                 "npc_name": "§7Geralt",
                 "text": "Z kądś cię kojażę...",
                 "buttons": [
@@ -33,6 +36,25 @@
                         "name": "Geralt?!",
                         "commands": [
                             "/dialogue open @s @initiator geralt_ks2_dialogue"
+                        ]
+                    }
+                ]
+            },
+            {
+                "scene_tag": "geralt_dialogue_aboutme",
+                "npc_name": "§7Geralt",
+                "text": "Jestem podróżnikiem z zachodu a §7Ferdynard §rjest moim kompanem. Jemu zawdzięczam dotarcie na wyspę. A §7John§r...",
+                "buttons": [
+                    {
+                        "name": "§7John§r?",
+                        "commands": [
+                            "/dialogue open @s @initiator geralt_quest_john"
+                        ]
+                    },
+                    {
+                        "name": "Ok",
+                        "commands": [
+                            "/dialogue open @s @initiator geralt_intro"
                         ]
                     }
                 ]
@@ -61,7 +83,10 @@
                     {
                         "name": "Pomogę ci!",
                         "commands": [
-                            "/dialogue open @s @initiator geralt_quest_john2"
+                            "/dialogue open @s @initiator geralt_quest_john2",
+                            "/tag @initiator add quest-npc_geralt-john",
+                            "/tag @initiator add tag_event-quest-first_quest",
+                            "/tag @initiator add tag_event-quest-john"
                         ]
                     },
                     {
@@ -76,6 +101,64 @@
                 "buttons": [
                     {
                         "name": "Ruszam w drogę!"
+                    }
+                ]
+            },
+            {
+                "scene_tag": "ferdynand_intro",
+                "npc_name": "§7Ferdynard",
+                "text": "Ech... Czemu zawracasz mi głowę?",
+                "buttons": [
+                    {
+                        "name": "Zwiedzam",
+                        "commands": [
+                            "/dialogue open @s @initiator ferdynand_dialogue_spadaj"
+                        ]
+                    },
+                    {
+                        "name": "Kim jesteś?",
+                        "commands": [
+                            "/dialogue open @s @initiator ferdynand_dialogue_aboutme"
+                        ]
+                    }
+                ]
+            },
+            {
+                "scene_tag": "ferdynand_dialogue_spadaj",
+                "npc_name": "§7Ferdynard",
+                "text": "OK, ale zwiedzaj gdzie indziej. Mi nie przeszkadzaj teraz. Ognisko samo się nie będzie palić",
+                "buttons": [
+                    {
+                        "name": "Pomóc?",
+                        "commands": [
+                            "/dialogue open @s @initiator ferdynand_dialogue_spadaj2"
+                        ]
+                    }
+                ]
+            },
+            {
+                "scene_tag": "ferdynand_dialogue_spadaj2",
+                "npc_name": "§7Ferdynard",
+                "text": "Odczep się",
+                "buttons": [
+                    {
+                        "name": "..."
+                    }
+                ]
+            },
+            {
+                "scene_tag": "ferdynand_dialogue_aboutme",
+                "npc_name": "§7Ferdynard",
+                "text": "A czemu cię to w ogóle interesuje? Jakimś szpiegiem jesteś? Jak zaraz mnie nie zostawisz, to zobaczysz słońce z bliska",
+                "buttons": [
+                    {
+                        "name": "Chcesz się bić?",
+                        "commands": [
+                            "/dialogue open @s @initiator ferdynand_dialogue_spadaj2"
+                        ]
+                    },
+                    {
+                        "name": "To pa"
                     }
                 ]
             },
