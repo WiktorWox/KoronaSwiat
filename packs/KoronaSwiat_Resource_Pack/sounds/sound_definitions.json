@@ -10,6 +10,15 @@
             "sounds/armor/equip_soul4"
          ]
       },
+      "armor.equip_hermes" : {
+         "category" : "player",
+         "sounds" : [
+            "sounds/armor/equip_hermes1",
+            "sounds/armor/equip_hermes2",
+            "sounds/armor/equip_hermes3",
+            "sounds/armor/equip_hermes4"
+         ]
+      },
       "korona.soul_pickaxe_power" : {
          "category" : "player",
          "sounds" : [

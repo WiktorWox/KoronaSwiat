@@ -129,6 +129,22 @@
       },
       "beer": {
          "textures" : "textures/items/beer"
+      },
+      "hermes_boots": {
+         "textures" : "textures/items/armor/hermes_boots"
+      },
+      "lava_sword": {
+         "textures" : [
+            "textures/items/lava_sword"
+         ]
+      },
+      "obsidian_sword": {
+         "textures" : "textures/items/obsidian_sword"
+      },
+      "fire_sword": {
+         "textures" : [
+            "textures/items/fire_sword"
+         ]
       }
    },
    "texture_name" : "atlas.items"
