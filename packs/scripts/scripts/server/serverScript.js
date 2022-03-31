@@ -138,250 +138,19 @@ systemServer.initialize = function() {
 	this.broadcastEvent('minecraft:script_logger_config', scriptLoggerConfig);
 	systemServer.log("initialize started");
 
-	//here script listening for time when entity equipped armor
-	this.listenForEvent("minecraft:entity_equipped_armor", function(e) {
-
-		//this is where the things needed to perform a function are downloaded
-		let armorSlot = e.data.slot;
-  		let somethingHappend;
-  		let armor = e.data.item_stack.item;
-  		let playerId = e.data.entity;
-  		let nameComponent = system.getComponent(playerId, "minecraft:nameable");
-  		let playerName = nameComponent.data.name;
-		let playerTagsData = system.getComponent(playerId, "minecraft:tag");
-		let tags = playerTagsData.data;
-
-		//if id of pearson who equipped the armor is not saved in "playersData", that thing doing this
-		if (!(playerId in playersData)) {
-			playersData[playerId] = {
-				"haveSoulHelmet": false,
-				"haveSoulChestplate": false,
-				"haveSoulLeggings": false,
-				"haveSoulBoots": false,
-				"haveSoulPickaxe": false,
-				"speedDiggingTime": 0
-			};
-			countOfPlayers++;
-			playersNameList.push(playerId);
-		}
-
-		//this is updater of "playersData" based on minecraft tags. When server is shutting down and turning on again things in script are lost but tags in minecraft are saved. In line 64 tags are downloaded
-		if (playersData[playerId].isUpdated !== true) {
-			if (tags.indexOf("have_any_piece") !== -1) {
-				if (tags.indexOf("have_soul_helmet") !== -1) {
-					playersData[playerId].haveSoulHelmet = true;
-					healthModificator("plus", 2, playerId);
-				}
-				if (tags.indexOf("have_soul_chestplate") !== -1) {
-					playersData[playerId].haveSoulChestplate = true;
-					healthModificator("plus", 2, playerId);
-				}
-				if (tags.indexOf("have_soul_leggings") !== -1) {
-					playersData[playerId].haveSoulLeggings = true;
-					healthModificator("plus", 2, playerId);
-				}
-				if (tags.indexOf("have_soul_boots") !== -1) {
-					playersData[playerId].haveSoulBoots = true;
-					healthModificator("plus", 2, playerId);
-				}
-				if (tags.indexOf("have_full_soul_armor") !== -1) {
-					playersData[playerId].haveSoulBoots = true;
-					healthModificator("plus", 2, playerId);
-				}
-			}
-			playersData[playerId].isUpdated = true;
-		}
-
-		//here, using "switch" is checked armor what entity equipped
-  		switch (armor) {
-   		    case "korona:soul_helmet":
-			    commandConvert("tag " + playerName + " add have_soul_helmet");
-			    playersData[playerId].haveSoulHelmet = true;
-			    healthModificator("plus", 2, playerId);
-
-	  	 		somethingHappend = true;
-	  	 		break;
-  		    case "korona:soul_chestplate":
-			    commandConvert("tag " + playerName + " add have_soul_chestplate");
-			    playersData[playerId].haveSoulChestplate = true;
-			    healthModificator("plus", 2, playerId);
-
-	  	 		somethingHappend = true;
-	  	 		break;
-  		    case "korona:soul_leggings":
-			    commandConvert("tag " + playerName + " add have_soul_leggings");
-			    playersData[playerId].haveSoulLeggings = true;
-			    healthModificator("plus", 2, playerId);
-
-	  	 		somethingHappend = true;
-	  	 		break;
-  		    case "korona:soul_boots":
-			    commandConvert("tag " + playerName + " add have_soul_boots");
-			    playersData[playerId].haveSoulBoots = true;
-			    healthModificator("plus", 2, playerId);
-
-	  	 		somethingHappend = true;
-	  	 		break;
-	  	 	case "minecraft:undefined":
-	  	 		if (playersData[playerId].haveSoulHelmet == true && armorSlot == "slot.armor.head") {
-	  	 			commandConvert("tag " + playerName + " remove have_soul_helmet");
-	  	 			playersData[playerId].haveSoulHelmet = false;
-	  	 			healthModificator("minus", 2, playerId);
-
-	  	 			somethingHappend = true;
-	  	 		}
-	  	 		if (playersData[playerId].haveSoulChestplate == true && armorSlot == "slot.armor.chest") {
-	  	 			commandConvert("tag " + playerName + " remove have_soul_chestplate");
-	  	 			playersData[playerId].haveSoulChestplate = false;
-	  	 			healthModificator("minus", 2, playerId);
-
-	  	 			somethingHappend = true;
-	  	 		}
-	  	 		if (playersData[playerId].haveSoulLeggings == true && armorSlot == "slot.armor.legs") {
-	  	 			commandConvert("tag " + playerName + " remove have_soul_leggings");
-	  	 			playersData[playerId].haveSoulLeggings = false;
-	  	 			healthModificator("minus", 2, playerId);
-
-	  	 			somethingHappend = true;
-	  	 		}
-	  	 		if (playersData[playerId].haveSoulBoots == true && armorSlot == "slot.armor.feet") {
-	  	 			commandConvert("tag " + playerName + " remove have_soul_boots");
-	  	 			playersData[playerId].haveSoulBoots = false;
-	  	 			healthModificator("minus", 2, playerId);
-
-	  	 			somethingHappend = true;
-	  	 		}
-	  	 		break;
-  		}
-  		//What happening if:
-	  	if (somethingHappend == true) {
-	  		//entity don't have any piece of armor
-	  		if (playersData[playerId].haveSoulHelmet == false && playersData[playerId].haveSoulChestplate == false && playersData[playerId].haveSoulLeggings == false && playersData[playerId].haveSoulBoots == false) {
-		  	 	commandConvert("tag " + playerName + " remove have_any_piece");
-		  	 	somethingHappend = undefined;
-		  	} else {
-		  		//entity have full armor
-		  		if (playersData[playerId].haveSoulHelmet == true && playersData[playerId].haveSoulChestplate == true && playersData[playerId].haveSoulLeggings == true && playersData[playerId].haveSoulBoots == true) {
-			  	 	commandConvert("tag " + playerName + " add have_full_soul_armor");
-			  	 	healthModificator("plus", 2, playerId);
-
-			  	 	somethingHappend = undefined;
-			  	} else {
-			  		//entity don't have full armor and before have full armor
-			  		if (playersData[playerId].haveSoulHelmet == false && tags.indexOf("have_full_soul_armor") !== -1 || playersData[playerId].haveSoulChestplate == false && tags.indexOf("have_full_soul_armor") !== -1 || playersData[playerId].haveSoulLeggings == false && tags.indexOf("have_full_soul_armor") !== -1 || playersData[playerId].haveSoulBoots == false && tags.indexOf("have_full_soul_armor") !== -1) {
-					  	commandConvert("tag " + playerName + " remove have_full_soul_armor");
-					  	healthModificator("minus", 2, playerId);
-
-					  	somethingHappend = undefined;
-				  	} else {
-				  		//entity have one or more piece of armor
-				  		if (playersData[playerId].haveSoulHelmet == true || playersData[playerId].haveSoulChestplate == true || playersData[playerId].haveSoulLeggings == true || playersData[playerId].haveSoulBoots == true) {
-					  	 	commandConvert("tag " + playerName + " add have_any_piece");
-					  	 	somethingHappend = undefined;
-					  	}
-				  	}
-				}
-		  	}
-	  	}
-	});
-	system.listenForEvent("korona:isAnyHeart", function(heartEvent) {
-		isAnyCuboid = true
-	});
-
-	system.listenForEvent("minecraft:player_destroyed_block", function(dataOfEvent) {
-		let playerId = dataOfEvent.data.player;
-  		let nameComponent = system.getComponent(playerId, "minecraft:nameable");
-  		let playerName = nameComponent.data.name;
-		let inHandItems = system.getComponent(playerId, "minecraft:hand_container");
-		let playerPosition = system.getComponent(playerId, "minecraft:position");
-		if (!(playerId in playersData)) {
-			playersData[playerId] = {
-				"haveSoulHelmet": false,
-				"haveSoulChestplate": false,
-				"haveSoulLeggings": false,
-				"haveSoulBoots": false,
-				"haveSoulPickaxe": false,
-				"speedDiggingTime": 0
-			};
-			countOfPlayers++;
-			playersNameList.push(playerId);
-		}
-		if (inHandItems.data[0].item == "korona:soul_pickaxe" && inHandItems.data[1].item == "korona:soul" && playersData[playerId].haveSoulPickaxe !== true && inHandItems.data[1].count > 2) {
-			playersData[playerId].haveSoulPickaxe = true;
-			inHandItems.data[1].count -= 3;
-			if (inHandItems.data[1].count < 1) {
-				commandConvert("replaceitem entity " + playerName + " slot.weapon.offhand 0 minecraft:air");
-			} else {
-				commandConvert("replaceitem entity " + playerName + " slot.weapon.offhand 0 korona:soul " + inHandItems.data[1].count);
-			}	
-			commandConvert("title " + playerName + " actionbar Kilof dusz jest naładowany!");
-			system.broadcastEvent("minecraft:play_sound", {
-				"__type__" : "event_data",
-				"data" : {
-					"pith" : 1.0,
-					"position": [playerPosition.data.x, playerPosition.data.y, playerPosition.data.z],
-					"sound": "korona.soul_pickaxe_power",
-					"volume": 1.0
-				},
-				"__identifier__" : "minecraft:play_sound"
-			});
-		}
-	});
-	this.listenForEvent("minecraft:entity_death", function(deathData) {
-		if (deathData.data.entity.__identifier__ == "korona:heart_of_base") {
-			let heartTagsData = tagConverter(system.getComponent(deathData.data.entity, "minecraft:tag").data);
-			let message
-			if (heartTagsData.guilds == null) {
-				message = "§cUWAGA: §7Twoje serce bazy o identyfikatorze §6" + heartTagsData + " §7zostało zniszczone"
-			}
-			let heartPosition = system.getComponent(deathData.data.entity, "minecraft:position").data
-
-			if (heartTagsData.tier == 0) {
-				commandConvert('execute @r ' + heartPosition.x + ' ' + heartPosition.y + ' ' + heartPosition.z + ' gamemode s @a[r=10, tag=!admin_mode, m=adventure]');
-			} else if (heartTagsData.tier == 1) {
-				commandConvert('execute @r ' + heartPosition.x + ' ' + heartPosition.y + ' ' + heartPosition.z + ' gamemode s @a[r=10, tag=!admin_mode, m=adventure]');
-			} else if (heartTagsData.tier == 2) {
-				commandConvert('execute @r ' + heartPosition.x + ' ' + heartPosition.y + ' ' + heartPosition.z + ' gamemode s @a[r=10, tag=!admin_mode, m=adventure]');
-			} else if (heartTagsData.tier == 3) {
-				commandConvert('execute @r ' + heartPosition.x + ' ' + heartPosition.y + ' ' + heartPosition.z + ' gamemode s @a[r=10, tag=!admin_mode, m=adventure]');
-			}
-			for (var myCounter = 0; myCounter < heartList.length; myCounter++) {
-				if (heartList[myCounter].id == heartTagsData.id) {
-					if (heartList[myCounter].guilds !== null) {
-						let guildGuyTags = system.getComponent(guildGuyData, "minecraft:tag");
-						for (var myCounter5 = 0; myCounter5 < guildGuyTags.data.length; myCounter5++) {
-							let splitedTag = guildGuyTags.data[myCounter5].split('-');
-							// (sprawdzanie czy gildia, sprawdzanie czy właściciel serca jest gildii, sprawdzanie czy nazwa jest zgodna)
-							if (splitedTag[0] == `guild` && splitedTag[1] == heartList[myCounter].owner && splitedTag[3] == heartList[myCounter].guilds) {
-								let splitedGuilds = splitedTag[6].split("_")
-								for (var myCounter6 = 0; myCounter6 < splitedGuilds.length; myCounter6++) {
-									if (splitedGuilds[myCounter6] == heartList[myCounter].id) {
-										message = "§cUWAGA: §7Twoje serce bazy o identyfikatorze §6" + heartTagsData.id + " §7zostało zniszczone. Gildia o nazwie §6" + heartList[myCounter].guilds + " §7nie jest już przypisana do niego"
-										splitedGuilds.splice(myCounter6, 1);
-										splitedTag[6] = splitedGuilds.toString().replace(/,/g, '_');
-										guildGuyTags.data[myCounter5] = splitedTag.toString().replace(/,/g, '-');
-										system.applyComponentChanges(guildGuyData, guildGuyTags);
-									}
-								}
-							}
-						}
-					}
-					heartList = heartList.splice(myCounter, 1)
-				}
-			}
-			for (var myCounter = 0; myCounter < heartTagsData.players.length; myCounter++) {
-				commandConvert('tellraw ' + heartTagsData.players[myCounter] + ' {"rawtext":[{"text": "' + message + '"}]}')
-			}
-		}
-	})
-
 	this.listenForEvent("minecraft:entity_created", function(spawningData) {
   		if (spawningData.data.entity.__identifier__ == "korona:heart_of_base") {
   			heartData = spawningData.data.entity;
   		}
-    	if (spawningData.data.entity.__identifier__ == "minecraft:player") {a
-  			system.log("?")
-  		}
+	});
+
+	this.listenForEvent("minecraft:block_destruction_started", function(destructionData) {
+		let handContainer = system.getComponent(destructionData.data.player, "minecraft:hand_container");
+  		if (handContainer.data[0].item == "korona:lava_sword" && system.getBlock({"__type__":"entity_ticking_area","entity_ticking_area_id":destructionData.data.player.__unique_id__}, destructionData.data.block_position).__identifier__ == "minecraft:cauldron") {
+  			commandConvert(`replaceitem entity ` + system.getComponent(destructionData.data.player, "minecraft:nameable").data.name + ' slot.weapon.mainhand 0 korona:obsidian_sword');
+  			commandConvert(`playsound random.fizz @a ` + destructionData.data.block_position.x + ' ' + destructionData.data.block_position.y + ' ' + destructionData.data.block_position.z);
+  			commandConvert('particle minecraft:water_evaporation_bucket_emitter ' + destructionData.data.block_position.x + ' ' + destructionData.data.block_position.y + ' ' + destructionData.data.block_position.z);
+  		};
 	});
   	system.listenForEvent("minecraft:entity_use_item", function(usingItemData) {
 		if (usingItemData.data.item_stack.__identifier__ == "korona:heart_of_base_item") {
@@ -1055,9 +824,39 @@ systemServer.update = function () {
 	}
 	if (this.counter % 5 == 0){
 		let heartQuery = system.registerQuery();
-		system.addFilterToQuery(heartQuery, "minecraft:inventory");
 		let entitiesWithInventory = system.getEntitiesFromQuery(heartQuery);
 		for (var myCounter = 0; myCounter < entitiesWithInventory.length; myCounter++) {
+			if (entitiesWithInventory[myCounter].__identifier__ == "minecraft:player") {
+				let playerArmor = system.getComponent(entitiesWithInventory[myCounter], "minecraft:armor_container").data;
+				
+				let playerName = system.getComponent(entitiesWithInventory[myCounter], "minecraft:nameable").data.name;
+				if (playerArmor[0].item == "korona:soul_helmet" || playerArmor[1].item == "korona:soul_chestplate" || playerArmor[2].item == "korona:soul_leggings" || playerArmor[3].item == "korona:soul_boots" || playerArmor[3].item == "korona:hermes_boots") {
+					let playerHealth = system.getComponent(entitiesWithInventory[myCounter], "minecraft:health");
+					playerHealth.data.max = 20
+					if (playerArmor[0].item == "korona:soul_helmet") {
+						playerHealth.data.max += 2
+					}
+					if (playerArmor[1].item == "korona:soul_chestplate") {
+						playerHealth.data.max += 2
+					}
+					if (playerArmor[2].item == "korona:soul_leggings") {
+						playerHealth.data.max += 2
+					}
+					if (playerArmor[3].item == "korona:soul_boots") {
+						playerHealth.data.max += 2
+					}
+					if (playerArmor[3].item == "korona:hermes_boots") {
+						commandConvert('effect ' + playerName + ' slow_falling 3 0');
+						commandConvert('effect ' + playerName + ' speed 3 1');
+					}
+					if (playerArmor[3].item == "korona:soul_boots" && playerArmor[2].item == "korona:soul_leggings" && playerArmor[1].item == "korona:soul_chestplate" && playerArmor[0].item == "korona:soul_helmet") {
+						playerHealth.data.max += 2
+						commandConvert("effect " + playerName + " speed 5 0 true");
+ 						commandConvert("effect " + playerName + " strength 5 0 true");
+					}
+					system.applyComponentChanges(entitiesWithInventory[myCounter], playerHealth);
+				}
+			}
 			if (entitiesWithInventory[myCounter].__identifier__ == "korona:heart_of_base") {
 				let isInHeartList = false
 				let newHeartData = tagConverter(system.getComponent(entitiesWithInventory[myCounter], "minecraft:tag").data);

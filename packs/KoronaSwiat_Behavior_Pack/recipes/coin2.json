@@ -1,0 +1,20 @@
+{
+"format_version": "1.12",
+	"minecraft:recipe_shapeless": {
+		"description": {
+			"identifier": "korona:coronacoin2"
+		},
+		"tags": [ "crafting_table" ],
+		"priority": 0,
+		"ingredients": [{
+			"item": "korona:pouch_of_coronacoins",
+			"data": 0,
+			"count": 1
+		}],
+		"result": {
+			"item": "korona:coronacoin",
+			"data": 0,
+			"count": 64
+		}
+	}
+}
