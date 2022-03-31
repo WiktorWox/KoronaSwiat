@@ -1,0 +1,233 @@
+{
+    "format_version": "1.16.100",
+    "minecraft:item": {
+        "description": {
+            "identifier": "korona:fire_sword",
+            "category": "equipment"
+        },
+        "components": {
+            "minecraft:display_name": {
+                "value": "Płomienna potęga"
+            },
+            "minecraft:damage": 8,
+            "minecraft:hand_equipped": true,
+            "minecraft:durability": {
+                "damage_chance": { "min": 5, "max": 10 },
+                "max_durability":1600
+            },
+            "minecraft:cooldown": {
+                "duration": 25,
+                "category": "fire_sword"
+            },
+            "minecraft:weapon": {
+                "on_hurt_entity": {
+                    "event": "korona:damage"
+                }
+            },
+            "minecraft:on_use": {
+                "on_use": {
+                    "event": "korona:on_use"
+                }
+            },
+            "minecraft:repairable": {
+                "repair_items": [
+                    {
+                        "repair_amount": 1,
+                        "items": [
+                            "minecraft:lava_bucket"
+                        ]
+                    }
+                ]
+            },
+            "minecraft:creative_category": {
+                "parent": "itemGroup.name.sword"
+            },
+            "minecraft:enchantable": {
+                "value": 7,
+                "slot": "sword"
+            },
+            "minecraft:can_destroy_in_creative": false,
+            "minecraft:digger": {
+                "use_efficiency": false,
+                "destroy_speeds": [
+                    {
+                        "block": "minecraft:web",
+                        "speed": 16
+                    }
+                ],
+                "on_dig": {
+                    "event": "korona:durability"
+                }
+            },
+            "minecraft:max_stack_size": 1,
+            "minecraft:icon": {
+                "texture": "fire_sword"
+            }
+        },
+        "events": {
+            "korona:durability": {
+                "damage": {
+                    "amount": 2,
+                    "target": "self",
+                    "type": "magic"
+                }
+            },
+            "korona:damage": {
+                "sequence": [
+                    {
+                        "run_command": {
+                            "command": ["effect @s poison 2 1 true"],
+                            "target": "other"
+                        }
+                    },
+                    {
+                        "damage": {
+                            "amount": 1,
+                            "target": "self",
+                            "type": "magic"
+                        }
+                    }
+                ]
+            },
+            "korona:on_use": {  
+                "sequence": [
+                    {
+                        "run_command": {
+                            "command": [
+                                "effect @s resistance 2 5 true",
+                                "effect @s fire_resistance 2 5 true"
+                            ]
+                        }
+                    },
+                    {
+                        "condition": "query.is_sneaking",
+                        "trigger": {
+                            "event": "a"
+                        }
+                    },
+                    {
+                        "condition": "query.is_sneaking != 1",
+                        "trigger": {
+                            "event": "b"
+                        }
+                    },
+                    {
+                        "damage": {
+                            "amount": 1,
+                            "target": "self",
+                            "type": "magic"
+                        }
+                    }
+                ]
+            },
+            "a": {  
+                "sequence": [
+                    {
+                        "run_command": {
+                            "command": ["fill ~-2 ~-1 ~-2 ~-2 ~1 ~2 fire 0 keep"],
+                            "target": "holder"
+                        }
+                    },
+                    {
+                        "run_command": {
+                            "command": ["fill ~-2 ~-1 ~-2 ~2 ~1 ~-2 fire 0 keep"],
+                            "target": "holder"
+                        }
+                    },
+                    {
+                        "run_command": {
+                            "command": ["fill ~2 ~-1 ~-2 ~2 ~1 ~2 fire 0 keep"],
+                            "target": "holder"
+                        }
+                    },
+                    {
+                        "run_command": {
+                            "command": ["fill ~2 ~-1 ~2 ~-2 ~1 ~2 fire 0 keep"],
+                            "target": "holder"
+                        }
+                    },
+                    {
+                        "run_command": {
+                            "command": ["playsound fire.ignite"],
+                            "target": "holder"
+                        }
+                    },
+                    {
+                        "run_command": {
+                            "command": ["playsound random.explode"],
+                            "target": "holder"
+                        }
+                    },
+                    {
+                        "run_command": {
+                            "command": ["particle minecraft:huge_explosion_emitter ~ ~ ~3"],
+                            "target": "holder"
+                        }
+                    },
+                    {
+                        "run_command": {
+                            "command": ["particle minecraft:huge_explosion_emitter ~ ~ ~-3"],
+                            "target": "holder"
+                        }
+                    },
+                    {
+                        "run_command": {
+                            "command": ["particle minecraft:huge_explosion_emitter ~3 ~ ~"],
+                            "target": "holder"
+                        }
+                    },
+                    {
+                        "run_command": {
+                            "command": ["particle minecraft:huge_explosion_emitter ~-3 ~ ~"],
+                            "target": "holder"
+                        }
+                    },
+                    {
+                        "run_command": {
+                            "command": ["damage @e[r=5, rm=2] 2 entity_explosion entity @s"],
+                            "target": "holder"
+                        }
+                    },
+                    {
+                        "run_command": {
+                            "command": ["fill ~ ~-1 ~3 ~ ~1 ~3 fire 0 keep"],
+                            "target": "holder"
+                        }
+                    },
+                    {
+                        "run_command": {
+                            "command": ["fill ~ ~-1 ~-3 ~ ~1 ~-3 fire 0 keep"],
+                            "target": "holder"
+                        }
+                    },
+                    {
+                        "run_command": {
+                            "command": ["fill ~3 ~-1 ~ ~3 ~1 ~ fire 0 keep"],
+                            "target": "holder"
+                        }
+                    },
+                    {
+                        "run_command": {
+                            "command": ["fill ~-3 ~-1 ~ ~-3 ~1 ~ fire 0 keep"],
+                            "target": "holder"
+                        }
+                    },
+                    {
+                        "damage": {
+                            "amount": 1,
+                            "target": "item",
+                            "type": "magic"
+                        }
+                    }
+                ]
+            },//random.explode
+            "b": {  
+                "shoot": {
+                    "launch_power": 1,
+                    "angle_offset": 0,
+                    "projectile": "minecraft:fireball"
+                }
+            }
+        }
+    }
+}
