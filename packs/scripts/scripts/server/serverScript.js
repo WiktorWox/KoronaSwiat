@@ -139,8 +139,14 @@ systemServer.initialize = function() {
 	systemServer.log("initialize started");
 
 	this.listenForEvent("minecraft:entity_created", function(spawningData) {
-  		if (spawningData.data.entity.__identifier__ == "korona:heart_of_base") {
+		let entityIdentifier = spawningData.data.entity.__identifier__;
+  		if (entityIdentifier == "korona:heart_of_base") {
   			heartData = spawningData.data.entity;
+  		}
+  		if (entityIdentifier == 'korona:paladins_sword') {
+			let itemPosition = system.getComponent(spawningData.data.entity, "minecraft:position");
+			itemPosition.data.y = (-1000)
+			system.applyComponentChanges(spawningData.data.entity, itemPosition);
   		}
 	});
 
@@ -152,6 +158,17 @@ systemServer.initialize = function() {
   			commandConvert('particle minecraft:water_evaporation_bucket_emitter ' + destructionData.data.block_position.x + ' ' + destructionData.data.block_position.y + ' ' + destructionData.data.block_position.z);
   		};
 	});
+
+	this.listenForEvent("minecraft:entity_dropped_item", function(dropData) {
+		let dropItem = dropData.data.item_stack.__identifier__
+		if (dropItem == 'korona:paladins_sword') {
+			delayFunction(()=>{
+				commandConvert("give " + system.getComponent(dropData.data.entity, "minecraft:nameable").data.name + ' ' + dropItem);
+				commandConvert('tellraw ' + system.getComponent(dropData.data.entity, "minecraft:nameable").data.name + ' {"rawtext":[{"text":"§cNie możesz upuszczać przedmiotów profesji!"}]}');
+			}, 20 * 1 )
+		}
+	});
+
   	system.listenForEvent("minecraft:entity_use_item", function(usingItemData) {
 		if (usingItemData.data.item_stack.__identifier__ == "korona:heart_of_base_item") {
 			let playerData = usingItemData.data.entity
@@ -178,28 +195,34 @@ systemServer.initialize = function() {
 		}
 	});
 	system.listenForEvent("minecraft:entity_death", function(deathData) {
-		if (deathData.data.killer.__identifier__ == "minecraft:player" && deathData.data.entity.__identifier__ == "minecraft:player") {
-			let killerName = system.getComponent(deathData.data.killer, "minecraft:nameable").data.name;
-			let entityName = system.getComponent(deathData.data.entity, "minecraft:nameable").data.name;
-			let itemInHand = system.getComponent(deathData.data.killer, "minecraft:hand_container").data[0];
-			let message
-			switch (deathData.data.cause) {
-				case "entity_attack":
-					message = `Gracz §c` + killerName + `§r zadźgał gracza §c` + entityName + `§r za pomocą przedmiotu §6` + itemInHand.item
-					break;
-				case "magic":
-					message = `Gracz §c` + killerName + `§r użył magii aby zabić gracza §c` + entityName + `§r używając przy tym przedmiotu §6` + itemInHand.item
-					break;
-				case "projectile":
-					message = `Gracz §c` + entityName + `§r został zastrzelony przez gracza §c` + killerName + `§r z §6` + itemInHand.item + `§r i użył jako pocisku §6` + deathData.data.projectile_type
-					break;
-				default:
-					system.log("coś nie tak")
+		if (deathData.data.entity.__identifier__ == "minecraft:player") {
+			// let inventoryContainer = system.getComponent(deathData.data.entity, "minecraft:inventory_container").data;
+			// for (var myCounter = 0; myCounter < inventoryContainer.length; myCounter++) {
+
+			// }
+			if (deathData.data.killer.__identifier__ == "minecraft:player") {
+				let killerName = system.getComponent(deathData.data.killer, "minecraft:nameable").data.name;
+				let entityName = system.getComponent(deathData.data.entity, "minecraft:nameable").data.name;
+				let itemInHand = system.getComponent(deathData.data.killer, "minecraft:hand_container").data[0];
+				let message
+				switch (deathData.data.cause) {
+					case "entity_attack":
+						message = `Gracz §c` + killerName + `§r zadźgał gracza §c` + entityName + `§r za pomocą przedmiotu §6` + itemInHand.item
+						break;
+					case "magic":
+						message = `Gracz §c` + killerName + `§r użył magii aby zabić gracza §c` + entityName + `§r używając przy tym przedmiotu §6` + itemInHand.item
+						break;
+					case "projectile":
+						message = `Gracz §c` + entityName + `§r został zastrzelony przez gracza §c` + killerName + `§r z §6` + itemInHand.item + `§r i użył jako pocisku §6` + deathData.data.projectile_type
+						break;
+					default:
+						system.log("coś nie tak")
+				}
+				commandConvert(`tellraw @a {"rawtext":[{"text":"[§l§6Hunting Day log§r] ` + message + `"}]}`);
+				commandConvert(`scoreboard players add ` + killerName + ` kills 1`)
+				commandConvert(`scoreboard players add "§6Wszystkie zabójstwa " kills 1`)
+				commandConvert(`give ` + killerName + ` korona:players_head`)
 			}
-			commandConvert(`tellraw @a {"rawtext":[{"text":"[§l§6Hunting Day log§r] ` + message + `"}]}`);
-			commandConvert(`scoreboard players add ` + killerName + ` kills 1`)
-			commandConvert(`scoreboard players add "§6Wszystkie zabójstwa " kills 1`)
-			commandConvert(`give ` + killerName + ` korona:players_head`)
 		}
 	});
 	this.counter = 0;
