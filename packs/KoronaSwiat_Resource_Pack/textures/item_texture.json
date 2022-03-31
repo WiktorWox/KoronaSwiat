@@ -145,6 +145,9 @@
          "textures" : [
             "textures/items/fire_sword"
          ]
+      },
+      "class_paladins_sword": {
+         "textures" : "textures/items/class_items/paladins_sword"
       }
    },
    "texture_name" : "atlas.items"
