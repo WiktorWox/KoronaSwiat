@@ -1,0 +1,85 @@
+{
+    "format_version": "1.16.100",
+    "minecraft:item": {
+        "description": {
+            "identifier": "korona:obsidian_sword",
+            "category": "equipment"
+        },
+        "components": {
+            "minecraft:display_name": {
+                "value": "Obsydianowy miecz"
+            },
+            "minecraft:damage": 9,
+            "minecraft:hand_equipped": true,
+            "minecraft:durability": {
+                "damage_chance": { "min": 5, "max": 10 },
+                "max_durability":1705
+            },
+            "minecraft:weapon": {
+                "on_hurt_entity": {
+                    "event": "korona:damage"
+                }
+            },
+            "minecraft:creative_category": {
+                "parent": "itemGroup.name.sword"
+            },
+            "minecraft:enchantable": {
+                "value": 8,
+                "slot": "sword"
+            },
+            "minecraft:can_destroy_in_creative": false,
+            "minecraft:digger": {
+                "use_efficiency": false,
+                "destroy_speeds": [
+                    {
+                        "block": "minecraft:web",
+                        "speed": 16
+                    }
+                ],
+                "on_dig": {
+                    "event": "korona:durability"
+                }
+            },
+            "minecraft:max_stack_size": 1,
+            "minecraft:icon": {
+                "texture": "obsidian_sword"
+            }
+        },
+        "events": {
+            "korona:durability": {
+                "damage": {
+                    "amount": 2,
+                    "target": "self",
+                    "type": "magic"
+                }
+            },
+            "korona:damage": {
+                "sequence": [
+                    {
+                        "add_mob_effect": {
+                            "effect": "blindness",
+                            "target": "other",
+                            "duration": 2,
+                            "amplifier": 2
+                        }
+                    },
+                    {
+                        "add_mob_effect": {
+                            "effect": "slowness",
+                            "target": "other",
+                            "duration": 2,
+                            "amplifier": 0
+                        }
+                    },
+                    {
+                        "damage": {
+                            "amount": 1,
+                            "target": "self",
+                            "type": "magic"
+                        }
+                    }
+                ]
+            }   
+        }
+    }
+}
