@@ -25,6 +25,11 @@
           "damage": 1
         }
       },
+      "korona:athlete_skill": {
+        "minecraft:attack": {
+          "damage": 3
+        }
+      },
       "minecraft:add_bad_omen": {
         "minecraft:spell_effects": {
           "add_effects": [
@@ -250,10 +255,23 @@
       "korona:add_damage": {
         "remove": {
           "component_groups": [
-            "korona:remove_damage"
+            "korona:remove_damage",
+            "korona:athlete_skill"
           ]
         },
         "add": {
+          "component_groups": [
+            "korona:add_damage"
+          ]
+        }
+      },
+      "korona:athlete_skill": {
+        "add": {
+          "component_groups": [
+            "korona:athlete_skill"
+          ]
+        },
+        "remove": {
           "component_groups": [
             "korona:add_damage"
           ]

@@ -25,6 +25,12 @@
             "sounds/soul_pickaxe/soul_pickaxe_power",
             "sounds/soul_pickaxe/soul_pickaxe_power2"
          ]
+      },
+      "ui.archivement" : {
+         "category" : "player",
+         "sounds" : [
+            "sounds/archivement"
+         ]
       }
    }
 }

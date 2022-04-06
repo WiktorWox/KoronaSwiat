@@ -5,6 +5,11 @@
                 "pitch" : 1.0,
                 "sound" : "record.the_echo",
                 "volume" : 1.0
+            },
+            "ui.archivement" : {
+                "pitch" : 1.0,
+                "sound" : "ui.archivement",
+                "volume" : 1.5
             }
         }
     }
