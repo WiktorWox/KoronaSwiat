@@ -1,0 +1,31 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+    "identifier": "korona:golden_apple"
+    },
+
+    
+    "tags": [ "tool_table" ],
+    "pattern": [
+      "#Y#",
+      "#X#",
+      "###"
+    ],
+    "key": {
+      "#": {
+        "item": "minecraft:gold_ingot"
+      },
+      "X": {
+        "item": "minecraft:apple"
+      },
+      "Y": {
+        "item": "minecraft:gold_nugget"
+      }
+    },
+    "result": {
+      "item": "minecraft:golden_apple",
+      "data": 0
+    }
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+    "identifier": "korona:leather_boots"
+    },
+
+    
+    "tags": [ "tool_table" ],
+    "pattern": [
+      "X X",
+      "X  "
+    ],
+    "key": {
+      "X": {
+        "item": "minecraft:leather"
+      }
+    },
+    "result": {
+      "item": "minecraft:leather_boots"
+    }
+  }
+}

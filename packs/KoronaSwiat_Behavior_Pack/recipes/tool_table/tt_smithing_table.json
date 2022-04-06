@@ -1,0 +1,28 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+    "identifier": "korona:smithing_table"
+    },
+    "tags": [ "tool_table" ],
+    "pattern": [
+      "|/",
+      "##",
+      "##"
+    ],
+    "key": {
+      "|": {
+        "item": "minecraft:iron_ingot"
+      },
+      "#": {
+        "item": "minecraft:planks"
+      },
+      "/": {
+        "item": "minecraft:iron_nugget"
+      }
+    },
+    "result": [
+      { "item": "minecraft:smithing_table" }
+    ]
+  }
+}

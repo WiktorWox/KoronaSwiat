@@ -1,0 +1,30 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+    "identifier": "korona:beacon"
+    },
+
+    
+    "tags": [ "tool_table" ],
+    "pattern": [
+      "GGG",
+      " S ",
+      "O O"
+    ],
+    "key": {
+      "S": {
+        "item": "minecraft:netherstar"
+      },
+      "G": {
+        "item": "minecraft:glass"
+      },
+      "O": {
+        "item": "minecraft:obsidian"
+      }
+    },
+    "result": {
+      "item": "minecraft:beacon"
+    }
+  }
+}

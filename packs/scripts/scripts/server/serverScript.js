@@ -13,6 +13,7 @@ let guildGuyIsFounded = false
 let victimIsFounded = false
 let victimData
 let adminModeData = []
+let classItem = null
 
 function updatePlayers(players, numberInList) {
 	heartList[numberInList].players = players
@@ -108,6 +109,24 @@ function commandConvert(command) {
 	return system.broadcastEvent("minecraft:execute_command", commandObject);
 }
 
+function showAchievement(targetId, archivementTitle, archivementText, archivementId) {
+	let targetTags = system.getComponent(targetId, "minecraft:tag").data;
+	let isArch = false;
+	let archTag = 'arch-' + archivementId;
+	for (var a = 0; a < targetTags.length; a++) {
+		if (targetTags[a] == archTag) {
+			isArch = true;
+		}
+	}
+	if (isArch == false) {
+		let targetName = system.getComponent(targetId, "minecraft:nameable").data.name;
+		commandConvert('tellraw ' + targetName + ' {"rawtext":[{"text": "::==::==::==::==::==::\nZdobyłeś osiągnięcie §a[§l' + archivementTitle + '§r§a]§r! \n§7' + archivementText + '\n§r::==::==::==::==::==::"}]}');
+		commandConvert('tellraw @a[name=!' + targetName + '] {"rawtext":[{"text": "::==::==::==::==::==::\nGracz ' + targetName + ' zdobył osiągnięcie §a[§l' + archivementTitle + '§r§a]§r! \n§7' + archivementText + '\n§r::==::==::==::==::==::"}]}');
+		commandConvert('playsound ui.archivement ' + targetName);
+		commandConvert('tag ' + targetName + ' add ' + archTag);
+	}
+}
+
 //player health modificator
 function healthModificator(symbol, modificator, dataOfPlayer) {
 	let playerHealth = system.getComponent(dataOfPlayer, "minecraft:health");
@@ -143,7 +162,7 @@ systemServer.initialize = function() {
   		if (entityIdentifier == "korona:heart_of_base") {
   			heartData = spawningData.data.entity;
   		}
-  		if (entityIdentifier == 'korona:paladins_sword') {
+  		if (entityIdentifier == 'korona:paladins_sword' || entityIdentifier == 'korona:tool_table') {
 			let itemPosition = system.getComponent(spawningData.data.entity, "minecraft:position");
 			itemPosition.data.y = (-1000)
 			system.applyComponentChanges(spawningData.data.entity, itemPosition);
@@ -156,15 +175,17 @@ systemServer.initialize = function() {
   			commandConvert(`replaceitem entity ` + system.getComponent(destructionData.data.player, "minecraft:nameable").data.name + ' slot.weapon.mainhand 0 korona:obsidian_sword');
   			commandConvert(`playsound random.fizz @a ` + destructionData.data.block_position.x + ' ' + destructionData.data.block_position.y + ' ' + destructionData.data.block_position.z);
   			commandConvert('particle minecraft:water_evaporation_bucket_emitter ' + destructionData.data.block_position.x + ' ' + destructionData.data.block_position.y + ' ' + destructionData.data.block_position.z);
+  			showAchievement(destructionData.data.player, 'Wodno-lawowy incydent', 'Stwórz Obsydianowy miecz gasząc Diabelskie ostrze w kotle', 'makeobssword');
   		};
 	});
 
 	this.listenForEvent("minecraft:entity_dropped_item", function(dropData) {
 		let dropItem = dropData.data.item_stack.__identifier__
-		if (dropItem == 'korona:paladins_sword') {
+		if (dropItem == 'korona:paladins_sword' || dropItem == 'korona:tool_table') {
 			delayFunction(()=>{
 				commandConvert("give " + system.getComponent(dropData.data.entity, "minecraft:nameable").data.name + ' ' + dropItem);
 				commandConvert('tellraw ' + system.getComponent(dropData.data.entity, "minecraft:nameable").data.name + ' {"rawtext":[{"text":"§cNie możesz upuszczać przedmiotów profesji!"}]}');
+				showAchievement(dropData.data.entity, 'Ziemia to nie śmietnik', 'Sprubuj wyrzucić przedmiot profesji postaci lub z nim umrzeć', 'classitemdrop');
 			}, 20 * 1 )
 		}
 	});
@@ -307,6 +328,7 @@ systemServer.update = function () {
 								// system.log('gracz posiada ' + playersGuildNumber + ' gildii');
 								if (playersGuildNumber < 6) {
 									let guildId = Math.floor(Math.random()*(999999 - 100000 + 1)) + 100000;
+									showAchievement(entitiesWithTags[myCounter], 'Własna gildia', 'Utwórz własną gildię przy użyciu Zwoju gildii', 'ownguild');
 									commandConvert("tag @e[tag=npc_yalio] add guild-" + playerName + '-no-' + guildId);
 									commandConvert("clear " + playerName + " korona:unsealed_guild_scroll 0 1");
 									commandConvert("give " + playerName + " korona:guild_scroll");
@@ -876,6 +898,7 @@ systemServer.update = function () {
 						playerHealth.data.max += 2
 						commandConvert("effect " + playerName + " speed 5 0 true");
  						commandConvert("effect " + playerName + " strength 5 0 true");
+ 						showAchievement(entitiesWithInventory[myCounter], 'Podarek godny króla', 'Skompletuj i załóż całą zbroję dusz, aby zdobyć dodatkowe efekty', 'fullsoularmor');
 					}
 					system.applyComponentChanges(entitiesWithInventory[myCounter], playerHealth);
 				}

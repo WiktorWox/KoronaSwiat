@@ -1,0 +1,30 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+    "identifier": "korona:enchanting_table"
+    },
+
+    
+    "tags": [ "tool_table" ],
+    "pattern": [
+      " B ",
+      " D ",
+      "###"
+    ],
+    "key": {
+      "B": {
+        "item": "minecraft:book"
+      },
+      "#": {
+        "item": "minecraft:obsidian"
+      },
+      "D": {
+        "item": "minecraft:diamond"
+      }
+    },
+    "result": {
+      "item": "minecraft:enchanting_table"
+    }
+  }
+}

@@ -13,5 +13,16 @@
          "west": "armorers_table_west",
          "east": "armorers_table_east"
       }
+   },
+   "korona:tool_table": {
+      "sound" : "planks",
+      "textures" : {
+         "up": "tool_table_up",
+         "down": "tool_table_down",
+         "north": "tool_table_side",
+         "south": "tool_table_side",
+         "west": "tool_table_side",
+         "east": "tool_table_side"
+      }
    }
 }

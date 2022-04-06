@@ -1,0 +1,41 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+    "identifier": "korona:tt_lava_sword"
+    },
+    "tags": [ "tool_table" ],
+    "group": "wooden_door",
+    "pattern": [
+      "DA",
+      "BC",
+      "DE"
+    ],
+    "key": {
+      "A": {
+        "item": "minecraft:netherite_scrap",
+        "data": 0
+      },
+      "B": {
+        "item": "minecraft:lava_bucket",
+        "data": 0
+      },
+      "C": {
+        "item": "minecraft:diamond",
+        "data": 0
+      },
+      "D": {
+        "item": "minecraft:blaze_powder",
+        "data": 0
+      },
+      "E": {
+        "item": "minecraft:stick",
+        "data": 0
+      }
+    },
+    "result": {
+      "item": "korona:lava_sword",
+      "count": 1
+    }
+  }
+}

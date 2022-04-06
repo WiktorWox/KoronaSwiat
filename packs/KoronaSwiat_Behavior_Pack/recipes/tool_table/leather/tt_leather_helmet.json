@@ -1,0 +1,23 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+    "identifier": "korona:leather_helmet"
+    },
+
+    
+    "tags": [ "tool_table" ],
+    "pattern": [
+      "XXX",
+      "X  "
+    ],
+    "key": {
+      "X": {
+        "item": "minecraft:leather"
+      }
+    },
+    "result": {
+      "item": "minecraft:leather_helmet"
+    }
+  }
+}

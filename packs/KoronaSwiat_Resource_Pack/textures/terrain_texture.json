@@ -21,6 +21,15 @@
     },
     "armorers_table_down": {
       "textures": "textures/blocks/armorers_table/armorers_table_down"
+    },
+    "tool_table_up": {
+      "textures": "textures/blocks/tool_table/tool_table_up"
+    },
+    "tool_table_side": {
+      "textures": "textures/blocks/tool_table/tool_table_side"
+    },
+    "tool_table_down": {
+      "textures": "textures/blocks/tool_table/tool_table_down"
     }
   }
 }

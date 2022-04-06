@@ -19,3 +19,5 @@ entity.korona:necromancer_archers_skeleton.name=Szkielet łucznika nekromanty
 entity.korona:necromancers_skeleton.name=Szkielet nekromanty
 entity.korona:heart_of_base.name=Serce bazy
 entity.villager.banker=Bankier
+tile.korona:tool_table.name=Stół z narzędziami
+tile.korona:tool_table=Uproszczone receptury

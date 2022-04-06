@@ -1,0 +1,27 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+    "identifier": "korona:wooden_hoe"
+    },
+
+    
+    "tags": [ "tool_table" ],
+    "pattern": [
+      "X ",
+      " /",
+      " /"
+    ],
+    "key": {
+      "X": {
+        "item": "minecraft:planks"
+      },
+      "/": {
+        "item": "minecraft:stick"
+      }
+    },
+    "result": {
+      "item": "minecraft:wooden_hoe"
+    }
+  }
+}

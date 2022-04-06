@@ -1,0 +1,8 @@
+[
+  {
+    "flipbook_texture": "textures/items/lava_sword",
+    "atlas_tile": "lava_sword",
+    "frames": [ 0, 1, 2 ],
+    "ticks_per_frame": 1
+  }
+]

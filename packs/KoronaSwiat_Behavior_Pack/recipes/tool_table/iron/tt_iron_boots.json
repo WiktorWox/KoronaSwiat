@@ -1,0 +1,23 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+    "identifier": "korona:iron_boots"
+    },
+
+    
+    "tags": [ "tool_table" ],
+    "pattern": [
+      "X X",
+      "X  "
+    ],
+    "key": {
+      "X": {
+        "item": "minecraft:iron_ingot"
+      }
+    },
+    "result": {
+      "item": "minecraft:iron_boots"
+    }
+  }
+}

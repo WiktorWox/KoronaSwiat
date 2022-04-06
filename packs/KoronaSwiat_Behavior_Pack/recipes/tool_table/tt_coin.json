@@ -1,0 +1,27 @@
+{
+"format_version": "1.12",
+	"minecraft:recipe_shapeless": {
+		"description": {
+			"identifier": "korona:tt_coronacoin"
+		},
+		"tags": [ "tool_table" ],
+		"priority": 0,
+		"ingredients": [
+			{
+				"item": "minecraft:gold_ingot",
+				"data": 0,
+				"count": 1
+			},
+			{
+				"item": "minecraft:copper_ingot",
+				"data": 0,
+				"count": 2
+			}
+		],
+		"result": {
+			"item": "korona:coronacoin",
+			"data": 0,
+			"count": 3
+		}
+	}
+}

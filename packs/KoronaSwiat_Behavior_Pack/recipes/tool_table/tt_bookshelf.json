@@ -1,0 +1,29 @@
+{
+    "format_version": "1.16",
+    "minecraft:recipe_shaped": {
+        "description": {
+            "identifier": "korona:bookshelf"
+        },
+        "tags": [
+            "tool_table"
+        ],
+        "pattern": [
+            "AA",
+            "BB",
+            "AA"
+        ],
+        "key": {
+            "A": {
+                "item": "minecraft:planks"
+            },
+            "B": {
+                "item": "minecraft:book"
+            }
+        },
+        "result": {
+            "item": "bookshelf",
+            "count": 1
+        },
+        "priority": 2
+    }
+}

@@ -1,0 +1,27 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+    "identifier": "korona:diamond_pickaxe"
+    },
+
+    
+    "tags": [ "tool_table" ],
+    "pattern": [
+      "X X",
+      " / ",
+      " / "
+    ],
+    "key": {
+      "X": {
+        "item": "minecraft:diamond"
+      },
+      "/": {
+        "item": "minecraft:stick"
+      }
+    },
+    "result": {
+      "item": "minecraft:diamond_pickaxe"
+    }
+  }
+}

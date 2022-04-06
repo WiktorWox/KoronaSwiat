@@ -1,0 +1,28 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+    "identifier": "korona:anvil"
+    },
+
+    
+    "tags": [ "tool_table" ],
+    "pattern": [
+      "II ",
+      " i ",
+      "iii"
+    ],
+    "key": {
+      "I": {
+        "item": "minecraft:iron_block"
+      },
+      "i": {
+        "item": "minecraft:iron_ingot"
+      }
+    },
+    "result": {
+      "item": "minecraft:anvil",
+      "data": 0
+    }
+  }
+}

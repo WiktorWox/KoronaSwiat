@@ -1,0 +1,26 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+    "identifier": "korona:golden_sword"
+    },
+
+    
+    "tags": [ "tool_table" ],
+    "pattern": [
+      "X",
+      "/"
+    ],
+    "key": {
+      "X": {
+        "item": "minecraft:gold_ingot"
+      },
+      "/": {
+        "item": "minecraft:stick"
+      }
+    },
+    "result": {
+      "item": "minecraft:golden_sword"
+    }
+  }
+}
