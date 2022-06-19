@@ -1,0 +1,27 @@
+{
+"format_version": "1.12",
+	"minecraft:recipe_shapeless": {
+		"description": {
+			"identifier": "minecraft:screw"
+		},
+		"tags": [ "crafting_table" ],
+		"priority": 0,
+		"ingredients": [
+			{
+				"item": "minecraft:iron_nugget",
+				"data": 0,
+				"count": 1
+			},
+			{
+				"item": "minecraft:stick",
+				"data": 0,
+				"count": 1
+			}
+		],
+		"result": {
+			"item": "korona:screw",
+			"data": 0,
+			"count": 1
+		}
+	}
+}

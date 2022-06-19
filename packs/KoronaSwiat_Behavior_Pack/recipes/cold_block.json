@@ -1,0 +1,35 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+    "identifier": "korona:cold_block"
+    },
+
+    
+    "tags": [ "crafting_table" ],
+    "group": "wooden_door",
+    "pattern": [
+      "IOI",
+      "O#O",
+      "IOI"
+    ],
+    "key": {
+      "I": {
+        "item": "korona:screw",
+        "data": 0
+      },
+      "O": {
+        "item": "korona:colder",
+        "data": 0
+      },
+      "#": {
+        "item": "minecraft:iron_block",
+        "data": 0
+      }
+    },
+    "result": {
+      "item": "korona:cold_block",
+      "count": 1
+    }
+  }
+}

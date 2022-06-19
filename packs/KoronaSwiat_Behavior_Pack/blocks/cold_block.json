@@ -1,0 +1,14 @@
+{
+    "format_version": "1.12.0",
+    "minecraft:block": {
+        "description": {
+            "identifier": "korona:cold_block",
+            "is_experimental": false,
+            "register_to_creative_menu": true
+        },
+        "components": {     
+            "minecraft:loot": "loot_tables/blocks/cold_block.json",
+            "minecraft:destroy_time": 3
+        }
+    }
+}

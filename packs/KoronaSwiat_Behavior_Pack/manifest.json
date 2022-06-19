@@ -2,9 +2,9 @@
     "format_version": 2,
     "header": {
         "description": "Behavior pack for KoronaŚwiat",
-        "name": "§7[v9.8]§r KoronaŚwiat [BP]",
+        "name": "§7[v9.1]§r KoronaŚwiat [BP]",
         "uuid": "1b44c3e0-c747-415a-9aa7-cb440493dfa3",
-        "version": [0, 9, 8],
+        "version": [0, 9, 11],
         "min_engine_version": [ 1, 16, 201 ],
         "pack_scope": "world",
         "platform_locked": false
@@ -14,7 +14,7 @@
             "description": "Behavior pack for KoronaŚwiat",
             "type": "data",
             "uuid": "e83488ef-c86f-4382-b5ff-d707d6608ee5",
-            "version": [0, 9, 8]
+            "version": [0, 9, 1]
     }
   ]
 }

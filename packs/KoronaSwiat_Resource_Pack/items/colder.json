@@ -1,0 +1,13 @@
+{
+	"format_version": "1.10",
+	"minecraft:item": {
+		"description": {
+			"identifier": "korona:colder",
+			"category": "Items"
+		},
+		"components": {
+			"minecraft:icon": "colder",
+			"minecraft:render_offsets": "tools"
+		}
+	}
+}

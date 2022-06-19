@@ -21,6 +21,12 @@
       },
       "amulet": {
          "textures" : "textures/items/amulet"
+      },
+      "colder": {
+         "textures" : "textures/items/colder"
+      },
+      "screw": {
+         "textures" : "textures/items/screw"
       }
    },
    "texture_name" : "atlas.items"

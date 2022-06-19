@@ -5,4 +5,8 @@ item.korona:pouch_of_coronacoins.name=Sakwa KoronaCoin'ów
 item.korona:players_head.name=Głowa Gracza
 item.korona:soul.name=Dusza
 item.korona:amulet.name=Amulet
+item.korona:colder.name=Schładzacz
+item.korona:screw.name=Śruba
 entity.villager.banker=Bankier
+
+tile.korona:cold_block.name=Blok schładzający
