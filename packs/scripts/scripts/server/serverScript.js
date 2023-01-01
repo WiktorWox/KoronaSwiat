@@ -13,7 +13,7 @@ let guildGuyIsFounded = false
 let victimIsFounded = false
 let victimData
 let adminModeData = []
-let classItem = null
+let classItemData = null
 
 function updatePlayers(players, numberInList) {
 	heartList[numberInList].players = players
@@ -162,10 +162,8 @@ systemServer.initialize = function() {
   		if (entityIdentifier == "korona:heart_of_base") {
   			heartData = spawningData.data.entity;
   		}
-  		if (entityIdentifier == 'korona:paladins_sword' || entityIdentifier == 'korona:tool_table') {
-			let itemPosition = system.getComponent(spawningData.data.entity, "minecraft:position");
-			itemPosition.data.y = (-1000)
-			system.applyComponentChanges(spawningData.data.entity, itemPosition);
+  		if (entityIdentifier == 'korona:paladins_sword' || entityIdentifier == 'korona:tool_table' || entityIdentifier == 'korona:lute_strenght' || entityIdentifier == 'korona:lute_speed' || entityIdentifier == 'korona:lute_haste') {
+  			classItemData = spawningData.data.entity
   		}
 	});
 
@@ -181,12 +179,15 @@ systemServer.initialize = function() {
 
 	this.listenForEvent("minecraft:entity_dropped_item", function(dropData) {
 		let dropItem = dropData.data.item_stack.__identifier__
-		if (dropItem == 'korona:paladins_sword' || dropItem == 'korona:tool_table') {
+		if (dropItem == 'korona:paladins_sword' || dropItem == 'korona:tool_table' || dropItem == 'korona:lute_strenght' || dropItem == 'korona:lute_speed' || dropItem == 'korona:lute_haste') {
 			delayFunction(()=>{
 				commandConvert("give " + system.getComponent(dropData.data.entity, "minecraft:nameable").data.name + ' ' + dropItem);
 				commandConvert('tellraw ' + system.getComponent(dropData.data.entity, "minecraft:nameable").data.name + ' {"rawtext":[{"text":"§cNie możesz upuszczać przedmiotów profesji!"}]}');
 				showAchievement(dropData.data.entity, 'Ziemia to nie śmietnik', 'Sprubuj wyrzucić przedmiot profesji postaci lub z nim umrzeć', 'classitemdrop');
 			}, 20 * 1 )
+			let itemPosition = system.getComponent(classItemData, "minecraft:position");
+			itemPosition.data.y = (-1000)
+			system.applyComponentChanges(classItemData, itemPosition);
 		}
 	});
 
@@ -281,6 +282,7 @@ function tier(max1, max2, max3, max4, value) {
 systemServer.update = function () {
     callDelayedFunctions();
  	if (this.counter % 5 == 0) {
+ 		systemServer.log("test");
  		let tagQuery = system.registerQuery();
 		system.addFilterToQuery(tagQuery, "minecraft:tag");
 		let entitiesWithTags = system.getEntitiesFromQuery(tagQuery);
@@ -805,6 +807,47 @@ systemServer.update = function () {
 									commandConvert('tellraw ' + playerName + ' {"rawtext":[{"text": "§6Dostałeś swojego pierwszego questa! §rMożesz podejżeć aktywne questy pod komendą §7!quest"}]}');
 								case "john":
 									commandConvert('tellraw ' + playerName + ' {"rawtext":[{"text": "§l§6-!- §r§lNowy quest: §6Zniknięcie Johna"}]}');
+							}
+							break;
+						case "use_lute":
+							mode = "playerName";
+							playerName = system.getComponent(entitiesWithTags[myCounter], "minecraft:nameable").data.name;
+							system.log("Lutnia!");
+							let colors = ['red', 'violet', 'green', 'blue']
+							switch (splitedEntityTags[2]) {
+								case "0":
+									system.log("strenght!"); //32 sec
+									commandConvert('execute ' + playerName + ' ~ ~ ~ playsound ui.clash_of_strenght @a[r=5]');
+									commandConvert('execute ' + playerName + ' ~ ~ ~ effect @a[r=5] strength 32 0');
+									for (var myCounter10 = 0; myCounter10 < 32; myCounter10++) {
+										delayFunction(()=>{
+											commandConvert('execute ' + playerName + ' ~ ~ ~ particle korona:music_' + colors[Math.floor(Math.random()*4)] + ' ~ ~ ~');
+											commandConvert('execute ' + playerName + ' ~ ~ ~ particle korona:music_' + colors[Math.floor(Math.random()*4)] + ' ~ ~ ~');
+										}, 20 * myCounter10 + 1 )
+									}
+									break;
+								case "1":
+									system.log("speed!"); //27 sec
+									commandConvert('execute ' + playerName + ' ~ ~ ~ playsound ui.race_against_time @a[r=5]');
+									commandConvert('execute ' + playerName + ' ~ ~ ~ effect @a[r=5] speed 27 0');
+									for (var myCounter10 = 0; myCounter10 < 32; myCounter10++) {
+										delayFunction(()=>{
+											commandConvert('execute ' + playerName + ' ~ ~ ~ particle korona:music_' + colors[Math.floor(Math.random()*4)] + ' ~ ~ ~');
+											commandConvert('execute ' + playerName + ' ~ ~ ~ particle korona:music_' + colors[Math.floor(Math.random()*4)] + ' ~ ~ ~');
+										}, 20 * myCounter10 + 1 )
+									}
+									break;
+								case "2":
+									system.log("haste!");  //20 sec
+									commandConvert('execute ' + playerName + ' ~ ~ ~ playsound ui.power_in_haste @a[r=5]');
+									commandConvert('execute ' + playerName + ' ~ ~ ~ effect @a[r=5] haste 20 0');
+									for (var myCounter10 = 0; myCounter10 < 32; myCounter10++) {
+										delayFunction(()=>{
+											commandConvert('execute ' + playerName + ' ~ ~ ~ particle korona:music_' + colors[Math.floor(Math.random()*4)] + ' ~ ~ ~');
+											commandConvert('execute ' + playerName + ' ~ ~ ~ particle korona:music_' + colors[Math.floor(Math.random()*4)] + ' ~ ~ ~');
+										}, 20 * myCounter10 + 1 )
+									}
+									break;
 							}
 							break;
 					}

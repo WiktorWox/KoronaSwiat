@@ -31,6 +31,24 @@
          "sounds" : [
             "sounds/archivement"
          ]
+      },
+      "ui.clash_of_strenght" : {
+         "category" : "ui",
+         "sounds" : [
+            "sounds/bard/clash_of_strenght"
+         ]
+      },
+      "ui.power_in_haste" : {
+         "category" : "ui",
+         "sounds" : [
+            "sounds/bard/power_in_haste"
+         ]
+      },
+      "ui.race_against_time" : {
+         "category" : "ui",
+         "sounds" : [
+            "sounds/bard/race_against_time"
+         ]
       }
    }
 }

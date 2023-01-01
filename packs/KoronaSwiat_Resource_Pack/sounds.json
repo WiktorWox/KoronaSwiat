@@ -10,6 +10,21 @@
                 "pitch" : 1.0,
                 "sound" : "ui.archivement",
                 "volume" : 1.5
+            },
+            "ui.clash_of_strenght" : {
+                "pitch" : 1.0,
+                "sound" : "ui.clash_of_strenght",
+                "volume" : 1.5
+            },
+            "ui.power_in_haste" : {
+                "pitch" : 1.0,
+                "sound" : "ui.power_in_haste",
+                "volume" : 1.5
+            },
+            "ui.race_against_time" : {
+                "pitch" : 1.0,
+                "sound" : "ui.race_against_time",
+                "volume" : 1.5
             }
         }
     }

@@ -148,6 +148,15 @@
       },
       "class_paladins_sword": {
          "textures" : "textures/items/class_items/paladins_sword"
+      },
+      "lute_strenght": {
+         "textures" : "textures/items/lute/lute_strenght"
+      },
+      "lute_speed": {
+         "textures" : "textures/items/lute/lute_speed"
+      },
+      "lute_haste": {
+         "textures" : "textures/items/lute/lute_haste"
       }
    },
    "texture_name" : "atlas.items"

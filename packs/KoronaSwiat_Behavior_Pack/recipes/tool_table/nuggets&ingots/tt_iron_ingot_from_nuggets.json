@@ -1,0 +1,25 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+    "identifier": "korona:iron_ingot_from_nuggets"
+    },
+
+    
+    "tags": [ "tool_table" ],
+    "group": "iron_ingot",
+    "pattern": [
+      "###",
+      "###",
+      "#  "
+    ],
+    "key": {
+      "#": {
+        "item": "minecraft:iron_nugget"
+      }
+    },
+    "result": {
+      "item": "minecraft:iron_ingot"
+    }
+  }
+}
